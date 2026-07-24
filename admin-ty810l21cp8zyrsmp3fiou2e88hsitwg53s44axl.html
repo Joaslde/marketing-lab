@@ -146,12 +146,11 @@ td.msg{max-width:280px;white-space:pre-wrap;color:#3A3A46}
             <th>Message</th>
             <th>Coordonnées</th>
             <th>Canal préféré</th>
-            <th>Statut</th>
             <th style="width:8rem">Actions</th>
           </tr>
         </thead>
         <tbody id="corps-tableau">
-          <tr><td colspan="11" class="vide">Chargement des messages…</td></tr>
+          <tr><td colspan="10" class="vide">Chargement des messages…</td></tr>
         </tbody>
       </table>
     </div>
@@ -296,7 +295,7 @@ function majCompteurEtBoutons(){
 function dessinerTableau(){
   const corps = document.getElementById('corps-tableau');
   if (messages.length === 0){
-    corps.innerHTML = '<tr><td colspan="11" class="vide">Aucun message reçu pour l’instant.</td></tr>';
+    corps.innerHTML = '<tr><td colspan="10" class="vide">Aucun message reçu pour l’instant.</td></tr>';
     majCompteurEtBoutons();
     return;
   }
@@ -313,7 +312,6 @@ function dessinerTableau(){
       '<td class="msg">' + echapper(m.message) + '</td>' +
       '<td>' + echapper(m.email) + '<br><span style="color:var(--gris);font-size:.78rem">' + echapper(m.telephone || '—') + '</span></td>' +
       '<td>' + echapper(m.canal_prefere) + '</td>' +
-      '<td>' + tagStatut(m.statut_envoi) + '</td>' +
       '<td class="actions-ligne">' +
         '<button class="btn btn-fantome btn-petit btn-editer" data-id="' + m.id + '">Modifier</button>' +
         '<button class="btn btn-danger btn-petit btn-supprimer-un" data-id="' + m.id + '">Suppr.</button>' +
@@ -324,13 +322,13 @@ function dessinerTableau(){
 }
 
 async function chargerMessages(){
-  document.getElementById('corps-tableau').innerHTML = '<tr><td colspan="11" class="vide">Chargement des messages…</td></tr>';
+  document.getElementById('corps-tableau').innerHTML = '<tr><td colspan="10" class="vide">Chargement des messages…</td></tr>';
   try {
     const resultat = await appelerFonction({ action: 'list' });
     messages = resultat.messages || [];
     dessinerTableau();
   } catch (erreur) {
-    document.getElementById('corps-tableau').innerHTML = '<tr><td colspan="11" class="vide">Erreur de chargement : ' + echapper(erreur.message) + '</td></tr>';
+    document.getElementById('corps-tableau').innerHTML = '<tr><td colspan="10" class="vide">Erreur de chargement : ' + echapper(erreur.message) + '</td></tr>';
   }
 }
 

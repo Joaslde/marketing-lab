@@ -396,12 +396,52 @@ const SUPABASE_URL = "https://dlfbwbrcsriqllypjpkx.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZmJ3YnJjc3JpcWxseXBqcGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MDI0NzgsImV4cCI6MjA4NDQ3ODQ3OH0.uDhDe7oEht-Y_phrlLIeu4HyiyIHh54MNEO5ok0lGgU";
 
 const lienWhatsApp = document.getElementById('lien-whatsapp');
+
+const LIBELLES_TAILLE = {
+  "solo": "je travaille seul, sans salarié",
+  "3-10": "nous sommes entre 3 et 10 personnes",
+  "11-30": "nous sommes entre 11 et 30 personnes",
+  "31-60": "nous sommes entre 31 et 60 personnes",
+  "60+": "nous sommes plus de 60 personnes",
+};
+
 function texteWhatsApp(){
   const prenom = document.getElementById('prenom').value.trim();
+  const nom = document.getElementById('nom').value.trim();
+  const entreprise = document.getElementById('entreprise').value.trim();
+  const taille = document.getElementById('taille').value;
+  const secteur = document.getElementById('secteur').value.trim();
+  const offre = document.getElementById('offre').value;
   const message = document.getElementById('message').value.trim();
-  let texte = "Bonjour ATELIER,";
-  if (prenom) texte += " je m'appelle " + prenom + ".";
+  const email = document.getElementById('email').value.trim();
+  const telephone = document.getElementById('telephone').value.trim();
+
+  let texte = "Bonjour à vous";
+  if (prenom || nom) texte += ", je m'appelle " + [prenom, nom].filter(Boolean).join(' ');
+  texte += ".";
+
+  const phrasesEntreprise = [];
+  if (entreprise) phrasesEntreprise.push("Je travaille chez " + entreprise);
+  if (secteur) phrasesEntreprise.push((entreprise ? ", dans le secteur " : "Je suis dans le secteur ") + secteur);
+  if (phrasesEntreprise.length){
+    texte += " " + phrasesEntreprise.join('') + (LIBELLES_TAILLE[taille] ? " (" + LIBELLES_TAILLE[taille] + ")" : "") + ".";
+  } else if (LIBELLES_TAILLE[taille]) {
+    texte += " " + LIBELLES_TAILLE[taille].charAt(0).toUpperCase() + LIBELLES_TAILLE[taille].slice(1) + ".";
+  }
+
+  if (offre) {
+    texte += " Je vous contacte au sujet de l'offre " + offre + ".";
+  } else {
+    texte += " Je ne sais pas encore précisément quelle offre me correspond.";
+  }
+
   if (message) texte += " " + message;
+
+  const coordonnees = [];
+  if (email) coordonnees.push(email);
+  if (telephone) coordonnees.push(telephone);
+  if (coordonnees.length) texte += " Vous pouvez aussi me joindre par " + coordonnees.join(' ou ') + ".";
+
   return texte;
 }
 function majLienWhatsApp(){

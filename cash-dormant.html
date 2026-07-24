@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cash Dormant — réveiller votre base sans brûler votre domaine</title>
+<meta name="description" content="Organismes de formation : on trie votre base, on la remet aux normes, et on la réactive par paliers en surveillant la délivrabilité. Bilan 390 €, campagne 1 490 € ou 690 € + 12 %.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#bilan" → lien Stripe du Bilan (390 €)
+     2. href="#campagne" → lien de prise de RDV
+     3. "ATELIER" → votre nom d'agence
+     4. Sections #tri, #rampe et #scenarios : EXEMPLES et
+        RECONSTITUTIONS, étiquetés comme tels. À remplacer par vos
+        chiffres réels dès le 1er client livré.
+     5. ⚠️ La page catalogue affiche encore 990 € / 10 jours pour
+        cette offre. À corriger : 390 € (bilan) puis 1 490 €
+        (campagne, 6 semaines).
+     6. ⚠️ La variante performance suppose une clause d'attribution
+        écrite au contrat : code nominatif, lien tracé, fenêtre de
+        60 jours, hors annulations et impayés. Ne pas vendre sans.
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.gris{color:var(--gris)}
+p+p{margin-top:1rem}
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:320px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.05rem,5.3vw,3.8rem);margin-bottom:1.4rem;max-width:19ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:56ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 140px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+.probleme{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:38ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2rem}
+
+/* alerte */
+.alerte{background:var(--encre);color:var(--craie)}
+.alerte .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.alerte .lead{opacity:.85}
+.risques{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:2.4rem}
+.risq{border:1px solid var(--hair-clair);padding:1.4rem 1.3rem}
+.risq .n{font-family:var(--mono);font-weight:700;font-size:1.7rem;color:var(--jaune);line-height:1;margin-bottom:.6rem;letter-spacing:-.03em}
+.risq h3{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.02em;margin-bottom:.5rem}
+.risq p{font-size:.9rem;opacity:.82}
+.consequence{margin-top:2.2rem;background:var(--jaune);color:var(--encre);padding:1.5rem 1.4rem;max-width:70ch}
+.consequence b{font-family:var(--display);font-weight:800;font-size:1.15rem;display:block;margin-bottom:.5rem;letter-spacing:-.02em}
+.consequence p{font-size:.97rem}
+
+/* SIGNATURE 1 : le tri */
+.tri-sec{padding-top:4rem}
+.wf{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.wf-row{display:grid;grid-template-columns:15rem 1fr 5.5rem;gap:1rem;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--hair)}
+.wf-lab{font-size:.93rem}
+.wf-lab small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--gris);margin-top:.1rem}
+.wf-bar{height:1.7rem;background:rgba(20,20,28,.1)}
+.wf-bar i{display:block;height:100%;background:var(--outremer)}
+.wf-row.moins .wf-bar i{background:rgba(20,20,28,.22)}
+.wf-row.fin .wf-bar i{background:var(--jaune)}
+.wf-row.sous{padding-left:1.2rem}
+.wf-row.sous .wf-lab{font-size:.88rem;color:var(--gris)}
+.wf-row.sous .wf-bar{height:1.1rem}
+.wf-row.sous .wf-bar i{background:var(--encre)}
+.wf-n{font-family:var(--mono);font-size:.88rem;text-align:right;white-space:nowrap}
+.wf-row.fin .wf-n{font-weight:700}
+.wf-row.moins .wf-n{color:var(--gris)}
+.wf-note{font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:1.1rem;line-height:1.7}
+.verdict-box{margin-top:2.2rem;border-left:4px solid var(--jaune);padding:.3rem 0 .3rem 1.2rem;max-width:64ch}
+.verdict-box p{font-size:1rem}
+
+/* SIGNATURE 2 : l'échauffement */
+.rampe{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.ramp-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:2.2rem;margin-top:2.6rem;align-items:start}
+.bars{display:flex;align-items:flex-end;gap:.55rem;height:190px;border-bottom:2px solid var(--encre)}
+.bar{flex:1;background:var(--outremer);position:relative;min-width:0}
+.bar.last{background:var(--jaune)}
+.bar b{position:absolute;top:-1.35rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.66rem;white-space:nowrap}
+.bars-x{display:flex;gap:.55rem;margin-top:.5rem}
+.bars-x span{flex:1;text-align:center;font-family:var(--mono);font-size:.64rem;color:var(--gris)}
+.seuils{background:var(--encre);color:var(--craie);padding:1.5rem 1.4rem;font-family:var(--mono);font-size:.8rem}
+.seuils .sh{font-size:.64rem;letter-spacing:.14em;color:var(--gris);padding-bottom:.9rem;margin-bottom:.4rem;border-bottom:1px solid var(--hair-clair)}
+.seuils .l{display:grid;grid-template-columns:1fr auto;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--hair-clair)}
+.seuils .l:last-child{border-bottom:none}
+.seuils .lab small{display:block;font-size:.66rem;color:var(--gris);margin-top:.1rem}
+.seuils .ok{color:var(--jaune);font-weight:700;white-space:nowrap}
+.seuils .go{margin-top:1rem;background:var(--jaune);color:var(--encre);padding:.6rem .8rem;font-weight:700;font-size:.78rem}
+.ramp-note{margin-top:2rem;font-size:1rem;max-width:66ch}
+
+/* messages */
+.msgs{margin-top:2.4rem;border-top:1px solid var(--hair)}
+.m{display:grid;grid-template-columns:4rem 1fr;gap:1.2rem;padding:1.2rem 0;border-bottom:1px solid var(--hair)}
+.m .num{font-family:var(--mono);font-weight:700;font-size:1.1rem;color:var(--outremer)}
+.m h3{font-family:var(--display);font-weight:600;font-size:1.08rem;letter-spacing:-.02em;margin-bottom:.3rem}
+.m p{font-size:.93rem;color:#3A3A46;max-width:58ch}
+
+/* options relance */
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.3rem;margin-top:2.4rem}
+.option{background:var(--papier);border:1px solid var(--hair);padding:1.6rem 1.5rem;display:flex;flex-direction:column}
+.option.reco{border:2px solid var(--encre);background:var(--craie)}
+.option .lettre{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--outremer);display:block;margin-bottom:.6rem}
+.option h3{font-family:var(--display);font-weight:800;font-size:1.2rem;letter-spacing:-.02em;margin-bottom:.8rem;line-height:1.15}
+.option p{font-size:.92rem;color:#3A3A46;margin-bottom:.9rem}
+.badge{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;background:var(--jaune);padding:.35rem .6rem;align-self:flex-start;margin-bottom:.9rem}
+.option .cond{font-family:var(--mono);font-size:.72rem;color:var(--gris);border-top:1px solid var(--hair);padding-top:.8rem;margin-top:auto;line-height:1.6}
+
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.5rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+/* paliers */
+.prix{background:var(--craie)}
+.paliers{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;margin-top:2.6rem}
+.pal{background:var(--papier);border:1px solid var(--hair);padding:1.8rem 1.6rem;display:flex;flex-direction:column}
+.pal.mid{border:2px solid var(--encre);background:var(--craie)}
+.pal .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--outremer);display:block;margin-bottom:.6rem}
+.pal h3{font-family:var(--display);font-weight:800;font-size:1.45rem;letter-spacing:-.03em;margin-bottom:.5rem;line-height:1.05}
+.pal .p{font-family:var(--mono);font-weight:700;font-size:2.05rem;letter-spacing:-.03em;margin:.7rem 0 .3rem}
+.pal .p em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.pal .d{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-bottom:1.2rem;padding-bottom:1.1rem;border-bottom:1px solid var(--hair)}
+.pal ul{list-style:none;margin-bottom:1.4rem}
+.pal li{position:relative;padding-left:1.4rem;margin-bottom:.55rem;font-size:.92rem}
+.pal li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.pal .foot{margin-top:auto}
+.pal .btn{min-width:0;width:100%;font-size:.94rem;padding:.85rem 1.1rem}
+
+.variante{margin-top:2.4rem;border:2px solid var(--encre);padding:1.9rem 1.8rem}
+.variante h3{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.025em;margin-bottom:.7rem}
+.variante>p{font-size:.98rem;max-width:66ch}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:1.5rem}
+.cmp{background:var(--papier);padding:1.1rem 1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.8}
+.cmp b{display:block;font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:.6rem;letter-spacing:-.02em}
+.cmp .tot{display:block;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--hair);font-weight:700}
+
+.garantie{border:2px solid var(--encre);padding:2rem;margin-top:2.4rem;max-width:72ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+.jamais{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.jamais-list{list-style:none;margin-top:2rem;border-top:1px solid var(--hair)}
+.jamais-list li{padding:1.15rem 0 1.15rem 2.2rem;border-bottom:1px solid var(--hair);position:relative;font-size:1rem}
+.jamais-list li::before{content:"×";position:absolute;left:0;top:1.05rem;font-family:var(--mono);font-weight:700;color:var(--outremer);font-size:1.1rem}
+.jamais-list b{font-weight:600}
+.jamais-list span{display:block;font-size:.92rem;color:#3A3A46;margin-top:.2rem}
+
+.scenarios{background:var(--craie)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--papier);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--craie);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;border-top:1px solid var(--hair);padding-top:.85rem}
+
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+.final{background:var(--jaune)}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:22ch}
+.final p{max-width:54ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:58ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.sticky{display:none}
+@media (max-width:860px){.ramp-grid{grid-template-columns:1fr;gap:1.8rem}}
+@media (max-width:760px){
+  .etape,.m{grid-template-columns:1fr;gap:.5rem}
+  .wf-row{grid-template-columns:1fr 4.5rem;gap:.6rem}
+  .wf-bar{display:none}
+  .wf-row.sous{padding-left:.9rem}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 08 · Base clients</span>
+    <h1 class="display">Sept ans de demandes de devis. <em>Zéro relance.</em></h1>
+    <p class="lede">Chaque entreprise qui vous a demandé un programme sans donner suite, chaque stagiaire passé chez vous, chaque contact récupéré sur un salon. Cette acquisition, vous l'avez déjà payée. On la trie, on la remet aux normes, et on la réveille par paliers — sans faire tomber vos e-mails de convocation en spam.</p>
+
+    <div class="facts">
+      <div class="fact"><b>5 j</b><small>Pour savoir ce que vaut votre base</small></div>
+      <div class="fact"><b>6 sem.</b><small>Durée réelle de la campagne</small></div>
+      <div class="fact"><b>390 €</b><small>Le bilan, déduit de la campagne</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#bilan">Estimer ce que vaut ma base — 390 € <span>→</span></a>
+    <p class="sub">Livré en 5 jours · Déduit si vous engagez la campagne · Vous gardez le fichier nettoyé</p>
+  </div>
+</section>
+
+<!-- ================= LE PROBLÈME ================= -->
+<section class="probleme">
+  <div class="wrap narrow">
+    <h2 class="display h2">L'argent est déjà là. Il attend qu'on lui parle.</h2>
+    <p class="lead">Un organisme de formation accumule des contacts comme personne. Une responsable RH demande un programme en mars, le budget saute, elle ne rappelle jamais. Un stagiaire suit trois jours chez vous en 2022 et n'entend plus parler de vous. Un salon vous rapporte quatre-vingts cartes que personne n'a jamais rouvertes.</p>
+
+    <p>Au bout de sept ans, cela fait quelques milliers de lignes dans un tableur, un CRM à moitié rempli, deux exports que personne n'a fusionnés. Vous savez que c'est de la valeur. Vous savez aussi que vous n'y toucherez pas cette année, parce que vous ne savez pas par quel bout le prendre — et parce qu'au fond, vous n'êtes pas certain d'en avoir le droit.</p>
+
+    <p>Pendant ce temps, vous payez pour acquérir de nouveaux contacts qui, dans dix-huit mois, rejoindront exactement le même tableur.</p>
+
+    <p class="punch display">Une entreprise qui vous a demandé un devis vous connaît déjà. C'est le contact le moins cher que vous possédiez.</p>
+  </div>
+</section>
+
+<!-- ================= L'ALERTE ================= -->
+<section class="alerte">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Avant tout le reste</span>
+      <h2 class="display h2">Un envoi massif sur une base dormante détruit un domaine.</h2>
+      <p class="lead">C'est la partie que personne ne vous dira avant d'encaisser. Si vous envisagez de « faire une campagne de réactivation » ce trimestre, lisez au moins cette section — même si vous ne travaillez jamais avec nous.</p>
+    </div>
+
+    <div class="risques">
+      <div class="risq">
+        <div class="n">1</div>
+        <h3>Les pièges à spam</h3>
+        <p>Les messageries transforment en pièges les adresses abandonnées depuis un an ou plus. Une base dormante en est truffée. Il en suffit de quelques-unes pour faire inscrire votre domaine sur une liste de blocage.</p>
+      </div>
+      <div class="risq">
+        <div class="n">2</div>
+        <h3>Les rebonds</h3>
+        <p>Une base de dix-huit mois contient couramment 10 à 25 % d'adresses mortes. Au-delà de 2 % de rebonds, l'envoi est ralenti. Au-delà de 5 %, il est purement bloqué.</p>
+      </div>
+      <div class="risq">
+        <div class="n">3</div>
+        <h3>Les plaintes</h3>
+        <p>Les grandes messageries exigent des expéditeurs de volume un taux de plainte sous 0,30 %. Quelqu'un qui a oublié s'être inscrit ne se désinscrit pas : il signale comme spam. Ce seuil se franchit tout seul.</p>
+      </div>
+      <div class="risq">
+        <div class="n">4</div>
+        <h3>L'absence de réputation</h3>
+        <p>Un domaine silencieux depuis un an n'a aucun historique positif. Cinq mille envois le premier jour, c'est la définition même du comportement qu'on cherche à filtrer.</p>
+      </div>
+    </div>
+
+    <div class="consequence">
+      <b>Et la vraie sanction n'est pas l'échec de la campagne.</b>
+      <p>C'est que pendant six à dix semaines, vos convocations de stage, vos conventions, vos attestations et vos factures arrivent en spam chez vos clients. Vous ne l'apprenez qu'au troisième appel d'un formateur qui n'a pas reçu sa feuille d'émargement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 1 : LE TRI ================= -->
+<section class="tri-sec" id="tri">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Le bilan</span>
+    <h2 class="display h2" style="margin-top:1rem">Vous croyez avoir 4 800 contacts. Vous en avez 2 020.</h2>
+    <p class="lead">C'est le premier livrable, et c'est souvent le plus utile de toute la prestation. Avant d'écrire le moindre message, on regarde ce que le fichier contient réellement.</p>
+
+    <div class="wf">
+      <div class="wf-row">
+        <div class="wf-lab">Contacts dans vos fichiers<small>CRM + tableurs + exports</small></div>
+        <div class="wf-bar"><i style="width:100%"></i></div>
+        <div class="wf-n">4 800</div>
+      </div>
+      <div class="wf-row moins">
+        <div class="wf-lab">Doublons<small>3 fichiers fusionnés</small></div>
+        <div class="wf-bar"><i style="width:13%"></i></div>
+        <div class="wf-n">− 640</div>
+      </div>
+      <div class="wf-row moins">
+        <div class="wf-lab">Adresses invalides<small>vérifiées une par une</small></div>
+        <div class="wf-bar"><i style="width:19%"></i></div>
+        <div class="wf-n">− 890</div>
+      </div>
+      <div class="wf-row moins">
+        <div class="wf-lab">Hors périmètre légal<small>sans preuve d'accord ou &gt; 3 ans sans contact</small></div>
+        <div class="wf-bar"><i style="width:26%"></i></div>
+        <div class="wf-n">− 1 250</div>
+      </div>
+      <div class="wf-row fin">
+        <div class="wf-lab"><b>Contacts réellement exploitables</b></div>
+        <div class="wf-bar"><i style="width:42%"></i></div>
+        <div class="wf-n">2 020</div>
+      </div>
+      <div class="wf-row sous">
+        <div class="wf-lab">dont anciens stagiaires ou clients<small>base juridique la plus solide</small></div>
+        <div class="wf-bar"><i style="width:7%"></i></div>
+        <div class="wf-n">340</div>
+      </div>
+      <div class="wf-row sous">
+        <div class="wf-lab">dont actifs sur les 12 derniers mois<small>segment d'échauffement</small></div>
+        <div class="wf-bar"><i style="width:13%"></i></div>
+        <div class="wf-n">610</div>
+      </div>
+    </div>
+    <p class="wf-note">EXEMPLE — organisme de formation B2B, 7 ans d'activité, 6 personnes.<br>Le tri légal distingue trois piles : anciens clients, prospects avec accord traçable, et contacts à supprimer.</p>
+
+    <div class="verdict-box">
+      <p>Le bilan se termine par une phrase que personne d'autre ne vous écrira : <b>votre domaine survivrait-il à un envoi aujourd'hui ?</b> Avec le taux de rebond prévisible, l'état de votre authentification et la part de contacts à risque. Parfois la réponse est non, et il vaut mieux le savoir avant qu'après.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 2 : L'ÉCHAUFFEMENT ================= -->
+<section class="rampe">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">La méthode</span>
+      <h2 class="display h2" style="margin-top:1rem">On ne réveille jamais une base d'un coup.</h2>
+      <p class="lead">On commence par les contacts les plus récemment actifs — ceux qui vont ouvrir, cliquer, et ne pas se plaindre. Ces signaux reconstruisent la réputation du domaine. Puis on élargit, palier par palier, en vérifiant les indicateurs avant chaque étape.</p>
+    </div>
+
+    <div class="ramp-grid">
+      <div>
+        <div class="bars">
+          <div class="bar" style="height:8%"><b>150</b></div>
+          <div class="bar" style="height:15%"><b>300</b></div>
+          <div class="bar" style="height:30%"><b>600</b></div>
+          <div class="bar" style="height:50%"><b>1 000</b></div>
+          <div class="bar" style="height:79%"><b>1 600</b></div>
+          <div class="bar last" style="height:100%"><b>2 020</b></div>
+        </div>
+        <div class="bars-x">
+          <span>J1</span><span>J3</span><span>J6</span><span>J10</span><span>J15</span><span>J22</span>
+        </div>
+        <p style="font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:1rem;line-height:1.7">Volumes d'envoi cumulés, du segment le plus chaud au plus froid.<br>Chaque palier n'est déclenché que si les indicateurs du précédent sont au vert.</p>
+      </div>
+
+      <div class="seuils">
+        <div class="sh">CONTRÔLE AVANT ÉLARGISSEMENT — J10</div>
+        <div class="l"><span class="lab">Taux de rebond<small>seuil d'alerte : 2 %</small></span><span class="ok">0,8 %</span></div>
+        <div class="l"><span class="lab">Taux de plainte<small>seuil imposé : 0,30 %</small></span><span class="ok">0,04 %</span></div>
+        <div class="l"><span class="lab">Désinscriptions<small>attendu sur base dormante</small></span><span class="ok">0,6 %</span></div>
+        <div class="l"><span class="lab">Taux d'ouverture<small>segment actif</small></span><span class="ok">31 %</span></div>
+        <div class="go">→ FEU VERT POUR LE PALIER SUIVANT</div>
+      </div>
+    </div>
+
+    <p class="ramp-note">Si un seuil est dépassé, <b>on arrête</b>. Les segments les plus froids ne sont jamais sollicités tant que les indicateurs ne le permettent pas — quitte à ne pas envoyer à une partie de la base, et à vous le dire. Une campagne qui touche 1 400 contacts et préserve votre domaine vaut infiniment mieux qu'une campagne qui en touche 4 800 et vous coupe la messagerie pour deux mois.</p>
+  </div>
+</section>
+
+<!-- ================= LES MESSAGES ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">La séquence</span>
+    <h2 class="display h2" style="margin-top:1rem">Six messages. Et pas une remise.</h2>
+    <p class="lead">La réduction est la mécanique la plus utilisée en réactivation, et l'une des plus mauvaises : elle attire les acheteurs les moins rentables, elle apprend à attendre les promotions, et elle abîme votre prix de référence pour longtemps. Ce qui fait revenir une entreprise, c'est une raison.</p>
+
+    <div class="msgs">
+      <div class="m">
+        <div class="num">01</div>
+        <div>
+          <h3>Le retour de nouvelles</h3>
+          <p>Ce qui a changé chez vous depuis leur dernier contact : nouveaux programmes, nouvelle certification, nouveaux formateurs, nouveaux formats. Aucune demande, aucun lien de vente. On rouvre une porte, c'est tout.</p>
+        </div>
+      </div>
+      <div class="m">
+        <div class="num">02</div>
+        <div>
+          <h3>Le contenu utile</h3>
+          <p>Une ressource qui sert à un responsable formation sans rien acheter : évolution des obligations, calendrier des financements, retour d'expérience chiffré. C'est ce message qui produit les premiers clics — et les premiers clics sont ce qui construit votre réputation d'expéditeur.</p>
+        </div>
+      </div>
+      <div class="m">
+        <div class="num">03</div>
+        <div>
+          <h3>La question directe</h3>
+          <p>Un texte court, sans mise en page, écrit comme si le dirigeant l'avait tapé lui-même : « avez-vous encore ce besoin de formation dont on avait parlé ? » C'est le message qui obtient le plus de réponses, et de loin.</p>
+        </div>
+      </div>
+      <div class="m">
+        <div class="num">04</div>
+        <div>
+          <h3>La preuve</h3>
+          <p>Un cas concret d'une entreprise comparable à la leur : le besoin, ce qui a été fait, ce que ça a produit. Nommé, chiffré, vérifiable.</p>
+        </div>
+      </div>
+      <div class="m">
+        <div class="num">05</div>
+        <div>
+          <h3>L'échéance réelle</h3>
+          <p>Une session qui ouvre, des places comptées, une date de clôture des inscriptions. Une urgence qui existe vraiment — pas un compte à rebours fabriqué que personne ne croit.</p>
+        </div>
+      </div>
+      <div class="m">
+        <div class="num">06</div>
+        <div>
+          <h3>La sortie propre</h3>
+          <p>« On arrête de vous écrire, sauf si vous nous le dites. » Ce message paraît contre-productif : c'est l'un des plus rentables. Il fait remonter les indécis, et il nettoie définitivement la base de ceux qui ne reviendront jamais.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LA RELANCE ================= -->
+<section class="jamais" style="background:var(--papier)">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">L'étape qui produit le chiffre</span>
+      <h2 class="display h2" style="margin-top:1rem">L'e-mail fait lever la main. Le téléphone signe.</h2>
+      <p class="lead">C'est le point où la plupart des campagnes de réactivation s'arrêtent, et c'est exactement là que se trouve l'argent. Une séquence bien menée produit cent à deux cents personnes qui ont cliqué. Ce sont des mains levées, pas des factures.</p>
+    </div>
+
+    <div class="options">
+      <div class="option reco">
+        <span class="lettre">FORMULE A</span>
+        <span class="badge">COMPRIS DANS LA CAMPAGNE</span>
+        <h3>Vous appelez, on vous arme</h3>
+        <p>On vous remet la liste des cliqueurs classée par intensité de signal, avec pour chacun ce qu'il a ouvert, cliqué et quand. Plus le script d'appel, les trois objections attendues et leurs réponses, et un point de trente minutes pour caler la démarche avec la personne qui appellera.</p>
+        <p class="cond">Le meilleur choix si vous avez une assistante commerciale ou un dirigeant qui décroche. Personne ne parlera de vos formations mieux que vous.</p>
+      </div>
+
+      <div class="option">
+        <span class="lettre">FORMULE B</span>
+        <h3>On passe les appels</h3>
+        <p>On mène les entretiens à votre place, au nom de votre organisme : on qualifie le besoin, on vérifie l'échéance et le mode de financement, et on vous transmet les dossiers chauds avec un rendez-vous déjà posé dans votre agenda.</p>
+        <p class="cond">690 € en supplément, jusqu'à 40 appels menés. À réserver aux périodes où personne chez vous ne peut décrocher — et à choisir après avoir vu le volume de cliqueurs, jamais avant.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LE DÉROULÉ ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Le déroulé</span>
+    <h2 class="display h2" style="margin-top:1rem">Six semaines, et deux heures de votre temps.</h2>
+
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-quand">Semaine 1</div>
+        <div>
+          <h3>Le bilan</h3>
+          <p>Import de tous vos fichiers, fusion, dédoublonnage, vérification de la validité de chaque adresse, tri en trois piles juridiques et notation par récence, fréquence et montant. Vous recevez le fichier propre et le verdict de risque.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Semaine 2</div>
+        <div>
+          <h3>La mise aux normes technique</h3>
+          <p>Sous-domaine d'envoi dédié pour protéger votre domaine principal, authentification complète, désinscription en un clic conforme aux exigences des messageries. Vos e-mails de convocation et de facturation continuent de partir depuis votre domaine habituel, intacts.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Semaine 2–3</div>
+        <div>
+          <h3>L'échauffement</h3>
+          <p>Les deux premiers messages partent sur le segment le plus actif, en volumes croissants. Surveillance quotidienne des rebonds, des plaintes et des ouvertures. Aucun élargissement sans feu vert sur les quatre indicateurs.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Semaine 3–5</div>
+        <div>
+          <h3>Le déploiement</h3>
+          <p>Les six messages sur les segments successifs. Vous suivez tout sur un tableau en direct : qui a ouvert, qui a cliqué, qui a répondu, et où en sont les indicateurs de délivrabilité.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Semaine 5–6</div>
+        <div>
+          <h3>La relance et le bilan</h3>
+          <p>Liste des cliqueurs classée, script d'appel, brief de trente minutes — ou les appels menés par nous si vous avez choisi la formule B. Puis le bilan chiffré : contacts réellement touchés, réponses obtenues, chiffre d'affaires attribué, et l'état de santé de votre base à la sortie.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="charge">Votre charge totale : 1 h de cadrage + 30 min de validation des messages + 30 min de brief.</p>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="bilan">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Le tarif</span>
+      <h2 class="display h2" style="margin-top:1rem">Trois paliers. On commence toujours par le bilan.</h2>
+      <p class="lead">Personne ne devrait engager 1 490 € sans savoir combien de contacts sa base contient vraiment. Le bilan existe pour ça, il est déduit intégralement, et le fichier nettoyé vous reste même si vous vous arrêtez là.</p>
+    </div>
+
+    <div class="paliers">
+      <div class="pal">
+        <span class="n">PALIER 1</span>
+        <h3>Le Bilan</h3>
+        <div class="p"><em>390 €</em></div>
+        <div class="d">5 jours · Déduit de la campagne</div>
+        <ul>
+          <li>Fusion de tous vos fichiers</li>
+          <li>Dédoublonnage et vérification des adresses</li>
+          <li>Tri en trois piles juridiques</li>
+          <li>Notation récence / fréquence / montant</li>
+          <li>Le verdict de risque sur votre domaine</li>
+          <li>Le fichier propre vous est remis</li>
+        </ul>
+        <div class="foot"><a class="btn" href="#bilan">Commander le bilan <span>→</span></a></div>
+      </div>
+
+      <div class="pal mid">
+        <span class="n">PALIER 2</span>
+        <h3>La Campagne</h3>
+        <div class="p"><em>1 490 €</em></div>
+        <div class="d">6 semaines · Bilan déduit</div>
+        <ul>
+          <li>Tout le palier 1</li>
+          <li>Sous-domaine dédié et authentification</li>
+          <li>Échauffement piloté par paliers</li>
+          <li>6 messages écrits à votre ton</li>
+          <li>Séquence automatisée et tableau en direct</li>
+          <li>Arrêt automatique si un seuil est franchi</li>
+          <li>Liste des cliqueurs, script et brief d'appel</li>
+          <li>Bilan chiffré et état de santé de la base</li>
+        </ul>
+        <div class="foot"><a class="btn" href="#campagne">En parler 20 minutes <span>→</span></a></div>
+      </div>
+
+      <div class="pal">
+        <span class="n">PALIER 3</span>
+        <h3>Le Maintien</h3>
+        <div class="p"><em>390 €</em><span style="font-size:1rem;font-family:var(--corps);font-weight:400"> /mois</span></div>
+        <div class="d">Mensuel · Sans engagement</div>
+        <ul>
+          <li>Deux envois par mois à votre base</li>
+          <li>Hygiène de liste continue</li>
+          <li>Surveillance de la délivrabilité</li>
+          <li>Intégration des nouveaux contacts</li>
+          <li>Le point mensuel en une page</li>
+        </ul>
+        <div class="foot"><a class="btn" href="#campagne">Voir si c'est utile <span>→</span></a></div>
+      </div>
+    </div>
+
+    <div class="variante">
+      <h3 class="display">Ou la variante au résultat : 690 € + 12 %</h3>
+      <p>Si vous préférez lier notre rémunération au chiffre produit : <b>690 € à la commande, puis 12 % du chiffre d'affaires attribué sur 60 jours</b>. L'attribution est définie noir sur blanc au contrat — code nominatif unique, lien tracé, fenêtre de 60 jours, hors annulations et impayés. Sans cette définition écrite, ce type de formule finit toujours en désaccord.</p>
+
+      <div class="compare">
+        <div class="cmp">
+          <b>Sur un résultat moyen</b>
+          6 300 € de CA attribué<br>
+          Forfait : 1 490 €<br>
+          Variante : 690 + 756 €
+          <span class="tot">= 1 446 €</span>
+        </div>
+        <div class="cmp">
+          <b>Si ça marche mal</b>
+          2 000 € de CA attribué<br>
+          Forfait : 1 490 €<br>
+          Variante : 690 + 240 €
+          <span class="tot">= 930 €</span>
+        </div>
+        <div class="cmp">
+          <b>Si ça marche très bien</b>
+          18 000 € de CA attribué<br>
+          Forfait : 1 490 €<br>
+          Variante : 690 + 2 160 €
+          <span class="tot">= 2 850 €</span>
+        </div>
+      </div>
+      <p style="margin-top:1.2rem;font-size:.93rem;color:var(--gris)">Sur un résultat moyen, les deux formules tombent au même endroit. Le forfait vous protège si la campagne dépasse les attentes ; la variante vous protège si elle déçoit. À vous de dire lequel des deux risques vous préférez porter.</p>
+    </div>
+
+    <div class="garantie">
+      <h3 class="display">Ce sur quoi on s'engage.</h3>
+      <p><b>Sur le bilan :</b> si votre base contient moins de 500 contacts réellement exploitables, les 390 € vous sont remboursés. Il n'y aurait pas matière à campagne, et il serait malhonnête de vous facturer pour vous l'apprendre.</p>
+      <p><b>Sur la campagne :</b> si votre taux de plainte ou de rebond franchit les seuils pendant nos envois, on arrête, on remet votre base en état et on ne facture pas le solde. Votre domaine passe avant notre facture — c'est le seul engagement qui compte vraiment ici.</p>
+      <p style="margin-top:1rem;opacity:.75;font-size:.9rem">En revanche, on ne s'engagera pas sur un montant de chiffre d'affaires. Il dépend de votre catalogue, de vos prix, de la saison, de la qualité de votre base et de votre rapidité à rappeler les cliqueurs. C'est précisément à quoi sert la variante au résultat : elle met notre rémunération en face du risque, plutôt qu'une promesse que personne ne peut tenir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CE QU'ON NE FAIT PAS ================= -->
+<section class="jamais">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Les limites</span>
+    <h2 class="display h2" style="margin-top:1rem">Quatre choses qu'on refusera.</h2>
+
+    <ul class="jamais-list">
+      <li>
+        <b>Envoyer à des contacts sans base légale</b>
+        <span>Un prospect dont personne ne peut prouver l'accord ne sera pas sollicité, même s'il est dans votre fichier depuis six ans. C'est votre protection autant que la nôtre, et ce sont de toute façon les contacts qui produisent le plus de plaintes.</span>
+      </li>
+      <li>
+        <b>Démarcher sur le compte personnel de formation</b>
+        <span>La prospection commerciale relative au CPF est interdite par la loi depuis fin 2022, par e-mail, SMS, téléphone comme sur les réseaux. Nos campagnes s'adressent aux entreprises et à vos anciens stagiaires sur votre catalogue — le financement n'est jamais utilisé comme accroche.</span>
+      </li>
+      <li>
+        <b>Acheter ou louer des fichiers pour compléter</b>
+        <span>Jamais. C'est le meilleur moyen d'ajouter des pièges à spam à une base qu'on est justement en train d'assainir, et de faire tomber le domaine que l'on vient de protéger.</span>
+      </li>
+      <li>
+        <b>Tenir un calendrier au détriment de votre délivrabilité</b>
+        <span>Si les indicateurs se dégradent, on suspend, même si cela décale la campagne de deux semaines. On préfère un client mécontent du délai à un client dont les factures partent en spam pendant deux mois.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que produit une base réveillée correctement.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b>, bâties sur les ordres de grandeur habituels du secteur : taille de base d'un organisme après plusieurs années, taux de validité constatés, taux d'ouverture et de clic sur base dormante, panier moyen d'une session inter-entreprises. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer — ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">Organisme de formation · 6 personnes</span>
+        <h3>Deux mille contacts, trois inscriptions</h3>
+        <p>Sept ans d'activité, 4 800 lignes réparties dans un CRM et deux tableurs. Après tri, 2 020 contacts exploitables et 610 encore actifs.</p>
+        <div class="calcul">2 020 contacts sollicités<br>→ ~180 cliqueurs<br>→ 40 conversations téléphoniques<br>→ 8 propositions envoyées<br>→ <b>3 inscriptions</b><br>× 2 100 € de panier moyen<br>= <b>6 300 €</b><br><br>Campagne : 1 490 €</div>
+        <p class="verdict">Et le chiffre le plus intéressant n'est pas celui-là : c'est que les cinq propositions non signées restent au chaud pour le budget de l'année suivante.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Ce qu'il ne faut pas faire</span>
+        <h3>Cinq mille envois le lundi matin</h3>
+        <p>Le cas classique : on récupère le fichier, on importe tout dans un outil d'e-mailing, et on lance. Les premiers signalements arrivent en deux heures.</p>
+        <div class="calcul">5 000 envois le jour 1<br>Rebonds constatés : <b>14 %</b><br>Plaintes : <b>0,7 %</b> (seuil : 0,30 %)<br>Domaine filtré sous 48 h<br><br>Remise en état : <b>6 à 10 semaines</b><br>Pendant lesquelles convocations,<br>conventions et factures<br>partent en indésirables</div>
+        <p class="verdict">Cette campagne-là ne coûte pas 1 490 €. Elle coûte deux mois de messagerie et quelques clients qui n'ont jamais reçu leur convention.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Le segment oublié</span>
+        <h3>Vos anciens stagiaires</h3>
+        <p>Trois cent quarante personnes sont déjà venues chez vous, ont apprécié, et n'ont plus jamais eu de vos nouvelles. C'est le segment le plus solide juridiquement — la relation commerciale existe — et le plus performant de loin.</p>
+        <div class="calcul">Ouverture sur base froide : 8 à 14 %<br>Ouverture sur anciens stagiaires :<br><b>32 à 45 %</b><br><br>soit <b>3 à 4 fois plus</b><br>sur le segment que personne<br>ne pense à exploiter</div>
+        <p class="verdict">Beaucoup d'organismes cherchent de nouveaux prospects alors qu'ils ont trois cents anciens clients satisfaits qui ne savent même pas que le catalogue a changé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Il y a des organismes à qui on dit non.</h2>
+
+    <div class="pourqui">
+      <div>
+        <h3>Faites le bilan si</h3>
+        <ul class="oui-list">
+          <li>Vous avez au moins 1 500 contacts accumulés, même mal rangés</li>
+          <li>Vous travaillez en B2B : entreprises, financement par les opérateurs de compétences ou plan de développement des compétences</li>
+          <li>Votre panier moyen dépasse 800 € par inscription</li>
+          <li>Quelqu'un chez vous peut passer une trentaine d'appels, ou vous acceptez qu'on les passe</li>
+          <li>Vous acceptez qu'une partie de votre fichier soit supprimée</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Attendez si</h3>
+        <ul class="non-list">
+          <li>Vous envoyez déjà une newsletter régulière : votre base n'est pas dormante, le sujet est ailleurs</li>
+          <li>Votre activité repose sur le compte personnel de formation en direct auprès des particuliers</li>
+          <li>Vous n'avez aucune trace de l'origine de vos contacts et aucun moyen d'en retrouver</li>
+          <li>Vous voulez un envoi la semaine prochaine : l'échauffement demande trois semaines, et le raccourcir revient à ne pas le faire</li>
+          <li>Vous attendez un montant de chiffre d'affaires garanti</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>Pourquoi supprimer des contacts que j'ai payés pour acquérir ?</summary>
+        <p>Parce qu'ils ne valent plus rien et qu'ils coûtent cher. Une adresse invalide génère un rebond, une adresse abandonnée peut être un piège, et un contact qui n'a aucun souvenir de vous produit une plainte. Chacun de ces trois événements dégrade la réputation de votre domaine et pénalise la délivrabilité des messages envoyés à ceux qui, eux, comptent.</p>
+        <p>Garder 4 800 lignes dont 2 800 sont mortes, ce n'est pas posséder 4 800 contacts. C'est empêcher les 2 020 autres de recevoir vos e-mails.</p>
+      </details>
+      <details>
+        <summary>Ma base a quatre ans. C'est trop tard ?</summary>
+        <p>Cela dépend entièrement de qui la compose. Un ancien stagiaire de 2021 reste joignable et vous connaît : c'est un excellent contact. Un prospect anonyme récupéré sur un salon en 2020, sans trace d'accord et sans aucune interaction depuis, ne sera pas sollicité — c'est précisément ce que le bilan tranche, contact par contact.</p>
+      </details>
+      <details>
+        <summary>Et si les messageries nous bloquent quand même ?</summary>
+        <p>C'est pour cela qu'on envoie depuis un sous-domaine dédié et non depuis votre domaine principal : en cas de problème, votre messagerie de production reste indemne. C'est aussi pour cela qu'on surveille quatre indicateurs quotidiennement et qu'on s'arrête à la première dégradation. Et si cela arrive malgré tout, on remet la base en état sans facturer le solde.</p>
+      </details>
+      <details>
+        <summary>On peut parler des financements dans les messages ?</summary>
+        <p>Des financements entreprise, oui : plan de développement des compétences, opérateurs de compétences, dispositifs de branche. Du compte personnel de formation, non — la prospection commerciale sur ce sujet est interdite depuis fin 2022 sur tous les canaux, et les sanctions sont réelles. Nos séquences s'adressent aux entreprises et à vos anciens stagiaires sur le contenu de votre catalogue.</p>
+      </details>
+      <details>
+        <summary>Vous utilisez quel outil ? Il faut que j'en change ?</summary>
+        <p>On travaille avec l'outil que vous avez déjà s'il permet la segmentation et le suivi des indicateurs. Sinon, on en met un en place à votre nom, sur votre compte, avec vos accès — jamais sur le nôtre. Vous restez propriétaire du compte, de la base et des séquences, y compris si vous partez.</p>
+      </details>
+      <details>
+        <summary>Combien de temps avant de voir du chiffre ?</summary>
+        <p>Les premières réponses arrivent dès le troisième message, en général autour de la troisième semaine. Le chiffre d'affaires, lui, dépend de votre cycle : en formation B2B, entre la réponse et la signature, il s'écoule couramment trois à huit semaines, avec un pic à la constitution des budgets. La campagne se juge donc à soixante jours, pas à dix.</p>
+      </details>
+      <details>
+        <summary>Que se passe-t-il si je m'arrête après le bilan ?</summary>
+        <p>Vous gardez le fichier nettoyé, dédoublonné, vérifié et segmenté — c'est-à-dire l'actif le plus utile de toute la prestation. Il est exploitable par vous ou par n'importe quel prestataire. Et si vous engagez la campagne dans les 90 jours, les 390 € en sont déduits.</p>
+      </details>
+      <details>
+        <summary>On a déjà essayé, ça n'a rien donné.</summary>
+        <p>C'est le cas de la plupart des organismes qu'on rencontre, et l'explication est presque toujours la même : envoi unique, à toute la base, avec une remise en objet. Un seul message ne réactive rien — les réponses arrivent au troisième ou au quatrième. Et un envoi massif dégrade la délivrabilité au point que la moitié des destinataires n'a jamais vu le message.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">Commencez par savoir ce que vous avez.</h2>
+    <p>Cinq jours pour trier, vérifier et compter. Vous saurez combien de contacts sont réellement exploitables, lesquels valent quelque chose, et si votre domaine tiendrait un envoi. Et vous repartez avec le fichier propre, quoi qu'il arrive ensuite.</p>
+    <a class="btn" href="#bilan">Estimer ce que vaut ma base — 390 € <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Déduits de la campagne · Remboursés si moins de 500 contacts exploitables</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Les envois ne sont réalisés qu'auprès de contacts disposant d'une base légale vérifiée, depuis un sous-domaine dédié authentifié, avec désinscription en un clic. La campagne est suspendue si les seuils de rebond ou de plainte sont franchis. Aucune prospection relative au compte personnel de formation n'est réalisée, conformément à la loi du 19 décembre 2022.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+      <a href="/confidentialite">Données personnelles</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#bilan">
+  <span><b>390 €</b><small>Le bilan · déduit de la campagne</small></span>
+  <em>Commander →</em>
+</a>
+
+</body>
+</html>

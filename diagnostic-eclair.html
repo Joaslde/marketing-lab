@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnostic Éclair 72 h — savoir exactement où l'automatisation vous fait gagner de l'argent</title>
+<meta name="description" content="90 minutes d'entretien, un rapport chiffré sous 72 h : les 10 tâches automatisables de votre entreprise, en heures et en euros. 390 €, déduits de votre première mission.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#reserver" → votre lien Stripe / Calendly de réservation
+        (4 boutons dans la page + 1 en barre fixe mobile)
+     2. "ATELIER" → votre nom d'agence
+     3. Les 3 scénarios (section #scenarios) sont ILLUSTRATIFS.
+        Ils sont étiquetés comme tels dans la page — c'est volontaire
+        et juridiquement nécessaire. Remplacez-les par vos cas réels
+        dès votre 3ᵉ client livré, et retirez alors la mention.
+     4. Liens du pied de page
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+/* ---- bandeau ---- */
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+/* ---- boutons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:290px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+
+/* ---- héro ---- */
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.2rem,5.6vw,4rem);margin-bottom:1.4rem;max-width:17ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:52ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 160px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+/* ---- sections ---- */
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+p+p{margin-top:1rem}
+.gris{color:var(--gris)}
+
+/* ---- problème ---- */
+.probleme{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin:2.2rem 0 1.8rem}
+.quote{border-left:3px solid var(--jaune);padding:.2rem 0 .2rem 1rem;font-size:.98rem}
+.quote small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--gris);margin-top:.55rem;letter-spacing:.04em}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:34ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2rem}
+
+/* ---- livrables ---- */
+.livrables{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.4rem}
+.livrable{background:var(--papier);border:1px solid var(--hair);padding:1.6rem 1.5rem}
+.livrable .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.7rem}
+.livrable h3{font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.025em;line-height:1.1;margin-bottom:.7rem}
+.livrable p{font-size:.94rem;color:#3A3A46}
+
+/* ---- le rapport (signature) ---- */
+.rapport{background:var(--encre);color:var(--craie)}
+.rapport .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.rapport .lead{opacity:.85}
+.sheet{background:var(--craie);color:var(--encre);margin-top:2.6rem;padding:1.8rem 1.6rem;border-top:6px solid var(--jaune)}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.6rem;border-bottom:1px solid var(--hair);padding-bottom:.9rem;margin-bottom:.4rem}
+.sheet-head h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.sheet-head span{font-family:var(--mono);font-size:.68rem;color:var(--gris);letter-spacing:.08em}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:620px}
+thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gris);text-align:left;font-weight:500;padding:.9rem .7rem .7rem 0;border-bottom:1px solid var(--hair)}
+tbody td{padding:.72rem .7rem .72rem 0;border-bottom:1px solid rgba(20,20,28,.09);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+.num{font-family:var(--mono);white-space:nowrap}
+.oui{font-family:var(--mono);font-size:.72rem;color:var(--outremer);font-weight:700}
+.non{font-family:var(--mono);font-size:.72rem;color:var(--gris)}
+.total{border-top:2px solid var(--encre)!important;font-weight:600}
+.total td{padding-top:.9rem}
+.sheet-foot{font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:1.1rem;line-height:1.6}
+.rapport-note{margin-top:1.6rem;font-size:.92rem;opacity:.8;max-width:62ch}
+
+/* ---- déroulé ---- */
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.6rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.18rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+/* ---- scénarios ---- */
+.scenarios{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--craie);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--papier);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;color:var(--encre);border-top:1px solid var(--hair);padding-top:.85rem;margin-top:.2rem}
+
+/* ---- pour qui ---- */
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+/* ---- prix ---- */
+.prix{background:var(--encre);color:var(--craie)}
+.prix .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.carte{background:var(--craie);color:var(--encre);margin-top:2.4rem;display:grid;grid-template-columns:1fr 1fr}
+.carte-g{padding:2.2rem 2rem;border-right:1px solid var(--hair)}
+.carte-d{padding:2.2rem 2rem;display:flex;flex-direction:column;justify-content:center}
+.montant{font-family:var(--mono);font-weight:700;font-size:3.4rem;letter-spacing:-.04em;line-height:1}
+.montant em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.montant-note{font-family:var(--mono);font-size:.74rem;color:var(--gris);margin-top:.7rem}
+.inclus{list-style:none;margin-top:1.6rem}
+.inclus li{position:relative;padding-left:1.5rem;margin-bottom:.6rem;font-size:.94rem}
+.inclus li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.deduction{background:var(--jaune);padding:1.1rem 1.2rem;margin-bottom:1.5rem}
+.deduction b{font-family:var(--display);font-weight:800;font-size:1.05rem;display:block;margin-bottom:.35rem;letter-spacing:-.02em}
+.deduction p{font-size:.9rem}
+
+/* ---- garantie ---- */
+.garantie{border:2px solid var(--encre);padding:2rem;margin-top:2.6rem;max-width:70ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+/* ---- questions ---- */
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+
+/* ---- final ---- */
+.final{background:var(--jaune);text-align:left}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:20ch}
+.final p{max-width:52ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+/* ---- pied ---- */
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:52ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+/* ---- barre fixe mobile ---- */
+.sticky{display:none}
+@media (max-width:760px){
+  .etape{grid-template-columns:1fr;gap:.5rem}
+  .carte{grid-template-columns:1fr}
+  .carte-g{border-right:none;border-bottom:1px solid var(--hair)}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 01 · Diagnostic</span>
+    <h1 class="display">Vous savez que vous perdez du temps. <em>Vous ne savez pas combien.</em></h1>
+    <p class="lede">Quatre-vingt-dix minutes d'entretien, et vous recevez sous 72 heures la liste des dix tâches qui coûtent le plus cher à votre entreprise — chacune chiffrée en heures et en euros par an, avec ce qui s'automatise, ce qui ne s'automatise pas, et dans quel ordre s'y prendre.</p>
+
+    <div class="facts">
+      <div class="fact"><b>90 min</b><small>Votre temps de présence, en une seule fois</small></div>
+      <div class="fact"><b>72 h</b><small>Entre l'entretien et le rapport</small></div>
+      <div class="fact"><b>390 €</b><small>Déduits de votre première mission</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#reserver">Réserver mon diagnostic <span>→</span></a>
+    <p class="sub">Paiement en ligne · Créneaux sous 5 jours ouvrés · Remboursé si le rapport ne vous apprend rien</p>
+  </div>
+</section>
+
+<!-- ================= LE PROBLÈME ================= -->
+<section class="probleme">
+  <div class="wrap narrow">
+    <h2 class="display h2">Le problème n'est pas l'IA. C'est de savoir par où commencer.</h2>
+    <p class="lead">Depuis deux ans, on vous répète que l'intelligence artificielle va vous faire gagner du temps. Personne ne vous a jamais dit <em>où</em>, chez vous, précisément — ni combien ça représente.</p>
+    <p>Résultat : soit vous ne faites rien, soit vous achetez un outil de plus qui finit inutilisé au bout de six semaines. Les deux vous coûtent de l'argent, mais seul le second se voit sur le relevé bancaire.</p>
+
+    <div class="quotes">
+      <div class="quote">« On a pris un logiciel l'an dernier. Personne ne s'en sert. »<small>Dirigeant, entreprise de rénovation</small></div>
+      <div class="quote">« Je sais qu'on perd du temps sur les devis, mais je ne saurais pas dire combien. »<small>Gérant, PME de services</small></div>
+      <div class="quote">« Trois prestataires m'ont fait trois propositions différentes. Aucune ne chiffrait quoi que ce soit. »<small>Directeur de cabinet</small></div>
+    </div>
+
+    <p>Une entreprise de vingt personnes accumule en moyenne entre quinze et trente heures hebdomadaires de tâches répétitives réparties dans les agendas de tout le monde. Personne ne les voit, parce qu'elles sont diluées : dix minutes ici, un quart d'heure là, une relance oubliée le vendredi soir. Mises bout à bout sur l'année, elles pèsent le salaire d'un poste à temps plein.</p>
+
+    <p class="punch display">Avant de dépenser un euro en automatisation, il faut savoir ce que l'inaction vous coûte déjà.</p>
+  </div>
+</section>
+
+<!-- ================= CE QUE VOUS RECEVEZ ================= -->
+<section>
+  <div class="wrap">
+    <div class="narrow">
+      <span class="eyebrow gris">Ce que vous recevez</span>
+      <h2 class="display h2" style="margin-top:1rem">Trois livrables. Aucun jargon.</h2>
+      <p class="lead">Le diagnostic ne se termine pas par une présentation commerciale. Il se termine par des documents que vous gardez, que vous pouvez faire lire à votre associé ou à votre expert-comptable, et qui restent exploitables même si vous ne travaillez jamais avec nous.</p>
+    </div>
+
+    <div class="livrables">
+      <div class="livrable">
+        <span class="tag">Livrable 1</span>
+        <h3>Le rapport chiffré, 8 pages</h3>
+        <p>Vos dix tâches les plus coûteuses, chacune avec le temps qu'elle consomme réellement, ce qu'elle représente en euros sur douze mois, et ce que l'automatisation en récupérerait. Le calcul est écrit : vous pouvez le contester, ligne par ligne.</p>
+      </div>
+      <div class="livrable">
+        <span class="tag">Livrable 2</span>
+        <h3>La restitution filmée, 10 minutes</h3>
+        <p>Une vidéo où l'on commente le rapport de vive voix. Elle existe pour une raison simple : vous n'assistez pas seul aux décisions. Faites-la circuler à votre associé, votre responsable d'exploitation ou votre comptable, sans avoir à tout réexpliquer.</p>
+      </div>
+      <div class="livrable">
+        <span class="tag">Livrable 3</span>
+        <h3>Le plan d'action classé</h3>
+        <p>Les chantiers rangés par rapport gain/effort, avec pour chacun le coût d'un traitement en interne et celui d'un traitement par un prestataire. Y compris quand la réponse est « laissez comme ça, ça n'en vaut pas la peine ».</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LE RAPPORT (SIGNATURE) ================= -->
+<section class="rapport">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Extrait</span>
+      <h2 class="display h2">La page que tout le monde relit trois fois.</h2>
+      <p class="lead">C'est la page 4 du rapport. Voici sa structure exacte, remplie avec les données d'une entreprise de rénovation de neuf personnes.</p>
+    </div>
+
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>Page 4 — Cartographie chiffrée des tâches</h3>
+        <span>ENTREPRISE DE 9 PERSONNES · EXEMPLE</span>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tâche</th>
+              <th>Qui</th>
+              <th>H / semaine</th>
+              <th>Coût / an</th>
+              <th>Automatisable</th>
+              <th>Récupérable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Réponse aux demandes entrantes</td><td>Gérant</td><td class="num">4 h 30</td><td class="num">7 600 €</td><td class="oui">OUI</td><td class="num">6 800 €</td></tr>
+            <tr><td>Relance des devis sans réponse</td><td>Assistante</td><td class="num">3 h 00</td><td class="num">3 900 €</td><td class="oui">OUI</td><td class="num">3 500 €</td></tr>
+            <tr><td>Saisie des heures de chantier</td><td>Chefs d'équipe</td><td class="num">2 h 45</td><td class="num">4 300 €</td><td class="oui">OUI</td><td class="num">3 200 €</td></tr>
+            <tr><td>Planification des interventions</td><td>Conducteur</td><td class="num">3 h 30</td><td class="num">5 500 €</td><td class="non">PARTIEL</td><td class="num">1 900 €</td></tr>
+            <tr><td>Demande d'avis clients</td><td>Personne</td><td class="num">0 h 00</td><td class="num">—</td><td class="oui">OUI</td><td class="num">n. c.</td></tr>
+            <tr><td>Chiffrage sur site</td><td>Gérant</td><td class="num">6 h 00</td><td class="num">10 100 €</td><td class="non">NON</td><td class="num">0 €</td></tr>
+            <tr class="total"><td>Total des 6 premières lignes</td><td></td><td class="num">19 h 45</td><td class="num">31 400 €</td><td></td><td class="num">15 400 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sheet-foot">Coût horaire chargé retenu : 32 € (gérant), 25 € (encadrement), 21 € (administratif). 45 semaines travaillées.<br>Le rapport complet en contient dix lignes, plus le détail du calcul pour chacune.</p>
+    </div>
+
+    <p class="rapport-note">Notez la sixième ligne. Le chiffrage sur site est la tâche la plus coûteuse de cette entreprise, et il n'est pas automatisable — c'est le métier. Un rapport qui ne comporterait que des « oui » ne serait pas un diagnostic, ce serait un bon de commande.</p>
+  </div>
+</section>
+
+<!-- ================= DÉROULÉ ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Comment ça se passe</span>
+    <h2 class="display h2" style="margin-top:1rem">Quatre étapes, une seule dans votre agenda.</h2>
+
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-quand">Jour 0</div>
+        <div>
+          <h3>Vous réservez</h3>
+          <p>Paiement en ligne, puis choix du créneau dans l'agenda. Vous recevez immédiatement un questionnaire de 12 questions — effectif, outils utilisés, volume de demandes mensuelles, ce qui vous agace le plus. Comptez dix minutes, c'est ce qui rend l'entretien utile dès la première minute.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Jour 1 à 5</div>
+        <div>
+          <h3>L'entretien de 90 minutes</h3>
+          <p>En visio, avec vous et si possible la personne qui traite les demandes au quotidien. On déroule une semaine type, poste par poste. Vous partagez votre écran sur deux ou trois manipulations habituelles — c'est souvent là qu'apparaissent les heures que personne ne comptait.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">+ 72 heures</div>
+        <div>
+          <h3>Vous recevez les trois livrables</h3>
+          <p>Rapport, vidéo, plan d'action. Par e-mail, en un seul envoi. Rien à installer, rien à consulter sur une plateforme.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">+ 7 jours</div>
+        <div>
+          <h3>Vingt minutes de questions</h3>
+          <p>Un appel court, inclus, pour les points que le rapport aurait laissés ouverts. Ce n'est pas un rendez-vous de vente : si vous décidez de tout traiter en interne, on vous dit par quoi commencer.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="charge">Votre charge totale : 10 min de questionnaire + 90 min d'entretien + 20 min d'appel.</p>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que le diagnostic met au jour, en général.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b> établies à partir des ratios habituels de chaque secteur — effectifs, coûts horaires chargés, volumes de demandes. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer à votre propre entreprise, ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">Rénovation · 9 personnes</span>
+        <h3>Les demandes du week-end qui ne sont jamais rappelées</h3>
+        <p>Environ 40 demandes par mois arrivent par le formulaire du site et par téléphone. Une sur quatre n'obtient pas de réponse dans les 48 heures, parce que le gérant est sur les chantiers.</p>
+        <div class="calcul">10 demandes perdues / mois<br>× 18 % de taux de signature habituel<br>× 4 200 € de chantier moyen<br>= <b>7 500 € de marge brute non traitée par mois</b></div>
+        <p class="verdict">Le diagnostic ne règle pas le problème. Il le chiffre — et un chiffre pareil rend la décision évidente en trois minutes.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Cabinet dentaire · 12 personnes</span>
+        <h3>Deux secrétaires, une seule qui décroche</h3>
+        <p>Confirmations de rendez-vous, rappels de la veille, questions administratives récurrentes, relances de devis prothétiques : tout passe par le standard, qui sature à 11 h et à 17 h.</p>
+        <div class="calcul">9 h 15 / semaine de tâches répétitives<br>× 45 semaines × 23 € chargé<br>= <b>9 570 € par an</b><br>dont environ 70 % automatisables</div>
+        <p class="verdict">Ici, l'intérêt n'est pas d'économiser un poste : c'est d'arrêter de perdre des appels de nouveaux patients aux heures de pointe.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Agence immobilière · 6 négociateurs</span>
+        <h3>Un fichier de 2 800 contacts que personne n'ouvre</h3>
+        <p>Chaque négociateur tient ses propres relances. Les acquéreurs d'il y a dix-huit mois ne reçoivent plus rien, alors qu'une partie d'entre eux est toujours en recherche ou revend aujourd'hui.</p>
+        <div class="calcul">2 800 contacts dormants<br>× 1,5 % de réactivation prudente<br>= 42 conversations rouvertes<br>→ <b>3 à 6 mandats potentiels</b></div>
+        <p class="verdict">Le rapport chiffre la valeur du fichier existant. C'est souvent le poste où l'argent est déjà là, payé et oublié.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Ce diagnostic n'est pas pour tout le monde.</h2>
+    <p class="lead">Un client mal orienté coûte plus cher qu'un client perdu. Voici le tri, avant que vous ne payiez.</p>
+
+    <div class="pourqui">
+      <div>
+        <h3>C'est fait pour vous si</h3>
+        <ul class="oui-list">
+          <li>Vous êtes entre 3 et 60 personnes, dans les services, le bâtiment, la santé, l'immobilier, la formation ou la distribution</li>
+          <li>Le dirigeant décide seul, ou à deux</li>
+          <li>Vous recevez au moins vingt demandes entrantes par mois</li>
+          <li>Vous hésitez entre plusieurs chantiers et voulez trancher sur des chiffres</li>
+          <li>Vous avez déjà reçu des propositions de prestataires sans savoir laquelle avait du sens</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Passez votre chemin si</h3>
+        <ul class="non-list">
+          <li>Vous cherchez un audit informatique, de cybersécurité ou de conformité</li>
+          <li>Vous êtes seul et sans salarié : à cette taille, le gain se mesure en minutes, pas en euros</li>
+          <li>Vous voulez qu'on vous confirme une décision déjà prise</li>
+          <li>Le sujet doit passer par un comité de trois personnes pour avancer</li>
+          <li>Vous attendez un devis gratuit déguisé — celui-ci est payant, et c'est ce qui le rend indépendant</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="reserver">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le tarif</span>
+      <h2 class="display h2">390 €, et vous les récupérez si on travaille ensemble.</h2>
+    </div>
+
+    <div class="carte">
+      <div class="carte-g">
+        <div class="montant"><em>390 €</em></div>
+        <p class="montant-note">Hors taxes · Payable en ligne · Facture immédiate</p>
+        <ul class="inclus">
+          <li>Questionnaire préparatoire de 12 questions</li>
+          <li>Entretien de 90 minutes en visio</li>
+          <li>Rapport chiffré de 8 pages</li>
+          <li>Vidéo de restitution de 10 minutes</li>
+          <li>Plan d'action classé par gain/effort</li>
+          <li>Appel de questions de 20 minutes à J+7</li>
+        </ul>
+      </div>
+      <div class="carte-d">
+        <div class="deduction">
+          <b>Déduits intégralement</b>
+          <p>Si vous nous confiez une mission dans les 60 jours, les 390 € sont retirés de la facture. Le diagnostic vous aura donc coûté zéro — et vous n'aurez pas payé deux fois la réflexion.</p>
+        </div>
+        <a class="btn" href="#reserver">Réserver mon créneau <span>→</span></a>
+        <p class="sub">Créneaux disponibles sous 5 jours ouvrés</p>
+      </div>
+    </div>
+
+    <div class="garantie" style="border-color:var(--craie)">
+      <h3 class="display">Si le rapport ne vous apprend rien, il est remboursé.</h3>
+      <p>Vous avez sept jours après réception pour nous écrire une phrase : « ce rapport ne m'apporte rien d'exploitable ». On rembourse les 390 €, sans discussion et sans vous demander de justifier. Vous gardez les documents.</p>
+      <p style="margin-top:.8rem;opacity:.75;font-size:.9rem">Ce n'est pas un argument de vente, c'est un aveu : si un diagnostic payant a besoin d'être défendu après coup, c'est qu'il était mauvais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>Pourquoi le faire payer, alors que tout le monde propose des audits gratuits ?</summary>
+        <p>Parce qu'un audit gratuit n'est pas un audit : c'est une présentation commerciale déguisée, et sa conclusion est écrite avant l'entretien. En le facturant, on se rend capable d'écrire « ne faites rien sur ce point » sans perdre d'argent. C'est aussi ce qui nous permet de consacrer une demi-journée à votre dossier plutôt que vingt minutes.</p>
+      </details>
+      <details>
+        <summary>Est-ce que ça se termine par une proposition commerciale ?</summary>
+        <p>Le plan d'action indique, pour chaque chantier, le coût d'un traitement en interne et le coût d'un traitement par un prestataire — nous compris. Vous avez donc les deux colonnes. Si vous voulez qu'on chiffre une mission, on le fait ; si vous n'en parlez pas, nous non plus. L'appel de J+7 sert à répondre à vos questions, pas à relancer.</p>
+      </details>
+      <details>
+        <summary>On n'a aucun outil, juste des e-mails et un tableur. C'est trop tôt ?</summary>
+        <p>C'est souvent le meilleur moment. Les entreprises qui n'ont rien installé n'ont pas d'habitudes à défaire ni d'abonnements à résilier, et les premiers gains y sont les plus rapides. À l'inverse, celles qui ont accumulé sept logiciels passent d'abord par une phase de rangement.</p>
+      </details>
+      <details>
+        <summary>Qui doit être présent à l'entretien ?</summary>
+        <p>Vous, obligatoirement. Et si possible la personne qui traite les demandes entrantes au quotidien — assistante, secrétaire, responsable d'exploitation. C'est elle qui connaît les vraies durées ; le dirigeant sous-estime presque toujours d'un tiers.</p>
+      </details>
+      <details>
+        <summary>Vos chiffres, ils sortent d'où ?</summary>
+        <p>De vos réponses, pas d'une base sectorielle. On mesure les durées avec vous pendant l'entretien, on applique vos coûts horaires chargés réels et votre nombre de semaines travaillées. Chaque ligne du rapport affiche son calcul. Si une hypothèse vous semble fausse, vous la corrigez et le total se recalcule.</p>
+      </details>
+      <details>
+        <summary>Et la confidentialité de ce qu'on vous raconte ?</summary>
+        <p>Accord de confidentialité signé avant l'entretien si vous le souhaitez, sans supplément. Aucun élément de votre dossier n'est réutilisé, ni cité, ni transformé en cas client sans votre accord écrit. Les documents de travail sont supprimés à 12 mois.</p>
+      </details>
+      <details>
+        <summary>Combien de temps avant d'avoir un créneau ?</summary>
+        <p>Cinq jours ouvrés en général. On limite volontairement le nombre de diagnostics par semaine : au-delà, le rapport devient un formulaire rempli à la chaîne, et il ne vaut plus les 390 €.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">Dans 72 heures, vous aurez le chiffre.</h2>
+    <p>Vous saurez ce que vos tâches répétitives vous coûtent réellement, lesquelles valent la peine d'être traitées, et dans quel ordre. Que vous agissiez avec nous, en interne, ou pas du tout.</p>
+    <a class="btn" href="#reserver">Réserver mon diagnostic — 390 € <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Déduits de votre première mission · Remboursés si le rapport ne vous apprend rien</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Le délai de 72 heures court à compter de la fin de l'entretien, hors samedi et dimanche. Prestation encadrée par un contrat d'une page précisant le périmètre livré et les conditions de remboursement.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#reserver">
+  <span><b>390 €</b><small>Déduits de votre 1ʳᵉ mission</small></span>
+  <em>Réserver →</em>
+</a>
+
+</body>
+</html>

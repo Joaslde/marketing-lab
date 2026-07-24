@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réputation Autopilot — la machine à avis Google pour garages et carrosseries indépendants</title>
+<meta name="description" content="Le centre auto de la zone affiche 480 avis, vous en avez 31. Une demande d'avis automatique après chaque restitution de véhicule, des réponses à tous les avis, 5 minutes par semaine. 590 € puis 59 €/mois, SMS inclus.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#installer" → votre lien Stripe (boutons + barre fixe mobile)
+     2. href="#scan" → votre formulaire de comparatif gratuit
+     3. "ATELIER" → votre nom d'agence
+     4. Section #scenarios : RECONSTITUTIONS étiquetées comme telles.
+        À remplacer par vos cas réels dès le 3ᵉ garage livré.
+     5. Le numéro STOP affiché (36111) est un exemple : mettez celui
+        de votre routeur SMS.
+     6. Liens du pied de page
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.gris{color:var(--gris)}
+p+p{margin-top:1rem}
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:310px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+.lien2{display:inline-block;margin-top:1rem;font-size:.9rem;border-bottom:1px solid currentColor;text-decoration:none;padding-bottom:1px}
+
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.9rem);margin-bottom:1.4rem;max-width:18ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:54ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 150px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+.probleme{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);margin:2.4rem 0 1.6rem}
+.duel>div{background:var(--craie);padding:1.5rem 1.4rem}
+.duel .qui{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:.8rem}
+.duel .n{font-family:var(--mono);font-weight:700;font-size:2.6rem;letter-spacing:-.03em;line-height:1}
+.duel .etoiles{font-family:var(--mono);font-size:.9rem;margin-top:.5rem;color:var(--gris)}
+.duel .pos{font-size:.88rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--hair)}
+.duel .gagnant{background:var(--jaune)}
+.duel .gagnant .qui,.duel .gagnant .etoiles{color:rgba(20,20,28,.65)}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:38ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2rem}
+
+.message{background:var(--encre);color:var(--craie)}
+.message .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.message .lead{opacity:.85}
+.sms-grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:2.6rem;margin-top:2.8rem;align-items:start}
+.bulle{background:var(--craie);color:var(--encre);padding:1.4rem 1.3rem;border-left:5px solid var(--jaune);font-size:1rem;line-height:1.62}
+.bulle .exp{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--gris);display:block;margin-bottom:.9rem;padding-bottom:.7rem;border-bottom:1px solid var(--hair)}
+.bulle mark{background:var(--jaune);padding:0 .1em}
+.bulle .stop{display:block;margin-top:.9rem;font-family:var(--mono);font-size:.74rem;color:var(--gris)}
+.annots{list-style:none}
+.annots li{display:grid;grid-template-columns:1.9rem 1fr;gap:.9rem;padding:.9rem 0;border-bottom:1px solid var(--hair-clair);font-size:.94rem}
+.annots li:first-child{padding-top:0}
+.annots li:last-child{border-bottom:none}
+.annots .k{font-family:var(--mono);font-size:.7rem;color:var(--jaune);padding-top:.25rem;letter-spacing:.05em}
+.annots b{font-weight:600;display:block;margin-bottom:.15rem}
+.annots span.d{opacity:.78}
+
+.portes{margin-top:3rem;border-top:1px solid var(--hair-clair);padding-top:2.2rem}
+.portes>p{font-size:.95rem;opacity:.85;max-width:62ch;margin-bottom:1.6rem}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.porte{border:1px solid var(--hair-clair);padding:1.4rem 1.3rem}
+.porte h4{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.02em;margin-bottom:.5rem}
+.porte p{font-size:.9rem;opacity:.8}
+.porte .tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;background:var(--jaune);color:var(--encre);padding:.3rem .5rem;display:inline-block;margin-bottom:.8rem}
+
+.jamais{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.jamais-list{list-style:none;margin-top:2rem;border-top:1px solid var(--hair)}
+.jamais-list li{padding:1.15rem 0 1.15rem 2.2rem;border-bottom:1px solid var(--hair);position:relative;font-size:1rem}
+.jamais-list li::before{content:"×";position:absolute;left:0;top:1.05rem;font-family:var(--mono);font-weight:700;color:var(--outremer);font-size:1.1rem}
+.jamais-list b{font-weight:600}
+.jamais-list span{display:block;font-size:.92rem;color:#3A3A46;margin-top:.2rem}
+
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.5rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+.cadre{background:var(--encre);color:var(--craie)}
+.cadre .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.cadre .lead{opacity:.85}
+.regles{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.3rem;margin-top:2.4rem}
+.regle{border:1px solid var(--hair-clair);padding:1.5rem 1.4rem}
+.regle h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.7rem;line-height:1.15}
+.regle p{font-size:.92rem;opacity:.84}
+.regle .puce{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--jaune);display:block;margin-bottom:.7rem}
+
+.scenarios{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--craie);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--papier);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;border-top:1px solid var(--hair);padding-top:.85rem}
+
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+.prix{background:var(--encre);color:var(--craie)}
+.prix .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.carte{background:var(--craie);color:var(--encre);margin-top:2.4rem;display:grid;grid-template-columns:1fr 1fr}
+.carte-g{padding:2.2rem 2rem;border-right:1px solid var(--hair)}
+.carte-d{padding:2.2rem 2rem;display:flex;flex-direction:column;justify-content:center}
+.montant{font-family:var(--mono);font-weight:700;font-size:3.1rem;letter-spacing:-.04em;line-height:1}
+.montant em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.montant .puis{display:block;font-size:1.15rem;margin-top:.8rem;letter-spacing:-.01em}
+.montant-note{font-family:var(--mono);font-size:.74rem;color:var(--gris);margin-top:.7rem}
+.colonnes{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.8rem}
+.colonnes h4{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);margin-bottom:.8rem}
+.inclus{list-style:none}
+.inclus li{position:relative;padding-left:1.4rem;margin-bottom:.55rem;font-size:.92rem}
+.inclus li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.encadre{background:var(--jaune);padding:1.1rem 1.2rem;margin-bottom:1.5rem}
+.encadre b{font-family:var(--display);font-weight:800;font-size:1.05rem;display:block;margin-bottom:.35rem;letter-spacing:-.02em}
+.encadre p{font-size:.9rem}
+.garantie{border:2px solid var(--craie);padding:2rem;margin-top:2.6rem;max-width:70ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+.final{background:var(--jaune)}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:20ch}
+.final p{max-width:54ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:56ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.sticky{display:none}
+@media (max-width:860px){.sms-grid{grid-template-columns:1fr;gap:1.8rem}}
+@media (max-width:760px){
+  .etape{grid-template-columns:1fr;gap:.5rem}
+  .carte{grid-template-columns:1fr}
+  .carte-g{border-right:none;border-bottom:1px solid var(--hair)}
+  .colonnes{grid-template-columns:1fr;gap:1.4rem}
+  .duel{grid-template-columns:1fr}
+  .deux{grid-template-columns:1fr}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 03 · Avis Google</span>
+    <h1 class="display">Vos clients reviennent depuis dix ans. <em>Google l'ignore.</em></h1>
+    <p class="lede">Chaque lundi, vous nous envoyez la liste des véhicules restitués la semaine passée. Chaque client reçoit un message court, au nom du garage, lui demandant comment ça s'est passé. Vous validez les réponses aux avis en deux minutes. Il n'y a rien d'autre à faire.</p>
+
+    <div class="facts">
+      <div class="fact"><b>5 min</b><small>Par semaine, au comptoir</small></div>
+      <div class="fact"><b>72 h</b><small>Mise en service</small></div>
+      <div class="fact"><b>SMS</b><small>Inclus dans l'abonnement</small></div>
+      <div class="fact"><b>0</b><small>Logiciel à installer à l'atelier</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#installer">Installer Réputation Autopilot <span>→</span></a>
+    <p class="sub">590 € d'installation, puis 59 €/mois · Résiliable à tout moment</p>
+    <a class="lien2" href="#scan">Ou d'abord : recevoir le comparatif de ma fiche face aux 4 garages voisins (gratuit)</a>
+  </div>
+</section>
+
+<!-- ================= LE PROBLÈME ================= -->
+<section class="probleme">
+  <div class="wrap narrow">
+    <h2 class="display h2">Personne ne sait juger une réparation. Alors on juge les avis.</h2>
+    <p class="lead">Un automobiliste ne peut pas vérifier si vos plaquettes ont été montées correctement. Il ne connaît pas le prix normal d'un embrayage. Tout ce qu'il craint, c'est de se faire avoir — et la seule chose qu'il regarde avant d'appeler, c'est ce que les autres ont écrit.</p>
+
+    <div class="duel">
+      <div class="gagnant">
+        <div class="qui">Le centre auto de la zone</div>
+        <div class="n">482</div>
+        <div class="etoiles">avis · note 4,3</div>
+        <p class="pos">Apparaît dans l'encart Google. Reçoit l'appel.</p>
+      </div>
+      <div>
+        <div class="qui">Votre garage</div>
+        <div class="n">31</div>
+        <div class="etoiles">avis · note 4,6</div>
+        <p class="pos">Meilleure note. Jamais vu.</p>
+      </div>
+    </div>
+
+    <p>Regardez bien les deux notes. Vous êtes meilleur qu'eux — et ça ne change rien. Une enseigne avec quinze centres et un service marketing collecte des avis depuis six ans, systématiquement, sur chaque passage. Vous, vous réparez des voitures.</p>
+
+    <p>C'est le paradoxe de votre métier : plus votre clientèle est fidèle et ancienne, moins elle laisse d'avis. Un habitué qui vient depuis 2011 ne va pas noter son garage sur Google. Le nouveau, lui, ne vous trouvera jamais.</p>
+
+    <p class="punch display">Vous ne perdez pas des clients sur la qualité. Vous les perdez avant qu'ils ne décrochent leur téléphone.</p>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE : LE MESSAGE ================= -->
+<section class="message">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le message</span>
+      <h2 class="display h2">Voici exactement ce qui partira au nom de votre garage.</h2>
+      <p class="lead">C'est la seule chose qui compte quand on confie sa réputation à quelqu'un. Le voici en entier, avant que vous ne payiez un euro. Chaque mot a une raison d'être là.</p>
+    </div>
+
+    <div class="sms-grid">
+      <div class="bulle">
+        <span class="exp">SMS · Expéditeur : GARAGE-LILAS</span>
+        Bonjour Camille, ici le <mark>Garage des Lilas</mark>.<br><br>
+        Vous avez récupéré votre véhicule <mark>hier</mark> — <mark>comment ça s'est passé ?</mark><br><br>
+        Votre retour nous aide à progresser : garage-lilas.fr/avis<br><br>
+        Merci de votre confiance.
+        <span class="stop">STOP au 36111</span>
+      </div>
+
+      <ol class="annots">
+        <li>
+          <span class="k">01</span>
+          <span><b>L'expéditeur, c'est votre garage</b><span class="d">Le client lit votre nom, pas celui d'un prestataire ni un numéro inconnu. Il reconnaît, il ouvre. C'est la moitié du taux de réponse.</span></span>
+        </li>
+        <li>
+          <span class="k">02</span>
+          <span><b>Le lendemain de la restitution, pas de la facture</b><span class="d">Passé 48 heures, la voiture roule bien, tout va bien, et plus personne n'a envie d'écrire quoi que ce soit. C'est la variable la plus déterminante du dispositif.</span></span>
+        </li>
+        <li>
+          <span class="k">03</span>
+          <span><b>Une question ouverte, aucune orientation</b><span class="d">Pas de « mettez-nous 5 étoiles », pas de « si vous êtes satisfait ». On demande comment ça s'est passé. Le client répond ce qu'il veut.</span></span>
+        </li>
+        <li>
+          <span class="k">04</span>
+          <span><b>Ni le montant, ni le détail de l'intervention</b><span class="d">On ne rappelle jamais la facture par SMS. Un client qui a trouvé la note salée n'a pas besoin qu'on la lui remette sous le nez au moment où on lui demande son avis.</span></span>
+        </li>
+        <li>
+          <span class="k">05</span>
+          <span><b>Le STOP, à chaque envoi</b><span class="d">Obligation légale, et votre protection : un client qui se désinscrit n'est plus jamais sollicité, automatiquement, sans que personne ait à y penser.</span></span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="portes">
+      <p>Le lien mène à une page qui présente <b>deux options, visibles en même temps, par tout le monde</b>. Aucune question préalable sur la note, aucun aiguillage selon la réponse. Le client choisit lui-même.</p>
+      <div class="deux">
+        <div class="porte">
+          <span class="tag">PORTE 1</span>
+          <h4>Publier mon avis sur Google</h4>
+          <p>Un bouton, un clic, votre fiche s'ouvre directement dans l'application Google du client. Aucun compte à créer, aucun formulaire intermédiaire à remplir.</p>
+        </div>
+        <div class="porte">
+          <span class="tag">PORTE 2</span>
+          <h4>Écrire directement au garage</h4>
+          <p>Un message privé qui arrive dans votre boîte. Pour ce qui se règle mieux entre vous : un délai non tenu, un devis mal compris, un bruit qui persiste.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CE QU'ON NE FAIT PAS ================= -->
+<section class="jamais">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">La ligne rouge</span>
+    <h2 class="display h2" style="margin-top:1rem">Quatre choses que font nos concurrents et qu'on ne fera pas.</h2>
+    <p class="lead">Le marché des avis Google est plein d'outils qui vous exposent sans vous le dire. Voici ce qu'on refuse, et pourquoi ce refus vous protège.</p>
+
+    <ul class="jamais-list">
+      <li>
+        <b>Filtrer les clients avant Google</b>
+        <span>Le procédé consiste à demander une note d'abord, puis à n'envoyer vers Google que ceux qui ont mis 4 ou 5. C'est interdit par les règles de Google, et une fiche prise en défaut peut voir ses avis supprimés ou son établissement suspendu. Chez nous, les deux portes sont ouvertes à tout le monde, sans condition.</span>
+      </li>
+      <li>
+        <b>Offrir quoi que ce soit contre un avis</b>
+        <span>Une vidange offerte, une remise, un tirage au sort : c'est une contrepartie. Interdite par Google, et qualifiable de pratique commerciale trompeuse si elle oriente le contenu de l'avis.</span>
+      </li>
+      <li>
+        <b>Écrire ou acheter des avis</b>
+        <span>Jamais, à aucune condition, même pour « amorcer la fiche ». C'est une pratique commerciale trompeuse, sanctionnée pénalement, et elle se repère aujourd'hui en quelques minutes.</span>
+      </li>
+      <li>
+        <b>Publier une réponse en votre nom sans votre accord</b>
+        <span>Chaque réponse vous est soumise avant publication. Vous validez, vous modifiez ou vous supprimez. Rien ne part sous le nom du garage sans que vous l'ayez lu.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= LA SEMAINE TYPE ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Le fonctionnement</span>
+    <h2 class="display h2" style="margin-top:1rem">Cinq minutes le lundi. Le reste tourne seul.</h2>
+    <p class="lead">Aucune connexion à votre logiciel d'atelier. Pas de module à installer, pas d'accès à votre facturation, pas de dépendance à une mise à jour de votre éditeur — et rien qui tombe en panne un vendredi de départs en vacances.</p>
+
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-quand">Lundi matin</div>
+        <div>
+          <h3>Vous envoyez la liste de la semaine</h3>
+          <p>Un export de votre logiciel d'atelier, de votre facturier ou de votre carnet de rendez-vous, vers un fichier partagé qu'on vous fournit. Trois colonnes : prénom, numéro de mobile, date de restitution. Rien d'autre. Cinq minutes au comptoir, montre en main.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Lundi 10 h</div>
+        <div>
+          <h3>Les messages partent</h3>
+          <p>Un SMS par client, au nom du garage. Ceux déjà sollicités dans les douze derniers mois sont automatiquement écartés — un habitué qui passe quatre fois par an ne recevra qu'une seule demande. Ceux qui ont répondu STOP ne reçoivent plus rien.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Vendredi</div>
+        <div>
+          <h3>Une relance unique</h3>
+          <p>Pour ceux qui n'ont pas ouvert le lien. Une seule, jamais deux. C'est ce qui sépare une demande polie d'un client qui vous en veut.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Chaque vendredi</div>
+        <div>
+          <h3>Vos réponses vous attendent</h3>
+          <p>Tous les nouveaux avis reçoivent une réponse rédigée à votre ton, y compris et surtout les négatifs. Vous recevez le récapitulatif : vous validez tout en un clic, ou vous corrigez ligne par ligne. Deux minutes.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Chaque mois</div>
+        <div>
+          <h3>Le point en une page</h3>
+          <p>Avis reçus, note moyenne, évolution, et la comparaison avec les quatre garages et centres auto les plus proches. Une page envoyée par e-mail, pas un tableau de bord à consulter.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="charge">Charge du garage : 5 min le lundi + 2 min le vendredi.</p>
+  </div>
+</section>
+
+<!-- ================= CADRE ================= -->
+<section class="cadre">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le cadre</span>
+      <h2 class="display h2">Ce que vous nous confiez, et ce qu'on en fait.</h2>
+      <p class="lead">Trois colonnes de fichier client. Autant que vous sachiez précisément ce qu'elles deviennent.</p>
+    </div>
+
+    <div class="regles">
+      <div class="regle">
+        <span class="puce">DONNÉES</span>
+        <h3>Trois colonnes, pas une de plus</h3>
+        <p>Prénom, numéro de mobile, date de restitution. Ni immatriculation, ni montant, ni nature de l'intervention, ni historique. On n'en a pas besoin, donc on ne les demande pas.</p>
+      </div>
+      <div class="regle">
+        <span class="puce">RGPD</span>
+        <h3>Contrat signé, hébergement européen</h3>
+        <p>Contrat de sous-traitance au sens de l'article 28 du RGPD signé avant le premier envoi, hébergement en Union européenne, suppression des coordonnées à 90 jours. Votre registre de traitement est mis à jour et vous reste.</p>
+      </div>
+      <div class="regle">
+        <span class="puce">CLIENTS</span>
+        <h3>Vos clients sont informés</h3>
+        <p>Affichette pour le comptoir, ligne à ajouter sur vos ordres de réparation, mention dans le message, désinscription en un mot. Fournis à l'installation, à votre nom.</p>
+      </div>
+      <div class="regle">
+        <span class="puce">SORTIE</span>
+        <h3>Vous partez avec tout</h3>
+        <p>Si vous arrêtez : les avis restent sur votre fiche, la page de retour et les modèles de réponse vous appartiennent, et on vous confirme par écrit la suppression des coordonnées sous 30 jours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que produit la mécanique, en chiffres.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b>, bâties sur les volumes habituels d'un garage indépendant : nombre d'interventions hebdomadaires, taux de réponse observés sur une demande par SMS avec lien direct. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer à votre atelier — ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">Garage indépendant · 3 compagnons</span>
+        <h3>De 31 avis à une fiche qu'on regarde</h3>
+        <p>Environ 45 véhicules restitués par semaine. Une seule sollicitation par client et par an, ce qui écarte d'emblée les habitués revus plusieurs fois.</p>
+        <div class="calcul">180 demandes le 1ᵉʳ mois<br>× 15 % de dépôt d'avis<br>= 27 avis le premier mois<br>puis ~15 / mois en régime établi<br>→ <b>environ 130 avis à 6 mois</b></div>
+        <p class="verdict">L'écart avec le centre auto ne se comble pas. Mais franchir la barre des 100 avis suffit à ne plus être écarté d'office par celui qui compare trois fiches.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Carrosserie · avis anciens</span>
+        <h3>Sept avis assassins, aucune réponse</h3>
+        <p>38 avis, note 3,4. Les sept critiques portent sur des délais de 2019 et 2020, jamais commentées. Elles s'affichent en premier, parce que Google met en avant celles que les internautes ont jugées utiles.</p>
+        <div class="calcul">38 avis à 3,4<br>+ 150 nouveaux avis à 4,7<br>= <b>note moyenne 4,44</b><br>et les 7 critiques repoussées loin</div>
+        <p class="verdict">Répondre aux anciennes critiques est compris dans l'installation. C'est souvent ce qui change le plus vite la perception d'une fiche, avant même le premier avis neuf.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">« On le demande déjà au comptoir »</span>
+        <h3>Le geste est bon. Le moment est mauvais.</h3>
+        <p>Le client dit oui, prend ses clés, remonte en voiture, et n'y repense jamais. La demande orale fonctionne — pendant les huit secondes où elle est faite.</p>
+        <div class="calcul">180 restitutions / mois<br>demande orale : ~4 % → <b>7 avis</b><br>SMS avec lien à J+1 : ~15 % → <b>27 avis</b><br>mêmes clients, même satisfaction</div>
+        <p class="verdict">On n'ajoute pas une sollicitation de plus. On transforme celle que vous faites déjà en un geste que le client peut exécuter en trois secondes, au bon moment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Il y a des garages à qui on dit non.</h2>
+    <p class="lead">Ce dispositif amplifie ce qui existe déjà. Si les clients sortent mécontents, il amplifiera ça aussi — et vous nous en voudrez, à juste titre.</p>
+
+    <div class="pourqui">
+      <div>
+        <h3>Installez-le si</h3>
+        <ul class="oui-list">
+          <li>Vous restituez au moins 60 véhicules par mois</li>
+          <li>Vous avez le numéro de mobile de vos clients dans votre système</li>
+          <li>Votre fiche Google existe et vous en avez l'accès gestionnaire</li>
+          <li>Votre note actuelle dépasse 3,5, ou les critiques portent sur des points corrigés depuis</li>
+          <li>Vous acceptez de répondre aux avis négatifs plutôt que d'espérer qu'ils disparaissent</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Attendez si</h3>
+        <ul class="non-list">
+          <li>Vos avis récents dénoncent tous la même chose et que ce n'est pas réglé — commencez par là</li>
+          <li>Vous cherchez à faire supprimer des avis existants : ce n'est ni cette prestation, ni un service qu'on rend</li>
+          <li>Vous travaillez surtout en sous-traitance pour des flottes ou des concessions : vos clients finaux ne vous connaissent pas</li>
+          <li>Votre planning est saturé à trois semaines et vous refusez déjà du monde</li>
+          <li>Vous attendez une garantie de position dans l'encart Google — personne ne peut la donner</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="installer">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le tarif</span>
+      <h2 class="display h2">590 € pour l'installer. 59 € par mois pour qu'il tourne.</h2>
+    </div>
+
+    <div class="carte">
+      <div class="carte-g">
+        <div class="montant">
+          <em>590 €</em>
+          <span class="puis">puis 59 €/mois</span>
+        </div>
+        <p class="montant-note">Hors taxes · Sans engagement de durée · Résiliable par simple e-mail</p>
+
+        <div class="colonnes">
+          <div>
+            <h4>L'installation</h4>
+            <ul class="inclus">
+              <li>Raccordement de votre fiche Google</li>
+              <li>Déclaration du nom d'expéditeur SMS</li>
+              <li>Rédaction des messages, validés par vous</li>
+              <li>Page de retour à deux portes, à vos couleurs</li>
+              <li>Affichette comptoir et mention client</li>
+              <li>Contrat RGPD et registre de traitement</li>
+              <li>Réponses rédigées à vos 30 derniers avis</li>
+              <li>Formation du comptoir, 30 minutes</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Chaque mois</h4>
+            <ul class="inclus">
+              <li>Jusqu'à 200 demandes envoyées</li>
+              <li>Les SMS et la relance, crédits compris</li>
+              <li>Réponses à tous les nouveaux avis</li>
+              <li>Anti-doublon sur 12 mois glissants</li>
+              <li>Gestion des désinscriptions</li>
+              <li>Le point mensuel en une page</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="carte-d">
+        <div class="encadre">
+          <b>Les SMS sont dans le prix</b>
+          <p>Jusqu'à 200 demandes par mois, relance comprise. Aucun crédit à acheter, aucune surprise sur la facture. Au-delà, chaque demande supplémentaire est à 0,09 € — un garage de trois compagnons dépasse rarement ce seuil après le premier mois.</p>
+        </div>
+        <a class="btn" href="#installer">Installer Réputation Autopilot <span>→</span></a>
+        <p class="sub">Mise en service sous 72 h ouvrées</p>
+        <a class="lien2" href="#scan" style="color:var(--gris)">Ou recevoir d'abord le comparatif gratuit</a>
+      </div>
+    </div>
+
+    <div class="garantie">
+      <h3 class="display">Doublez vos avis en 90 jours, ou les mois suivants sont offerts.</h3>
+      <p>Si au bout de trois mois votre nombre d'avis Google n'a pas au moins doublé, on continue sans facturer l'abonnement jusqu'à ce que ce soit le cas. Une seule condition, et elle tient en une ligne : que la liste hebdomadaire nous ait été envoyée chaque semaine. C'est la seule variable qu'on ne contrôle pas.</p>
+      <p style="margin-top:.8rem;opacity:.75;font-size:.9rem">En revanche, on ne vous promettra jamais une place dans l'encart Google ni une note plancher. Le classement local dépend d'une trentaine de facteurs, dont votre distance au chercheur et des critères que Google ne publie pas. Ce qu'on garantit, c'est le volume de demandes envoyées et la régularité. Le reste appartient à vos clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>Mon réseau me fournit déjà un outil d'avis.</summary>
+        <p>Beaucoup d'enseignes et de réseaux d'indépendants en proposent un. Deux questions à leur poser avant de payer quoi que ce soit ici : est-ce qu'il envoie vraiment, chaque semaine, sans que personne n'ait à y penser ? Et est-ce que quelqu'un rédige les réponses aux avis ?</p>
+        <p>Dans la plupart des cas, l'outil existe, la fonction est là, et personne ne s'en sert parce qu'elle suppose une manipulation par client. Si le vôtre tourne réellement, gardez-le et économisez 590 € — on vous le dira à l'appel.</p>
+      </details>
+      <details>
+        <summary>Et si un client laisse un avis très négatif ?</summary>
+        <p>Il y en aura. C'est même le signe que le dispositif est honnête : une fiche qui n'affiche que du 5 étoiles est repérée comme suspecte par les clients comme par Google. Vous recevez une réponse rédigée sous 48 heures — factuelle, courtoise, qui ne discute jamais le montant en public et qui propose de reprendre contact.</p>
+        <p>Mécaniquement, une critique noyée dans cent avis récents pèse infiniment moins qu'une critique parmi trente et un.</p>
+      </details>
+      <details>
+        <summary>Mes clients râlent surtout sur les prix. Ça va empirer ?</summary>
+        <p>C'est la crainte la plus fréquente, et la réalité est l'inverse. Aujourd'hui, seuls les mécontents prennent la peine d'écrire : votre fiche est un échantillon biaisé. En sollicitant tout le monde, vous faites entrer la majorité silencieuse — celle qui trouve normal que ça se soit bien passé et qui ne l'aurait jamais dit spontanément.</p>
+        <p>C'est aussi pour ça que le SMS ne rappelle ni le montant ni l'intervention.</p>
+      </details>
+      <details>
+        <summary>Peut-on faire supprimer les anciens avis négatifs ?</summary>
+        <p>Seulement s'ils enfreignent les règles de Google : propos injurieux, contenu hors sujet, avis manifestement faux ou visant un autre établissement. Dans ce cas, le signalement est compris dans l'installation. Un avis désagréable mais sincère ne sera pas retiré, et aucun prestataire sérieux ne vous dira le contraire.</p>
+      </details>
+      <details>
+        <summary>Le SMS part vraiment au nom du garage ?</summary>
+        <p>Oui. On déclare un nom d'expéditeur auprès des opérateurs — par exemple GARAGE-LILAS. Le client voit le nom, pas un numéro inconnu. Comptez 48 à 72 heures pour la validation par les opérateurs : c'est ce qui fixe le délai de mise en service, et rien d'autre.</p>
+      </details>
+      <details>
+        <summary>Mon comptoir n'aura pas le temps le lundi.</summary>
+        <p>C'est l'objection à prendre au sérieux, parce que tout le dispositif repose là-dessus. L'export tient en cinq minutes une fois pris le pli, et on forme la personne à l'installation. Si vraiment personne ne peut le faire, dites-le nous avant de commander : mieux vaut ne pas signer que payer un abonnement qui ne tourne pas.</p>
+      </details>
+      <details>
+        <summary>Combien de temps avant de voir un effet ?</summary>
+        <p>Les premiers avis arrivent dans les 24 à 72 heures suivant le premier envoi. L'effet sur votre visibilité dans l'encart local se mesure plutôt sur trois à six mois : Google valorise la régularité et la fraîcheur plus que le volume acquis d'un coup. C'est la raison pour laquelle ce dispositif est mensuel, et pas une opération ponctuelle.</p>
+      </details>
+      <details>
+        <summary>J'ai deux ateliers sur deux communes.</summary>
+        <p>Une installation par fiche Google, avec un tarif dégressif à partir de la deuxième. Chaque atelier garde son nom d'expéditeur, sa page de retour et sa liste. Signalez-le à la commande.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">Votre note est déjà meilleure que la leur. Rendez-la visible.</h2>
+    <p>Mise en service sous 72 heures, cinq minutes par semaine au comptoir, et un message que vous pouvez montrer à n'importe qui. Sans engagement de durée.</p>
+    <a class="btn" href="#installer">Installer Réputation Autopilot — 590 € <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Puis 59 €/mois, SMS inclus · Avis doublés en 90 jours ou mois offerts</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Les demandes d'avis sont envoyées sans sélection préalable ni contrepartie, conformément aux règles de Google relatives aux avis. Les données transmises se limitent au prénom, au numéro de mobile et à la date de restitution, et sont supprimées après 90 jours.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+      <a href="/confidentialite">Données personnelles</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#installer">
+  <span><b>590 € + 59 €/mois</b><small>SMS inclus · Sans engagement</small></span>
+  <em>Installer →</em>
+</a>
+
+</body>
+</html>

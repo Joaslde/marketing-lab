@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speed-to-Lead — l'assistant qui répond quand vous êtes sous un évier</title>
+<meta name="description" content="Artisans du bâtiment : chaque appel manqué reçoit un SMS en 60 secondes, le prospect est qualifié, trois créneaux vous sont proposés. Mise en service en 72 h. 890 € puis 79 €/mois.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#installer" → votre lien Stripe (boutons + barre fixe mobile)
+     2. href="#demo" → votre numéro de démonstration (le prospect
+        appelle, ne décroche pas, et reçoit le SMS : c'est LA démo)
+     3. "ATELIER" → votre nom d'agence
+     4. Section #scenarios : RECONSTITUTIONS étiquetées comme telles.
+     5. Le plafond de 100 conversations/mois est calibré sur un coût
+        SMS d'environ 0,055 € et 5 envois par conversation.
+        Vérifiez le tarif de votre routeur avant de le graver.
+     6. Liens du pied de page
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.gris{color:var(--gris)}
+p+p{margin-top:1rem}
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:315px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+.lien2{display:inline-block;margin-top:1rem;font-size:.9rem;border-bottom:1px solid currentColor;text-decoration:none;padding-bottom:1px}
+
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.9rem);margin-bottom:1.4rem;max-width:18ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:54ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 145px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+/* SIGNATURE 1 : la course */
+.course{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.6rem}
+.col{border:1px solid var(--hair);background:var(--craie);padding:1.5rem 1.4rem}
+.col.win{border:2px solid var(--encre);background:var(--craie)}
+.col .tete{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);padding-bottom:.9rem;margin-bottom:1rem;border-bottom:1px solid var(--hair)}
+.col.win .tete{color:var(--outremer)}
+.tl{list-style:none}
+.tl li{display:grid;grid-template-columns:4.2rem 1fr;gap:.8rem;padding:.65rem 0;border-bottom:1px solid rgba(20,20,28,.08);font-size:.93rem}
+.tl li:last-child{border-bottom:none}
+.tl .h{font-family:var(--mono);font-size:.76rem;color:var(--gris);padding-top:.1rem}
+.tl .fin{font-weight:600}
+.tl .perdu{color:var(--gris)}
+.col.win .tl .h{color:var(--outremer)}
+.col .bilan{margin-top:1.1rem;padding-top:.9rem;border-top:2px solid var(--encre);font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-.02em}
+.col.win .bilan{background:var(--jaune);border-top:none;padding:.7rem .8rem;margin-top:1.1rem}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:38ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2.4rem}
+
+/* SIGNATURE 2 : la conversation */
+.convo-sec{background:var(--encre);color:var(--craie)}
+.convo-sec .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.convo-sec .lead{opacity:.85}
+.convo-grid{display:grid;grid-template-columns:minmax(280px,400px) 1fr;gap:2.4rem;margin-top:2.8rem;align-items:start}
+.thread{background:var(--craie);color:var(--encre);padding:1.3rem 1.2rem}
+.thread .tete{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;color:var(--gris);padding-bottom:.7rem;margin-bottom:1rem;border-bottom:1px solid var(--hair)}
+.msg{padding:.7rem .85rem;margin-bottom:.7rem;font-size:.92rem;line-height:1.55;max-width:92%}
+.msg .t{display:block;font-family:var(--mono);font-size:.62rem;color:var(--gris);margin-bottom:.3rem}
+.msg.out{background:var(--papier);border-left:3px solid var(--outremer)}
+.msg.in{background:rgba(245,197,24,.35);margin-left:8%}
+.msg:last-child{margin-bottom:0}
+.annots{list-style:none}
+.annots li{display:grid;grid-template-columns:1.9rem 1fr;gap:.9rem;padding:.9rem 0;border-bottom:1px solid var(--hair-clair);font-size:.94rem}
+.annots li:first-child{padding-top:0}
+.annots li:last-child{border-bottom:none}
+.annots .k{font-family:var(--mono);font-size:.7rem;color:var(--jaune);padding-top:.25rem}
+.annots b{font-weight:600;display:block;margin-bottom:.15rem}
+.annots span.d{opacity:.78}
+.fiche-box{margin-top:2.6rem;border-top:1px solid var(--hair-clair);padding-top:2rem}
+.fiche-box>p{opacity:.85;max-width:62ch;margin-bottom:1.4rem;font-size:.95rem}
+.fiche{background:var(--craie);color:var(--encre);padding:1.3rem 1.2rem;font-family:var(--mono);font-size:.8rem;max-width:520px}
+.fiche .l{display:grid;grid-template-columns:7.5rem 1fr;gap:.6rem;border-bottom:1px solid rgba(20,20,28,.09);padding:.35rem 0}
+.fiche .l:last-child{border-bottom:none}
+.fiche .k2{color:var(--gris);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.15rem}
+.fiche .v{font-weight:500}
+.fiche .v.hot{background:var(--jaune);display:inline-block;padding:0 .25em}
+
+/* canaux */
+.canaux{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.cx{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem;margin-top:2.4rem}
+.c{background:var(--craie);border:1px solid var(--hair);padding:1.5rem 1.4rem}
+.c.opt{border-style:dashed;background:transparent}
+.c .p{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--outremer);display:block;margin-bottom:.7rem}
+.c.opt .p{color:var(--gris)}
+.c h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.6rem;line-height:1.15}
+.c p{font-size:.92rem;color:#3A3A46}
+.meta-note{margin-top:2.2rem;border-left:4px solid var(--jaune);padding:.9rem 0 .9rem 1.1rem;max-width:66ch;font-size:.96rem}
+
+/* urgence */
+.urgence{background:var(--jaune)}
+.urgence .h2{max-width:24ch}
+.urg-list{list-style:none;margin-top:1.8rem;max-width:66ch}
+.urg-list li{padding:.9rem 0 .9rem 2.1rem;border-bottom:1px solid rgba(20,20,28,.25);position:relative;font-size:1rem}
+.urg-list li:last-child{border-bottom:none}
+.urg-list li::before{content:"!";position:absolute;left:0;top:.9rem;font-family:var(--mono);font-weight:700;background:var(--encre);color:var(--jaune);width:1.3rem;height:1.3rem;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.urg-list b{font-weight:600}
+
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.5rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+.jamais{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.jamais-list{list-style:none;margin-top:2rem;border-top:1px solid var(--hair)}
+.jamais-list li{padding:1.15rem 0 1.15rem 2.2rem;border-bottom:1px solid var(--hair);position:relative;font-size:1rem}
+.jamais-list li::before{content:"×";position:absolute;left:0;top:1.05rem;font-family:var(--mono);font-weight:700;color:var(--outremer);font-size:1.1rem}
+.jamais-list b{font-weight:600}
+.jamais-list span{display:block;font-size:.92rem;color:#3A3A46;margin-top:.2rem}
+
+.scenarios{background:var(--craie)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--papier);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--craie);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;border-top:1px solid var(--hair);padding-top:.85rem}
+
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+.prix{background:var(--encre);color:var(--craie)}
+.prix .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.carte{background:var(--craie);color:var(--encre);margin-top:2.4rem;display:grid;grid-template-columns:1fr 1fr}
+.carte-g{padding:2.2rem 2rem;border-right:1px solid var(--hair)}
+.carte-d{padding:2.2rem 2rem;display:flex;flex-direction:column;justify-content:center}
+.montant{font-family:var(--mono);font-weight:700;font-size:3.1rem;letter-spacing:-.04em;line-height:1}
+.montant em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.montant .puis{display:block;font-size:1.1rem;margin-top:.8rem;letter-spacing:-.01em}
+.montant-note{font-family:var(--mono);font-size:.74rem;color:var(--gris);margin-top:.7rem}
+.colonnes{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.8rem}
+.colonnes h4{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);margin-bottom:.8rem}
+.inclus{list-style:none}
+.inclus li{position:relative;padding-left:1.4rem;margin-bottom:.55rem;font-size:.92rem}
+.inclus li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.encadre{background:var(--jaune);padding:1.1rem 1.2rem;margin-bottom:1.5rem}
+.encadre b{font-family:var(--display);font-weight:800;font-size:1.05rem;display:block;margin-bottom:.35rem;letter-spacing:-.02em}
+.encadre p{font-size:.9rem}
+.garantie{border:2px solid var(--craie);padding:2rem;margin-top:2.6rem;max-width:70ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+.final{background:var(--jaune)}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:20ch}
+.final p{max-width:54ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:58ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.sticky{display:none}
+@media (max-width:860px){
+  .convo-grid{grid-template-columns:1fr;gap:1.8rem}
+  .duo{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .etape{grid-template-columns:1fr;gap:.5rem}
+  .carte{grid-template-columns:1fr}
+  .carte-g{border-right:none;border-bottom:1px solid var(--hair)}
+  .colonnes{grid-template-columns:1fr;gap:1.4rem}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 06 · Prise de contact</span>
+    <h1 class="display">Vous ne perdez pas des chantiers. <em>Vous ratez des appels.</em></h1>
+    <p class="lede">Vous êtes sur un toit, sous un évier, les mains dans un tableau électrique. Le téléphone sonne dans le vide, et la personne appelle le suivant sur Google. Speed-to-Lead rattrape cet appel par SMS en moins d'une minute, qualifie la demande, et vous propose trois créneaux à valider quand vous redescendez.</p>
+
+    <div class="facts">
+      <div class="fact"><b>60 s</b><small>Entre l'appel manqué et le SMS</small></div>
+      <div class="fact"><b>72 h</b><small>Mise en service, sans attendre personne</small></div>
+      <div class="fact"><b>0</b><small>Changement de numéro</small></div>
+      <div class="fact"><b>1 tap</b><small>Pour valider un créneau</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#installer">Installer Speed-to-Lead <span>→</span></a>
+    <p class="sub">890 € d'installation, puis 79 €/mois · SMS inclus · Résiliable à tout moment</p>
+    <a class="lien2" href="#demo">Ou d'abord : appelez notre numéro de démonstration et ne laissez pas sonner</a>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 1 : LA COURSE ================= -->
+<section class="course" id="demo">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <h2 class="display h2">Un mardi, 14 h 02. Une fuite sous un évier.</h2>
+      <p class="lead">La même demande, la même personne, le même jour. À gauche, ce qui se passe aujourd'hui chez vous. À droite, ce qui se passe avec l'assistant. Regardez les horaires, pas les mots.</p>
+    </div>
+
+    <div class="duo">
+      <div class="col">
+        <div class="tete">Aujourd'hui</div>
+        <ul class="tl">
+          <li><span class="h">14:02</span><span>Elle appelle. Vous êtes sous un lavabo, gants mouillés. Ça sonne dans le vide.</span></li>
+          <li><span class="h">14:03</span><span class="perdu">Elle ne laisse pas de message. Personne n'en laisse.</span></li>
+          <li><span class="h">14:03</span><span>Elle revient sur Google et appelle le nom suivant.</span></li>
+          <li><span class="h">14:05</span><span class="perdu">Le confrère décroche. Il pose deux questions, il passe demain matin.</span></li>
+          <li><span class="h">19:40</span><span>Vous rappelez en rentrant. Répondeur.</span></li>
+          <li><span class="h">Le lendemain</span><span class="fin perdu">Vous n'apprendrez jamais que c'était un remplacement de chauffe-eau à 1 400 €.</span></li>
+        </ul>
+        <div class="bilan">Appel perdu. Sans trace.</div>
+      </div>
+
+      <div class="col win">
+        <div class="tete">Avec Speed-to-Lead</div>
+        <ul class="tl">
+          <li><span class="h">14:02</span><span>Elle appelle. Vous êtes toujours sous le lavabo. Ça sonne dans le vide.</span></li>
+          <li><span class="h">14:03</span><span>Elle reçoit un SMS à votre nom : vous êtes en intervention, de quoi s'agit-il ?</span></li>
+          <li><span class="h">14:04</span><span>Elle répond : « fuite sous l'évier, ça coule depuis ce matin ».</span></li>
+          <li><span class="h">14:06</span><span>Quatre questions plus tard, trois créneaux lui sont proposés.</span></li>
+          <li><span class="h">14:08</span><span>Elle choisit demain 8 h 30. Le créneau est réservé, en attente de vous.</span></li>
+          <li><span class="h">19:40</span><span class="fin">Vous validez d'un tap, dans la camionnette. Elle reçoit la confirmation.</span></li>
+        </ul>
+        <div class="bilan">Chantier récupéré. Zéro appel passé.</div>
+      </div>
+    </div>
+
+    <p class="punch display">Vous n'avez pas perdu ce chantier sur le prix. Vous l'avez perdu en deux minutes, sans jamais le savoir.</p>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 2 : LA CONVERSATION ================= -->
+<section class="convo-sec">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">La conversation</span>
+      <h2 class="display h2">Voici exactement ce qui se dit, à votre place.</h2>
+      <p class="lead">Quatre questions, pas une de plus. L'assistant ne fait jamais semblant d'être vous, ne donne jamais de prix, et ne cherche pas à faire la conversation.</p>
+    </div>
+
+    <div class="convo-grid">
+      <div class="thread">
+        <div class="tete">SMS · Plomberie Renard · mardi 14 h</div>
+        <div class="msg out"><span class="t">14:03</span>Bonjour, ici Plomberie Renard. Nous sommes en intervention et n'avons pas pu décrocher. Dites-nous en deux mots ce qu'il vous faut, on s'en occupe tout de suite.</div>
+        <div class="msg in"><span class="t">14:04</span>Fuite sous l'évier de la cuisine, ça coule depuis ce matin</div>
+        <div class="msg out"><span class="t">14:04</span>Compris. L'eau coule en continu ou seulement quand vous ouvrez le robinet ?</div>
+        <div class="msg in"><span class="t">14:05</span>Seulement quand j'ouvre</div>
+        <div class="msg out"><span class="t">14:05</span>Très bien, ce n'est pas une urgence immédiate. Vous êtes bien sur Saint-Herblain ? Maison ou appartement ?</div>
+        <div class="msg in"><span class="t">14:06</span>Appartement, 2e étage, Saint-Herblain</div>
+        <div class="msg out"><span class="t">14:06</span>Parfait. Trois créneaux possibles : demain 8 h 30, demain 14 h, ou jeudi 9 h. Lequel vous arrange ?</div>
+        <div class="msg in"><span class="t">14:08</span>Demain 8h30</div>
+        <div class="msg out"><span class="t">14:08</span>C'est noté. Alexandre vous confirme dans la journée et vous rappelle si besoin. À demain.</div>
+      </div>
+
+      <ol class="annots">
+        <li><span class="k">01</span><span><b>Il dit qui il est, et pourquoi vous n'avez pas décroché</b><span class="d">« Nous sommes en intervention » : c'est vrai, c'est votre métier, et personne ne le reproche à un artisan. L'assistant ne se fait jamais passer pour vous.</span></span></li>
+        <li><span class="k">02</span><span><b>La deuxième question sert à trier l'urgence</b><span class="d">Fuite continue ou intermittente, chauffage en panne ou capricieux : c'est ce qui décide si l'on propose un créneau ou si l'on vous fait sonner immédiatement.</span></span></li>
+        <li><span class="k">03</span><span><b>Quatre questions, écrites pour votre métier</b><span class="d">Nature, urgence, localisation, type de logement. Rédigées avec vous à l'installation, modifiables à tout moment. Au-delà de quatre, les gens décrochent.</span></span></li>
+        <li><span class="k">04</span><span><b>Trois créneaux, jamais un prix</b><span class="d">Aucun montant n'est annoncé par SMS. Un chiffre lâché sans avoir vu l'installation, c'est un litige au moment de la facture.</span></span></li>
+        <li><span class="k">05</span><span><b>La main vous revient toujours</b><span class="d">Si vous répondez vous-même dans le fil, l'assistant se tait immédiatement et ne reprend pas. C'est votre conversation, pas la sienne.</span></span></li>
+      </ol>
+    </div>
+
+    <div class="fiche-box">
+      <p>Pendant ce temps, vous recevez ceci — une notification, puis la fiche complète. Vous la lisez à midi, entre deux chantiers, et vous validez le créneau d'un tap.</p>
+      <div class="fiche">
+        <div class="l"><span class="k2">Nom</span><span class="v">Camille D.</span></div>
+        <div class="l"><span class="k2">Mobile</span><span class="v">06 __ __ __ __</span></div>
+        <div class="l"><span class="k2">Demande</span><span class="v hot">Fuite sous évier cuisine</span></div>
+        <div class="l"><span class="k2">Urgence</span><span class="v">Non — fuite intermittente</span></div>
+        <div class="l"><span class="k2">Adresse</span><span class="v">Saint-Herblain · appt 2ᵉ ét.</span></div>
+        <div class="l"><span class="k2">Créneau retenu</span><span class="v hot">Demain 8 h 30</span></div>
+        <div class="l"><span class="k2">Appel manqué</span><span class="v">mardi 14 h 02</span></div>
+        <div class="l"><span class="k2">Rattrapé en</span><span class="v">6 minutes</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LES CANAUX ================= -->
+<section class="canaux">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">L'architecture</span>
+      <h2 class="display h2" style="margin-top:1rem">Trois déclencheurs. Aucune dépendance extérieure.</h2>
+      <p class="lead">C'est ce qui permet de vous mettre en service en 72 heures : on n'attend la validation de personne, aucune vérification d'entreprise, aucune plateforme tierce qui doit approuver vos messages.</p>
+    </div>
+
+    <div class="cx">
+      <div class="c">
+        <span class="p">DÉCLENCHEUR 1</span>
+        <h3>L'appel manqué</h3>
+        <p>Le cœur du dispositif, et de loin le plus rentable. Un renvoi conditionnel est posé sur votre ligne : vous continuez à décrocher normalement, et c'est uniquement quand ça sonne dans le vide que l'assistant prend le relais.</p>
+      </div>
+      <div class="c">
+        <span class="p">DÉCLENCHEUR 2</span>
+        <h3>Le formulaire du site</h3>
+        <p>Chaque demande reçoit une réponse immédiate au lieu d'un « nous vous recontacterons ». La conversation démarre dans la seconde, par SMS, sur le numéro laissé.</p>
+      </div>
+      <div class="c">
+        <span class="p">DÉCLENCHEUR 3</span>
+        <h3>Le SMS direct</h3>
+        <p>De plus en plus de gens écrivent plutôt que d'appeler, surtout le soir. Un SMS envoyé à votre numéro professionnel enclenche la même conversation.</p>
+      </div>
+      <div class="c opt">
+        <span class="p">EN OPTION, PLUS TARD</span>
+        <h3>WhatsApp</h3>
+        <p>Possible sur un numéro dédié, une fois votre dispositif en route. On ne le met jamais en préalable : les vérifications d'entreprise chez Meta prennent parfois trois semaines, et il n'y a aucune raison que vos appels continuent de tomber pendant ce temps.</p>
+      </div>
+    </div>
+
+    <p class="meta-note">Le SMS a un avantage que rien ne remplace chez vos clients : <b>tout le monde l'a, personne n'a rien à installer, et il s'ouvre même sans connexion</b>. Une dame de 74 ans avec une fuite ne téléchargera pas d'application. Elle lira votre SMS.</p>
+  </div>
+</section>
+
+<!-- ================= L'URGENCE ================= -->
+<section class="urgence">
+  <div class="wrap narrow">
+    <span class="eyebrow">La règle qui prime sur tout</span>
+    <h2 class="display h2" style="margin-top:1rem">Quand c'est une vraie urgence, l'assistant s'efface.</h2>
+    <p class="lead">C'est la première chose qu'on paramètre, avant même les questions. Certains mots ne déclenchent jamais une proposition de créneau — ils déclenchent votre téléphone.</p>
+
+    <ul class="urg-list">
+      <li><b>Détection immédiate</b> — fuite qui coule en continu, dégât des eaux, odeur de gaz, plus de chauffage en hiver, tableau qui disjoncte, infiltration en toiture.</li>
+      <li><b>Aucun créneau proposé</b> — l'assistant arrête sa séquence, prévient la personne que vous êtes rappelée sous peu, et ne pose plus de question.</li>
+      <li><b>Vous êtes appelé, pas notifié</b> — votre téléphone sonne avec un message vocal automatique, et vous recevez le résumé en SMS. Pas une notification qu'on découvre à 19 h.</li>
+      <li><b>Le mot « gaz » a son propre traitement</b> — la personne reçoit immédiatement la consigne d'appeler le numéro d'urgence sécurité gaz, avant même qu'on parle de rendez-vous.</li>
+    </ul>
+
+    <p style="margin-top:1.8rem;font-size:.96rem">La liste des déclencheurs est écrite avec vous à l'installation, selon votre métier et votre zone. C'est le seul paramétrage qu'on refuse de faire à votre place.</p>
+  </div>
+</section>
+
+<!-- ================= INSTALLATION ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">La mise en place</span>
+    <h2 class="display h2" style="margin-top:1rem">Soixante-douze heures, et 40 minutes de votre temps.</h2>
+
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-quand">Jour 1</div>
+        <div>
+          <h3>L'appel de cadrage, 40 minutes</h3>
+          <p>Vos quatre questions de qualification, vos mots d'urgence, votre zone d'intervention, vos plages de rendez-vous habituelles et le temps de trajet à réserver entre deux chantiers. On écrit les messages ensemble, vous validez chaque phrase.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Jour 2</div>
+        <div>
+          <h3>Le branchement</h3>
+          <p>Renvoi conditionnel posé sur votre ligne — votre numéro ne change pas, vos clients composent le même. Connexion à votre agenda, à votre formulaire de site, et à l'endroit où vous voulez recevoir les fiches : SMS, e-mail, ou votre outil de gestion.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Jour 3</div>
+        <div>
+          <h3>Les essais, avec vous</h3>
+          <p>Vous appelez votre propre numéro sans décrocher, plusieurs fois, en jouant différents cas : un dépannage banal, une urgence, un devis de rénovation. Vous voyez ce que reçoit le client et ce que vous recevez. On corrige jusqu'à ce que ça vous convienne.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Semaine 2</div>
+        <div>
+          <h3>Le réglage à chaud</h3>
+          <p>Après une semaine de vrais appels, on relit ensemble les conversations. Une question mal formulée, un mot d'urgence oublié, un créneau trop serré : c'est là que le dispositif devient vraiment le vôtre. Compris dans l'installation.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="charge">Votre charge totale : 40 min de cadrage + 20 min d'essais + 20 min de réglage.</p>
+  </div>
+</section>
+
+<!-- ================= CE QUE ÇA NE FAIT PAS ================= -->
+<section class="jamais">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Les limites</span>
+    <h2 class="display h2" style="margin-top:1rem">Quatre choses que cet assistant ne fera pas.</h2>
+    <p class="lead">Un outil vendu sans limites annoncées finit toujours par en avoir. Autant les connaître avant de payer.</p>
+
+    <ul class="jamais-list">
+      <li>
+        <b>Annoncer un prix</b>
+        <span>Jamais, sur aucun canal. Un montant lâché par SMS sans avoir vu l'installation devient un litige le jour de la facture. L'assistant qualifie et fixe un rendez-vous : le chiffrage reste votre métier.</span>
+      </li>
+      <li>
+        <b>Poser un rendez-vous sans vous</b>
+        <span>Il propose trois créneaux et réserve celui que le client choisit, mais rien n'est confirmé tant que vous n'avez pas validé. Un assistant qui vous placerait un rendez-vous à 14 h à Nantes quand vous finissez à 13 h 30 à Rennes vous coûterait plus cher qu'il ne rapporte.</span>
+      </li>
+      <li>
+        <b>Se faire passer pour vous</b>
+        <span>Il parle au nom de l'entreprise, jamais en votre nom propre, et ne prétend jamais être une personne. Vos clients vous connaissent : le jour où ils comprennent qu'on les a bernés, vous perdez plus qu'un chantier.</span>
+      </li>
+      <li>
+        <b>Créer des appels</b>
+        <span>Il rattrape ceux que vous recevez déjà. Si votre téléphone sonne dix fois par mois, il n'y a rien à rattraper — et on vous le dira à l'appel plutôt qu'après l'encaissement.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que valent les appels que vous ne voyez pas.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b> établies sur les ordres de grandeur habituels du bâtiment : volume d'appels entrants d'une entreprise de trois à six personnes, taux de décroché en journée, panier moyen d'un dépannage. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer — ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">Plombier-chauffagiste · 4 personnes</span>
+        <h3>Trente et un appels dans le vide</h3>
+        <p>Quatre-vingt-dix appels entrants par mois. Un tiers tombe pendant une intervention, sous un plancher, dans une chaufferie ou au volant. Trois ou quatre personnes rappellent d'elles-mêmes. Les autres disparaissent.</p>
+        <div class="calcul">90 appels × 35 % non décrochés<br>= <b>31 appels perdus / mois</b><br><br>Avec l'assistant : ~60 % répondent<br>= 18 conversations rattrapées<br>dont 5 à 7 demandes réelles<br>× 280 € de dépannage moyen<br>= <b>1 400 à 1 960 € / mois</b></div>
+        <p class="verdict">Et il suffit qu'un seul de ces appels soit un remplacement de chaudière pour que l'année entière soit financée.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Le hors-horaires</span>
+        <h3>Personne n'appelle un plombier à 10 h du matin</h3>
+        <p>Les gens constatent le problème en rentrant du travail, ou le samedi en faisant le ménage. Ils appellent à ce moment-là — quand votre entreprise est fermée et que votre concurrent l'est aussi.</p>
+        <div class="calcul">Environ 28 % des appels arrivent<br>avant 8 h, après 18 h,<br>ou le week-end<br>= <b>25 appels / mois</b><br>que personne ne peut décrocher<br><br>L'assistant, lui, ne ferme pas</div>
+        <p class="verdict">Celui qui répond le premier le samedi matin n'a plus de concurrent le lundi : le rendez-vous est déjà pris.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">« Je rappelle toujours le soir »</span>
+        <h3>Le rappel de 19 h 40</h3>
+        <p>Vous êtes sérieux, vous notez, vous rappelez. Sauf que la personne, elle, a appelé trois entreprises dans l'après-midi. Deux ont décroché. Elle a choisi avant votre premier appel.</p>
+        <div class="calcul">Elle appelle 3 entreprises à 14 h<br>2 décrochent<br>1 passe le lendemain matin<br><br>Votre rappel : <b>19 h 40</b><br>Sa décision : <b>16 h 12</b></div>
+        <p class="verdict">La rapidité n'est pas un confort qu'on offre au client. C'est devenu le premier critère de sélection, avant le prix et avant la réputation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Il y a des entreprises à qui on dit non.</h2>
+    <p class="lead">Cet assistant rattrape des appels existants. S'il n'y a rien à rattraper, il ne produira rien — et vous nous en voudrez, à raison.</p>
+
+    <div class="pourqui">
+      <div>
+        <h3>Installez-le si</h3>
+        <ul class="oui-list">
+          <li>Vous recevez au moins 40 appels entrants par mois</li>
+          <li>Vous travaillez sur chantier ou en intervention, et vous ratez des appels chaque jour</li>
+          <li>Votre panier moyen dépasse 200 € en dépannage, ou vous faites du chantier</li>
+          <li>Quelqu'un — vous ou une personne de confiance — peut valider un créneau dans la journée</li>
+          <li>Vous avez une ligne professionnelle sur laquelle poser un renvoi</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Passez votre chemin si</h3>
+        <ul class="non-list">
+          <li>Un secrétariat décroche déjà plus de 95 % de vos appels</li>
+          <li>Votre planning est plein six mois d'avance et vous refusez du travail</li>
+          <li>Vous travaillez uniquement en sous-traitance, pour des assureurs ou des bailleurs</li>
+          <li>Vous refusez qu'un message parte au nom de l'entreprise sans que vous l'ayez tapé</li>
+          <li>Vous recevez moins de vingt appels par mois : le problème est ailleurs, et on peut en parler</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="installer">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le tarif</span>
+      <h2 class="display h2">890 € pour l'installer. 79 € par mois pour qu'il veille.</h2>
+    </div>
+
+    <div class="carte">
+      <div class="carte-g">
+        <div class="montant">
+          <em>890 €</em>
+          <span class="puis">puis 79 €/mois</span>
+        </div>
+        <p class="montant-note">Hors taxes · Sans engagement de durée · Résiliable par simple e-mail</p>
+
+        <div class="colonnes">
+          <div>
+            <h4>L'installation</h4>
+            <ul class="inclus">
+              <li>Appel de cadrage de 40 minutes</li>
+              <li>Vos 4 questions de qualification rédigées</li>
+              <li>Vos mots d'urgence et leur traitement</li>
+              <li>Renvoi conditionnel posé sur votre ligne</li>
+              <li>Connexion agenda et formulaire de site</li>
+              <li>Numéro dédié pour les SMS sortants</li>
+              <li>Journée d'essais avec vous</li>
+              <li>Réglage à chaud en semaine 2</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Chaque mois</h4>
+            <ul class="inclus">
+              <li>Jusqu'à 100 conversations</li>
+              <li>Les SMS compris, aucun crédit à acheter</li>
+              <li>Le journal de tous les appels rattrapés</li>
+              <li>Modification des questions à la demande</li>
+              <li>Hébergement, sauvegardes, maintenance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="carte-d">
+        <div class="encadre">
+          <b>Ce que ça représente</b>
+          <p>79 € par mois, c'est un quart d'un dépannage. Si l'assistant rattrape une seule intervention par mois, il est payé quatre fois. S'il en rattrape un chantier dans l'année, la question ne se pose plus.</p>
+        </div>
+        <a class="btn" href="#installer">Installer Speed-to-Lead <span>→</span></a>
+        <p class="sub">En service sous 72 h ouvrées</p>
+      </div>
+    </div>
+
+    <div class="garantie">
+      <h3 class="display">Le premier mois, on compte ensemble.</h3>
+      <p>Le journal enregistre chaque appel manqué et ce qu'il est devenu. Si au bout de trente jours l'assistant n'a pas transformé au moins cinq appels perdus en demandes qualifiées, l'installation vous est remboursée et vous ne payez pas le mois. La seule condition : recevoir au moins quarante appels sur la période — en dessous, il n'y a rien à rattraper, et on vous l'aura dit avant.</p>
+      <p style="margin-top:.8rem;opacity:.75;font-size:.9rem">En revanche, on ne vous promettra pas un nombre de chantiers signés. Ce qui se passe après le rendez-vous — votre devis, votre prix, votre courant avec le client — ne dépend que de vous. Ce qu'on garantit, c'est qu'aucun appel ne tombera plus dans le vide sans laisser de trace.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>Je vais devoir changer de numéro ?</summary>
+        <p>Non. Votre numéro reste strictement le vôtre, vos clients composent le même, et vous continuez à décrocher comme aujourd'hui. On pose simplement un renvoi conditionnel : il ne s'active que lorsque personne ne répond au bout de quelques sonneries. Rien ne change dans votre usage quotidien.</p>
+        <p>Le SMS de rattrapage part depuis un numéro dédié à votre entreprise, avec son nom affiché. Si vous arrêtez, le renvoi est retiré en cinq minutes.</p>
+      </details>
+      <details>
+        <summary>Mes clients vont comprendre que c'est un robot.</summary>
+        <p>Certains, oui. Et c'est très bien : l'assistant annonce d'emblée que vous êtes en intervention, ce qui est vrai et parfaitement admis chez un artisan. Ce que les gens détestent, ce n'est pas un message automatique — c'est un téléphone qui sonne dans le vide et un rappel qui ne vient jamais.</p>
+        <p>Il ne prend jamais votre prénom, ne prétend jamais être une personne, et si vous répondez vous-même dans le fil, il se tait immédiatement.</p>
+      </details>
+      <details>
+        <summary>Et si c'est vraiment urgent ?</summary>
+        <p>C'est le premier paramétrage, avant même les questions. Une fuite continue, une odeur de gaz, un dégât des eaux ou une panne de chauffage en janvier n'obtiennent jamais de proposition de créneau : votre téléphone sonne, avec un message vocal qui résume la situation, et le résumé vous arrive en SMS. La liste des mots déclencheurs est écrite avec vous, et vous pouvez la modifier à tout moment.</p>
+      </details>
+      <details>
+        <summary>Pourquoi pas WhatsApp, tout le monde l'a ?</summary>
+        <p>Parce que l'automatiser suppose de passer par l'interface professionnelle de Meta, avec une vérification d'entreprise qui prend souvent deux à trois semaines et des règles qui changent. Pendant ce temps, vos appels continueraient de tomber.</p>
+        <p>On vous met donc en service en 72 heures sur le SMS, qui fonctionne chez tout le monde sans rien installer. Si vous voulez ajouter WhatsApp ensuite, sur un numéro dédié, c'est possible — sans jamais interrompre ce qui tourne déjà.</p>
+      </details>
+      <details>
+        <summary>Combien ça me coûte en SMS ?</summary>
+        <p>Rien de plus. Jusqu'à cent conversations par mois, les envois sont compris dans les 79 €. Une entreprise de quatre personnes dépasse rarement soixante. Au-delà de cent, chaque conversation supplémentaire est à 0,35 €, et vous êtes prévenu avant, jamais après.</p>
+      </details>
+      <details>
+        <summary>Qui possède les numéros collectés ?</summary>
+        <p>Vous, exclusivement, et ils sont exportables à tout moment. Hébergement en Union européenne, contrat de sous-traitance RGPD signé avant la mise en service, mention d'information fournie pour votre site. Nous n'utilisons ces coordonnées pour rien d'autre et ne les revendons à personne.</p>
+      </details>
+      <details>
+        <summary>J'ai déjà une secrétaire à mi-temps.</summary>
+        <p>Alors l'assistant ne prend le relais que lorsqu'elle n'est pas là — le midi, après 17 h, le week-end, et pendant ses congés. C'est d'ailleurs souvent le meilleur cas de figure : elle traite ce qui demande du jugement, et plus personne ne tombe dans le vide le reste du temps.</p>
+      </details>
+      <details>
+        <summary>Est-ce que ça marche pour de la rénovation, pas du dépannage ?</summary>
+        <p>Oui, avec des questions différentes : nature des travaux, surface, échéance envisagée, si un architecte ou un maître d'œuvre est déjà impliqué. Le créneau proposé n'est alors pas une intervention mais une visite de métrage. On l'écrit avec vous à l'installation.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">Demain, vers 14 h, votre téléphone sonnera dans le vide.</h2>
+    <p>Ce jour-là, soit la personne appellera le suivant sur Google, soit elle recevra un SMS soixante secondes plus tard. C'est la seule chose que cette page vous propose de changer.</p>
+    <a class="btn" href="#installer">Installer Speed-to-Lead — 890 € <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Puis 79 €/mois, SMS inclus · En service sous 72 h · Remboursé si moins de 5 appels rattrapés le 1ᵉʳ mois</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Le renvoi conditionnel est posé sur votre ligne existante sans modification de votre numéro et retiré sur simple demande. L'assistant ne communique aucun montant et ne confirme aucun rendez-vous sans validation de votre part. Coordonnées hébergées en Union européenne, propriété exclusive du client, aucune revente.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+      <a href="/confidentialite">Données personnelles</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#installer">
+  <span><b>890 € + 79 €/mois</b><small>En service sous 72 h</small></span>
+  <em>Installer →</em>
+</a>
+
+</body>
+</html>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visibilité IA — quand un DRH demande à ChatGPT quel cabinet consulter, qui est cité ?</title>
+<meta name="description" content="Cabinets de recrutement : on mesure votre taux de citation sur 4 moteurs IA, on débloque ce qui vous rend invisible, et on construit votre présence sur les sources qu'ils citent. Relevé 490 €, chantier 1 900 €.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#releve" → lien Stripe du Relevé (490 €)
+     2. href="#chantier" → lien de prise de RDV pour le Chantier
+     3. "ATELIER" → votre nom d'agence
+     4. Le tableau de relevé (#scorecard) est un EXEMPLE anonymisé.
+        Les colonnes concurrentes portent les noms réels dans le
+        rapport client. Remplacez par un vrai relevé dès le 1er client.
+     5. Section #scenarios : RECONSTITUTIONS étiquetées comme telles.
+     6. ⚠️ La page catalogue affiche encore cette offre à 990 € /
+        5 jours. À corriger : 490 € (relevé) puis 1 900 € (chantier).
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.gris{color:var(--gris)}
+p+p{margin-top:1rem}
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:320px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+.lien2{display:inline-block;margin-top:1rem;font-size:.9rem;border-bottom:1px solid currentColor;text-decoration:none;padding-bottom:1px}
+
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2rem,5.2vw,3.7rem);margin-bottom:1.4rem;max-width:20ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:56ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 140px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+.probleme{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:38ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2rem}
+
+/* SIGNATURE 1 : le relevé */
+.releve{background:var(--encre);color:var(--craie)}
+.releve .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.releve .lead{opacity:.85}
+.sheet{background:var(--craie);color:var(--encre);margin-top:2.6rem;padding:1.7rem 1.5rem;border-top:6px solid var(--jaune)}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.6rem;border-bottom:1px solid var(--hair);padding-bottom:.9rem;margin-bottom:.3rem}
+.sheet-head h3{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+.sheet-head span{font-family:var(--mono);font-size:.66rem;color:var(--gris);letter-spacing:.08em}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:640px}
+thead th{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);text-align:left;font-weight:500;padding:.9rem .6rem .7rem 0;border-bottom:1px solid var(--hair)}
+thead th.vous{color:var(--outremer);font-weight:700}
+tbody td{padding:.7rem .6rem .7rem 0;border-bottom:1px solid rgba(20,20,28,.09);vertical-align:top}
+tbody td.num{font-family:var(--mono);white-space:nowrap;text-align:left}
+tbody td.vous{font-family:var(--mono);background:rgba(245,197,24,.35);font-weight:700;padding-left:.5rem}
+.total td{border-top:2px solid var(--encre)!important;font-weight:700;padding-top:.9rem}
+.total td.vous{background:var(--jaune)}
+.sheet-foot{font-family:var(--mono);font-size:.68rem;color:var(--gris);margin-top:1rem;line-height:1.7}
+.sources{margin-top:2.4rem;border:1px solid var(--hair-clair);padding:1.5rem 1.4rem}
+.sources h4{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.5rem}
+.sources>p{font-size:.94rem;opacity:.82;margin-bottom:1.1rem;max-width:64ch}
+.src-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.5rem}
+.src-list li{font-family:var(--mono);font-size:.76rem;padding:.55rem .7rem;background:rgba(237,234,227,.07);border-left:2px solid var(--jaune)}
+.src-list li b{color:var(--jaune);font-weight:700}
+
+/* SIGNATURE 2 : les angles morts */
+.diag-sec{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.diag{background:var(--encre);color:var(--craie);padding:1.6rem 1.5rem;margin-top:2.2rem;font-family:var(--mono);font-size:.84rem}
+.diag .dh{font-size:.64rem;letter-spacing:.14em;color:var(--gris);padding-bottom:.9rem;margin-bottom:.5rem;border-bottom:1px solid var(--hair-clair)}
+.diag .l{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--hair-clair)}
+.diag .l:last-child{border-bottom:none}
+.diag .st{font-weight:700;white-space:nowrap}
+.diag .ko{background:var(--jaune);color:var(--encre);padding:0 .4em}
+.diag .ok{color:rgba(237,234,227,.55)}
+.diag-note{margin-top:1.6rem;font-size:.97rem;max-width:64ch}
+
+.leviers{margin-top:2.4rem;border-top:1px solid var(--hair)}
+.lev{display:grid;grid-template-columns:3rem 1fr;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid var(--hair)}
+.lev .r{font-family:var(--mono);font-weight:700;font-size:1.5rem;color:var(--outremer);line-height:1}
+.lev h3{font-family:var(--display);font-weight:600;font-size:1.12rem;letter-spacing:-.02em;margin-bottom:.35rem}
+.lev p{font-size:.94rem;color:#3A3A46;max-width:58ch}
+.lev.faible .r{color:var(--gris)}
+
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.5rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+/* protocole */
+.proto{background:var(--encre);color:var(--craie)}
+.proto .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.proto .lead{opacity:.85}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-top:2.2rem}
+.cg{border:1px solid var(--hair-clair);padding:1.3rem 1.1rem;text-align:left}
+.cg b{display:block;font-family:var(--mono);font-weight:700;font-size:2rem;color:var(--jaune);letter-spacing:-.03em;line-height:1;margin-bottom:.5rem}
+.cg span{font-size:.88rem;opacity:.82}
+.cg.tot{background:var(--jaune);border-color:var(--jaune)}
+.cg.tot b{color:var(--encre)}
+.cg.tot span{color:rgba(20,20,28,.75)}
+
+/* paliers */
+.prix{background:var(--craie)}
+.paliers{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;margin-top:2.6rem;align-items:stretch}
+.pal{background:var(--papier);border:1px solid var(--hair);padding:1.8rem 1.6rem;display:flex;flex-direction:column}
+.pal.mid{border:2px solid var(--encre);background:var(--craie)}
+.pal .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--outremer);display:block;margin-bottom:.6rem}
+.pal h3{font-family:var(--display);font-weight:800;font-size:1.45rem;letter-spacing:-.03em;margin-bottom:.5rem;line-height:1.05}
+.pal .p{font-family:var(--mono);font-weight:700;font-size:2.1rem;letter-spacing:-.03em;margin:.7rem 0 .3rem}
+.pal .p em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.pal .d{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-bottom:1.2rem;padding-bottom:1.1rem;border-bottom:1px solid var(--hair)}
+.pal ul{list-style:none;margin-bottom:1.4rem}
+.pal li{position:relative;padding-left:1.4rem;margin-bottom:.55rem;font-size:.92rem}
+.pal li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.pal .foot{margin-top:auto}
+.pal .btn{min-width:0;width:100%;font-size:.94rem;padding:.85rem 1.1rem}
+
+.garantie{border:2px solid var(--encre);padding:2rem;margin-top:2.6rem;max-width:72ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+.jamais{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.jamais-list{list-style:none;margin-top:2rem;border-top:1px solid var(--hair)}
+.jamais-list li{padding:1.15rem 0 1.15rem 2.2rem;border-bottom:1px solid var(--hair);position:relative;font-size:1rem}
+.jamais-list li::before{content:"×";position:absolute;left:0;top:1.05rem;font-family:var(--mono);font-weight:700;color:var(--outremer);font-size:1.1rem}
+.jamais-list b{font-weight:600}
+.jamais-list span{display:block;font-size:.92rem;color:#3A3A46;margin-top:.2rem}
+
+.scenarios{background:var(--craie)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--papier);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--craie);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;border-top:1px solid var(--hair);padding-top:.85rem}
+
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+.final{background:var(--jaune)}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:22ch}
+.final p{max-width:54ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:58ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.sticky{display:none}
+@media (max-width:760px){
+  .etape{grid-template-columns:1fr;gap:.5rem}
+  .lev{grid-template-columns:1fr;gap:.4rem}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 07 · Référencement IA</span>
+    <h1 class="display">Le DRH qui cherche un cabinet <em>ne vous trouve pas.</em></h1>
+    <p class="lede">Avant de contacter trois cabinets, il demande à ChatGPT ou Perplexity lesquels consulter dans sa région, sur son métier. La réponse cite des noms. On mesure si le vôtre en fait partie, on débloque ce qui vous rend invisible, et on va vous inscrire là où ces moteurs vont réellement chercher.</p>
+
+    <div class="facts">
+      <div class="fact"><b>400</b><small>Relevés pour établir votre point de départ</small></div>
+      <div class="fact"><b>4</b><small>Moteurs interrogés, pas un seul</small></div>
+      <div class="fact"><b>6 sem.</b><small>Durée du chantier</small></div>
+      <div class="fact"><b>490 €</b><small>Le relevé, déduit du chantier</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#releve">Commander mon relevé — 490 € <span>→</span></a>
+    <p class="sub">Livré en 5 jours · Intégralement déduit si vous engagez le chantier · Remboursé si vous êtes déjà cité</p>
+  </div>
+</section>
+
+<!-- ================= LE PROBLÈME ================= -->
+<section class="probleme">
+  <div class="wrap narrow">
+    <h2 class="display h2">La liste courte se fabrique désormais ailleurs.</h2>
+    <p class="lead">Un directeur des ressources humaines qui doit recruter un profil rare ne connaît pas les vingt cabinets de sa région. Il en connaît deux, peut-être trois, et il lui en faut une poignée à mettre en concurrence. Cette liste, il ne la construit plus en parcourant dix pages de résultats.</p>
+
+    <p>Il pose la question en une phrase, il obtient trois ou quatre noms assortis d'une justification, et il s'arrête là. Ce qui se jouait autrefois sur la première page de Google se joue maintenant dans un paragraphe qui ne laisse de place à personne d'autre.</p>
+
+    <p>Le problème n'est pas nouveau dans sa nature — c'est toujours la même bataille de présence. Il est nouveau dans sa brutalité : une page de résultats affichait dix concurrents, une réponse d'IA en cite trois. Le quatrième n'existe pas.</p>
+
+    <p class="punch display">Vous n'avez pas perdu l'appel d'offres. Vous n'avez jamais été sur la liste.</p>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 1 : LE RELEVÉ ================= -->
+<section class="releve" id="apercu">
+  <div class="eyebrow" style="display:none"></div>
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le relevé</span>
+      <h2 class="display h2">D'abord un chiffre. Pas une capture d'écran.</h2>
+      <p class="lead">Ces modèles ne répondent pas deux fois pareil. Une capture d'écran ne prouve rien et ne sert de point de départ à personne. On interroge donc chaque requête <b>cinq fois, sur quatre moteurs</b>, en sessions vierges — et on compte.</p>
+    </div>
+
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>Taux de citation — extrait du relevé</h3>
+        <span>EXEMPLE · CABINET TECH, RÉGION LYONNAISE</span>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Requête posée</th>
+              <th class="vous">Vous</th>
+              <th>Concurrent 1</th>
+              <th>Concurrent 2</th>
+              <th>Concurrent 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>« meilleur cabinet de recrutement tech à Lyon »</td><td class="vous">0/20</td><td class="num">17/20</td><td class="num">12/20</td><td class="num">6/20</td></tr>
+            <tr><td>« chasse de têtes développeurs Rhône-Alpes »</td><td class="vous">1/20</td><td class="num">14/20</td><td class="num">9/20</td><td class="num">5/20</td></tr>
+            <tr><td>« comment choisir un cabinet de recrutement IT »</td><td class="vous">0/20</td><td class="num">8/20</td><td class="num">11/20</td><td class="num">3/20</td></tr>
+            <tr><td>« recruter un CTO à Lyon, par où commencer »</td><td class="vous">2/20</td><td class="num">9/20</td><td class="num">7/20</td><td class="num">4/20</td></tr>
+            <tr><td>« cabinet de recrutement ou recruteur indépendant »</td><td class="vous">0/20</td><td class="num">6/20</td><td class="num">5/20</td><td class="num">2/20</td></tr>
+            <tr><td>« meilleurs cabinets recrutement industrie AURA »</td><td class="vous">1/20</td><td class="num">15/20</td><td class="num">8/20</td><td class="num">8/20</td></tr>
+            <tr class="total"><td>Taux de citation sur ces 6 requêtes</td><td class="vous">3 %</td><td class="num">58 %</td><td class="num">43 %</td><td class="num">23 %</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sheet-foot">20 relevés par requête = 4 moteurs (ChatGPT, Perplexity, Google AI, Copilot) × 5 répétitions en session vierge.<br>Le relevé complet porte sur 20 requêtes, soit 400 relevés. Dans votre rapport, les colonnes portent les noms réels de vos concurrents.</p>
+    </div>
+
+    <div class="sources">
+      <h4>Et surtout : d'où viennent les noms qu'ils citent</h4>
+      <p>C'est la partie du rapport que personne d'autre ne produit, et de loin la plus utile. En comptant les citations, on relève aussi <b>quelles sources</b> les moteurs sont allés lire pour construire leur réponse. Sur ce marché, ils en ont consulté 34. Six revenaient sans cesse :</p>
+      <ul class="src-list">
+        <li><b>1.</b> Un annuaire sectoriel du recrutement</li>
+        <li><b>2.</b> Un comparatif publié par un média RH</li>
+        <li><b>3.</b> Les pages LinkedIn d'entreprise</li>
+        <li><b>4.</b> Une fédération professionnelle</li>
+        <li><b>5.</b> Un fil de discussion sur un forum métier</li>
+        <li><b>6.</b> Deux annuaires locaux d'entreprises</li>
+      </ul>
+      <p style="margin-top:1.2rem;margin-bottom:0">Vous n'apparaissiez sur aucune des six. Vos concurrents, sur quatre en moyenne. <b>Voilà l'écart réel</b> — il n'est pas dans votre site, il est ailleurs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 2 : LES ANGLES MORTS ================= -->
+<section class="diag-sec">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Angle mort</span>
+    <h2 class="display h2" style="margin-top:1rem">Dans un cas sur trois, le site est simplement fermé aux robots.</h2>
+    <p class="lead">Avant de parler de contenu ou de stratégie, il y a une vérification de vingt minutes que presque personne ne fait. Voici à quoi ressemble un diagnostic technique typique de première visite.</p>
+
+    <div class="diag">
+      <div class="dh">DIAGNOSTIC D'ACCÈS — EXEMPLE</div>
+      <div class="l"><span>GPTBot — robot d'OpenAI</span><span class="st ko">BLOQUÉ</span></div>
+      <div class="l"><span>OAI-SearchBot — recherche ChatGPT</span><span class="st ko">BLOQUÉ</span></div>
+      <div class="l"><span>PerplexityBot</span><span class="st ko">BLOQUÉ</span></div>
+      <div class="l"><span>ClaudeBot</span><span class="st ok">autorisé</span></div>
+      <div class="l"><span>Indexation Google</span><span class="st ok">41 pages / 47</span></div>
+      <div class="l"><span>Indexation Bing</span><span class="st ko">3 PAGES / 47</span></div>
+      <div class="l"><span>Rendu de la page d'accueil sans JavaScript</span><span class="st ko">VIDE</span></div>
+      <div class="l"><span>Fiche d'entreprise, cohérence du nom et de l'adresse</span><span class="st ko">4 VARIANTES</span></div>
+    </div>
+
+    <p class="diag-note">Ce cabinet-là ne pouvait pas être cité. Pas parce qu'il était mauvais, ni mal positionné : parce qu'une protection de son hébergeur refusait l'accès aux robots des moteurs concernés, et que Bing — sur lequel s'appuie une bonne part des réponses de ChatGPT et de Copilot — n'avait indexé que trois de ses pages.</p>
+
+    <p style="margin-top:1.4rem;font-size:.97rem"><b>Et si c'est votre cas, on vous le dira dans le relevé à 490 €.</b> Vous pourrez corriger vous-même en une demi-heure si vous avez quelqu'un pour le faire. Notre travail est de trouver ce que personne ne regarde, pas de vous rendre dépendant de nous.</p>
+  </div>
+</section>
+
+<!-- ================= LES LEVIERS ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">La méthode</span>
+    <h2 class="display h2" style="margin-top:1rem">Ce qui fait vraiment citer une entreprise, dans l'ordre.</h2>
+    <p class="lead">Le marché vend beaucoup de balisage technique parce que c'est rapide à produire. Voici la hiérarchie réelle, y compris quand elle nous dessert.</p>
+
+    <div class="leviers">
+      <div class="lev">
+        <div class="r">1</div>
+        <div>
+          <h3>Être accessible aux robots</h3>
+          <p>Binaire. Un site fermé aux robots des moteurs IA ne sera jamais cité, quel que soit le reste. Réglage par défaut d'un hébergeur, protection d'un pare-feu, ligne oubliée : c'est invisible depuis le navigateur et ça annule tout.</p>
+        </div>
+      </div>
+      <div class="lev">
+        <div class="r">2</div>
+        <div>
+          <h3>Être dans l'index sous-jacent</h3>
+          <p>Ces moteurs ne connaissent pas le web par cœur : ils vont chercher au moment de la question, dans des index de recherche. Un site absent de Bing est invisible pour une part importante d'entre eux. Personne ne regarde jamais Bing en France — c'est précisément pour ça que c'est un gisement.</p>
+        </div>
+      </div>
+      <div class="lev">
+        <div class="r">3</div>
+        <div>
+          <h3>Être cité ailleurs que chez soi</h3>
+          <p>C'est le levier principal, et le plus laborieux. Quand un moteur répond « quels sont les meilleurs cabinets », il ne récite pas votre site : il synthétise des annuaires, des comparatifs, des articles et des discussions écrits par d'autres. Tant que vous n'existez que chez vous, vous n'avez aucune raison d'apparaître.</p>
+        </div>
+      </div>
+      <div class="lev">
+        <div class="r">4</div>
+        <div>
+          <h3>Être extractible</h3>
+          <p>Les modèles reprennent des phrases factuelles. « Nous plaçons l'humain au cœur de notre démarche » ne se cite pas. « Cabinet de recrutement tech fondé en 2016 à Lyon, 22 consultants, 180 recrutements par an, spécialisé sur les profils data et cloud » se cite tel quel, et c'est ce qui remonte.</p>
+        </div>
+      </div>
+      <div class="lev faible">
+        <div class="r">5</div>
+        <div>
+          <h3>Le balisage structuré</h3>
+          <p>Réel, utile — et <b>indirect</b>. Il aide les moteurs de recherche à comprendre qui vous êtes, ce qui alimente ensuite les réponses générées. Ce n'est pas un levier de citation en soi. Beaucoup d'offres du marché s'arrêtent ici, parce que c'est ce qui se produit en deux heures.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LE CHANTIER ================= -->
+<section class="proto">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le chantier</span>
+      <h2 class="display h2">Six semaines, quatre chantiers, deux remesures.</h2>
+      <p class="lead">Rien ici ne se fait en cinq jours. Le travail qui compte est celui qui se passe hors de votre site, et il demande du démarchage, des inscriptions et des relances.</p>
+    </div>
+
+    <div class="etapes" style="border-color:var(--hair-clair)">
+      <div class="etape" style="border-color:var(--hair-clair)">
+        <div class="etape-quand">Semaine 1</div>
+        <div>
+          <h3>Le relevé de départ</h3>
+          <p style="color:rgba(237,234,227,.8)">Vos 20 requêtes construites avec vous, 400 relevés, votre taux de citation, votre part de voix face aux concurrents nommés, et la carte des sources que les moteurs consultent réellement sur votre marché.</p>
+        </div>
+      </div>
+      <div class="etape" style="border-color:var(--hair-clair)">
+        <div class="etape-quand">Semaine 1–2</div>
+        <div>
+          <h3>Débloquer</h3>
+          <p style="color:rgba(237,234,227,.8)">Accès des robots corrigé, indexation Bing et Google vérifiée puis forcée, rendu du site sans JavaScript contrôlé. C'est le chantier le moins spectaculaire et le plus déterminant : sans lui, tout le reste est décoratif.</p>
+        </div>
+      </div>
+      <div class="etape" style="border-color:var(--hair-clair)">
+        <div class="etape-quand">Semaine 2–3</div>
+        <div>
+          <h3>Rendre citable</h3>
+          <p style="color:rgba(237,234,227,.8)">Balisage d'entité posé, puis quatre pages réécrites en factuel : votre page d'identité, une page comparative honnête sur votre marché, une page de questions-réponses, et une page de preuves chiffrées. Écrites pour être extraites, pas pour être primées.</p>
+        </div>
+      </div>
+      <div class="etape" style="border-color:var(--hair-clair)">
+        <div class="etape-quand">Semaine 3–6</div>
+        <div>
+          <h3>Exister ailleurs</h3>
+          <p style="color:rgba(237,234,227,.8)">Le gros du travail. Cohérence de votre identité partout où elle circule, inscription sur les sources identifiées en semaine 1, et démarchage pour obtenir deux à trois mentions tierces : une entrée dans un comparatif, une interview dans un média professionnel, une place dans un annuaire qui fait autorité. C'est long, c'est du relationnel, et c'est ce que personne ne veut faire.</p>
+        </div>
+      </div>
+      <div class="etape" style="border-color:var(--hair-clair)">
+        <div class="etape-quand">Sem. 8 et 12</div>
+        <div>
+          <h3>Remesurer</h3>
+          <p style="color:rgba(237,234,227,.8)">Mêmes 20 requêtes, mêmes 4 moteurs, mêmes 5 répétitions. Le seul moyen de savoir si quelque chose a bougé, et le seul chiffre que vous pourrez opposer à qui vous demandera pourquoi vous avez dépensé cet argent.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-grid">
+      <div class="cg"><b>20</b><span>requêtes</span></div>
+      <div class="cg"><b>4</b><span>moteurs</span></div>
+      <div class="cg"><b>5</b><span>répétitions</span></div>
+      <div class="cg"><b>×3</b><span>mesures (0, 8, 12 sem.)</span></div>
+      <div class="cg tot"><b>1 200</b><span>relevés sur le chantier</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="releve">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Le tarif</span>
+      <h2 class="display h2" style="margin-top:1rem">Trois paliers. On commence toujours par le premier.</h2>
+      <p class="lead">Personne ne devrait engager 1 900 € sans savoir où il en est. Le relevé existe pour ça, il est déduit intégralement, et il vous appartient même si vous vous arrêtez là.</p>
+    </div>
+
+    <div class="paliers">
+      <div class="pal">
+        <span class="n">PALIER 1</span>
+        <h3>Le Relevé</h3>
+        <div class="p"><em>490 €</em></div>
+        <div class="d">5 jours · Déduit du chantier</div>
+        <ul>
+          <li>20 requêtes construites avec vous</li>
+          <li>400 relevés sur 4 moteurs</li>
+          <li>Votre taux de citation et votre part de voix</li>
+          <li>Le diagnostic d'accès des robots</li>
+          <li>La carte des sources à conquérir</li>
+          <li>Rapport de 10 pages + visio de 30 min</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="#releve">Commander le relevé <span>→</span></a>
+        </div>
+      </div>
+
+      <div class="pal mid">
+        <span class="n">PALIER 2</span>
+        <h3>Le Chantier</h3>
+        <div class="p"><em>1 900 €</em></div>
+        <div class="d">6 semaines · Relevé déduit</div>
+        <ul>
+          <li>Tout le palier 1</li>
+          <li>Déblocage des robots et de l'indexation</li>
+          <li>Balisage d'entité complet</li>
+          <li>4 pages réécrites en factuel</li>
+          <li>Cohérence d'identité sur tout le web</li>
+          <li>Inscriptions sur les sources identifiées</li>
+          <li>2 à 3 mentions tierces obtenues</li>
+          <li>Remesure à 8 et 12 semaines</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="#chantier">En parler 20 minutes <span>→</span></a>
+        </div>
+      </div>
+
+      <div class="pal">
+        <span class="n">PALIER 3</span>
+        <h3>Le Maintien</h3>
+        <div class="p"><em>290 €</em><span style="font-size:1rem;font-family:var(--corps);font-weight:400"> /mois</span></div>
+        <div class="d">Mensuel · Sans engagement</div>
+        <ul>
+          <li>Remesure mensuelle, même protocole</li>
+          <li>Surveillance de l'accès des robots</li>
+          <li>Nouvelles requêtes selon vos marchés</li>
+          <li>Nouvelles sources conquises chaque trimestre</li>
+          <li>Alerte si un concurrent vous dépasse</li>
+          <li>Le point mensuel en une page</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="#chantier">Voir si c'est utile pour vous <span>→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="garantie">
+      <h3 class="display">Deux engagements, et pas un de plus.</h3>
+      <p><b>Sur le relevé :</b> si vous êtes déjà cité sur plus de la moitié des requêtes, les 490 € vous sont remboursés. Vous n'avez pas besoin de nous, et il serait malhonnête de vous facturer pour vous l'apprendre.</p>
+      <p><b>Sur le chantier :</b> si à douze semaines votre taux de citation n'a pas progressé sur au moins un tiers des requêtes, les trois premiers mois de Maintien ne sont pas facturés.</p>
+      <p style="margin-top:1rem;opacity:.75;font-size:.9rem">Ce que nous ne promettrons jamais : une position, un classement, une citation garantie sur une requête donnée. Ces moteurs changent leurs modèles et leurs sources tous les mois, aucun prestataire au monde ne contrôle ce qu'ils répondent, et quiconque vous garantit une place vous ment ou ne sait pas de quoi il parle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CE QU'ON NE FAIT PAS ================= -->
+<section class="jamais">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Les limites</span>
+    <h2 class="display h2" style="margin-top:1rem">Quatre choses qu'on ne fera pas.</h2>
+
+    <ul class="jamais-list">
+      <li>
+        <b>Vous garantir une place dans les réponses</b>
+        <span>Impossible, et le promettre est le meilleur signe qu'on a affaire à quelqu'un qui vend du vent. On garantit un état mesuré, des corrections vérifiables et une remesure au même protocole.</span>
+      </li>
+      <li>
+        <b>Fabriquer de fausses mentions</b>
+        <span>Pas de faux avis, pas de faux articles, pas de réseau de sites créés pour vous citer. Ces procédés sont détectés, sanctionnés, et sur un marché où votre réputation est votre outil de travail, le risque est sans commune mesure avec le gain.</span>
+      </li>
+      <li>
+        <b>Remplacer votre référencement classique</b>
+        <span>Les deux se recoupent en partie mais ne visent pas la même chose. Si vous travaillez déjà avec une agence de référencement, on lui transmet nos corrections plutôt que de faire deux fois le travail — ou de le défaire.</span>
+      </li>
+      <li>
+        <b>Vous facturer ce que vous pouvez faire seul</b>
+        <span>Si le relevé montre que trois lignes de configuration vous bloquaient, on vous le dit et vous corrigez vous-même. Le relevé, lui, aura payé sa valeur : personne ne cherche ce qu'il ne sait pas devoir chercher.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que vaut une place sur la liste.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b>, bâties sur les ordres de grandeur habituels du recrutement spécialisé : honoraires au pourcentage du salaire annuel, nombre de cabinets consultés par mission, taux de transformation d'une consultation. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer — ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">Cabinet tech · 9 consultants</span>
+        <h3>Trois noms cités, jamais le vôtre</h3>
+        <p>Sur vingt requêtes couvrant son marché et sa région, le cabinet apparaît dans 3 % des réponses. Ses deux principaux concurrents, dans 58 % et 43 %.</p>
+        <div class="calcul">Honoraires moyens par mission :<br>18 % d'un salaire de 65 000 €<br>= <b>11 700 €</b><br><br>Chantier + 12 mois de maintien :<br>1 900 € + 3 480 € = <b>5 380 €</b><br><br>= <b>une demi-mission</b></div>
+        <p class="verdict">La question n'est pas de savoir si l'investissement se rentabilise. Elle est de savoir combien de listes courtes se sont construites sans vous depuis douze mois.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">L'angle mort</span>
+        <h3>Quatorze mois de porte fermée</h3>
+        <p>Une protection activée par l'hébergeur lors d'une refonte, jamais signalée, jamais vérifiée. Le site répondait parfaitement dans un navigateur et refusait l'accès aux robots des moteurs concernés.</p>
+        <div class="calcul">Durée du blocage : 14 mois<br>Citations possibles pendant<br>cette période : <b>zéro</b><br>quel que soit le contenu publié<br><br>Temps de correction : <b>25 minutes</b></div>
+        <p class="verdict">C'est le cas le plus fréquent et le plus rageant. Il ne coûte rien à réparer — il coûte seulement de savoir qu'il faut aller regarder.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Le calcul du DRH</span>
+        <h3>Trois cabinets consultés, pas huit</h3>
+        <p>Un directeur RH qui lance une recherche ne met pas huit cabinets en concurrence : il en consulte trois. Historiquement, deux venaient de son réseau et un d'une recherche. C'est ce troisième qui bascule.</p>
+        <div class="calcul">Avant : 10 résultats visibles<br>sur la première page<br><br>Aujourd'hui : <b>3 noms</b> dans<br>un paragraphe de réponse<br><br>Le 4ᵉ n'est pas mal classé.<br>Il <b>n'apparaît pas</b>.</div>
+        <p class="verdict">Le rétrécissement est là, et il est mécanique. Une réponse générée n'a pas de deuxième page où figurer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Il y a des cabinets à qui on dit non.</h2>
+
+    <div class="pourqui">
+      <div>
+        <h3>Le relevé a du sens si</h3>
+        <ul class="oui-list">
+          <li>Vous êtes un cabinet spécialisé — tech, industrie, santé, finance, direction générale</li>
+          <li>Vos clients vous mettent en concurrence avec deux ou trois confrères</li>
+          <li>Vos honoraires par mission dépassent 8 000 €</li>
+          <li>Vous avez un site que vous pouvez faire modifier</li>
+          <li>Vous acceptez une réponse qui pourrait être « vous n'avez rien à faire »</li>
+        </ul>
+      </div>
+      <div>
+        <h3>N'y allez pas si</h3>
+        <ul class="non-list">
+          <li>Vous travaillez uniquement par recommandation et refusez déjà des missions</li>
+          <li>Vous êtes généraliste sur tous les métiers et toutes les régions : les requêtes n'existent pas</li>
+          <li>Votre site est en refonte dans les trois mois — attendez, ou faites le relevé seul</li>
+          <li>Vous cherchez un résultat sous trente jours : les remesures sont à 8 et 12 semaines</li>
+          <li>Vous voulez qu'on vous garantisse d'être cité : personne ne le peut, nous non plus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>Combien de mes clients passent réellement par l'IA ?</summary>
+        <p>Personne ne peut vous le chiffrer honnêtement aujourd'hui — ces réponses ne laissent presque aucune trace dans vos statistiques de fréquentation, puisqu'un nom cité sans lien cliqué ne génère aucune visite. Méfiez-vous de qui vous annonce un pourcentage précis.</p>
+        <p>Ce qu'on peut mesurer, en revanche, c'est ce que ces moteurs répondent quand on les interroge. Et ce qu'on observe partout : l'usage progresse vite chez les acheteurs professionnels qui doivent constituer une liste courte sans connaître le marché. C'est exactement votre situation d'achat.</p>
+      </details>
+      <details>
+        <summary>C'est du référencement classique déguisé ?</summary>
+        <p>Les fondamentaux se recoupent — un site indexé et lisible sert aux deux. Mais trois choses n'existent pas en référencement classique : la mesure sur des réponses non déterministes, l'accès des robots IA spécifiquement, et le travail sur les sources tierces que les modèles synthétisent plutôt que sur votre propre classement.</p>
+        <p>À l'inverse, si votre site n'est pas indexé correctement, aucune optimisation IA ne compensera. C'est pour ça que le chantier commence par du très basique.</p>
+      </details>
+      <details>
+        <summary>Je suis déjà premier sur Google, je suis tranquille ?</summary>
+        <p>Sur les réponses générées par Google, c'est un vrai avantage : elles s'appuient sur le même index et corrèlent fortement avec les positions organiques. Sur ChatGPT, Perplexity et Copilot, beaucoup moins — ils ont leurs propres index et leurs propres sources. Un cabinet premier sur Google et absent de Bing perd la moitié du terrain sans le savoir.</p>
+      </details>
+      <details>
+        <summary>Ces modèles changent tout le temps. Ça ne va pas se périmer ?</summary>
+        <p>Si, en partie, et c'est la raison d'être du Maintien. Ce qui se périme vite : les réglages fins et les formats de réponse. Ce qui ne se périme pas : être accessible aux robots, être correctement indexé, exister sur les annuaires et comparatifs de votre métier, et avoir des pages factuelles. Le chantier porte sur ces fondations-là, précisément parce qu'elles tiennent.</p>
+      </details>
+      <details>
+        <summary>Les mentions tierces, vous les obtenez comment ?</summary>
+        <p>Par démarchage, pas par achat. On identifie en semaine 1 les sources que les moteurs consultent réellement sur votre marché, puis on les contacte : inscription à un annuaire professionnel, candidature à un comparatif, proposition d'interview ou de tribune à un média du secteur avec vos chiffres et votre point de vue. Deux à trois obtenues sur six semaines est un objectif réaliste ; on ne s'engage pas sur quatre.</p>
+      </details>
+      <details>
+        <summary>Qu'est-ce que je garde si j'arrête après le relevé ?</summary>
+        <p>Tout : le rapport, les 400 relevés, la liste de vos requêtes, le diagnostic technique et la carte des sources. C'est votre document, il reste exploitable par vous ou par n'importe quel prestataire. Et si vous engagez le chantier dans les 90 jours, les 490 € en sont déduits.</p>
+      </details>
+      <details>
+        <summary>Vous travaillez avec mes concurrents ?</summary>
+        <p>Non. Sur ce sujet plus qu'aucun autre, accompagner deux cabinets sur la même spécialité et la même région reviendrait à les faire se disputer les mêmes places. Votre créneau est bloqué pendant toute la durée de l'accompagnement, Maintien compris.</p>
+      </details>
+      <details>
+        <summary>Vous touchez à mon site ? J'ai peur de casser quelque chose.</summary>
+        <p>On peut travailler des deux façons : soit on intervient directement avec un accès limité, soit on livre les corrections à votre prestataire technique, documentées et prêtes à poser. Beaucoup de cabinets choisissent la seconde. Dans les deux cas, rien n'est modifié sans que vous l'ayez validé, et l'état initial est sauvegardé.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">Commencez par savoir où vous en êtes.</h2>
+    <p>Vingt requêtes, quatre moteurs, cinq répétitions, cinq jours. Vous saurez si vous êtes cité, à quel taux, face à qui, et ce qui vous en empêche. Et si vous êtes déjà bien placé, on vous rembourse et on vous le dit.</p>
+    <a class="btn" href="#releve">Commander mon relevé — 490 € <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Déduits du chantier · Remboursés si vous êtes déjà cité sur plus de la moitié des requêtes</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Les taux de citation sont mesurés selon un protocole de 5 répétitions par requête sur 4 moteurs en sessions vierges, et sont valables à la date du relevé : ces systèmes n'étant pas déterministes, aucun résultat n'est reproductible à l'identique. Aucune position, aucun classement et aucune citation ne sont garantis.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#releve">
+  <span><b>490 €</b><small>Le relevé · déduit du chantier</small></span>
+  <em>Commander →</em>
+</a>
+
+</body>
+</html>

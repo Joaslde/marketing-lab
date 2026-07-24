@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contenu Autopilot — une heure par mois, trente jours de présence</title>
+<meta name="description" content="Consultants et formateurs indépendants : une visio d'une heure par mois, et l'on en tire 20 publications, 8 vidéos courtes et 2 newsletters dans vos mots. 690 €/mois.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#demarrer" → votre lien Stripe (boutons + barre fixe mobile)
+     2. href="#exemple" pointe vers la section d'exemple de la page —
+        remplacez par un lien vers un vrai mois de contenu dès que vous
+        en aurez un à montrer.
+     3. "ATELIER" → votre nom d'agence
+     4. Section #scenarios : RECONSTITUTIONS étiquetées comme telles.
+     5. L'exclusivité sectorielle annoncée en FAQ est un engagement
+        commercial réel : retirez-la si vous ne voulez pas la tenir.
+     6. Liens du pied de page
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.gris{color:var(--gris)}
+p+p{margin-top:1rem}
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:320px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+.lien2{display:inline-block;margin-top:1rem;font-size:.9rem;border-bottom:1px solid currentColor;text-decoration:none;padding-bottom:1px}
+
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.9rem);margin-bottom:1.4rem;max-width:19ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:54ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 140px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+/* problème + frise */
+.probleme{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.frise{margin:2.4rem 0 1.4rem;border:1px solid var(--hair);background:var(--craie)}
+.frise-row{display:grid;grid-template-columns:11rem 1fr;align-items:center;border-bottom:1px solid var(--hair)}
+.frise-row:last-child{border-bottom:none}
+.frise-lab{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);padding:.9rem .9rem}
+.frise-cells{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;padding:.6rem .8rem .6rem 0}
+.cell{height:1.5rem;background:rgba(20,20,28,.07)}
+.cell.on{background:var(--outremer)}
+.cell.warn{background:var(--jaune)}
+.frise-mois{display:grid;grid-template-columns:11rem 1fr}
+.frise-mois .m{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;padding:0 .8rem .7rem 0;font-family:var(--mono);font-size:.58rem;color:var(--gris);text-align:center}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:38ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2rem}
+
+/* SIGNATURE : verbatim → post */
+.transfo{background:var(--encre);color:var(--craie)}
+.transfo .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.transfo .lead{opacity:.85}
+.paire{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.8rem;align-items:start}
+.bloc{border:1px solid var(--hair-clair);padding:1.5rem 1.4rem}
+.bloc .tete{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--jaune);padding-bottom:.8rem;margin-bottom:1rem;border-bottom:1px solid var(--hair-clair)}
+.bloc.brut{opacity:.9}
+.bloc.brut p{font-size:.95rem;line-height:1.7;font-style:italic;opacity:.85}
+.bloc.fini{background:var(--craie);color:var(--encre);border-color:var(--craie)}
+.bloc.fini .tete{color:var(--outremer);border-bottom-color:var(--hair)}
+.bloc.fini p{font-size:.97rem;line-height:1.68}
+.bloc.fini p+p{margin-top:.7rem}
+.bloc.fini mark{background:var(--jaune);padding:0 .1em}
+.annots{list-style:none;margin-top:2.4rem;border-top:1px solid var(--hair-clair)}
+.annots li{display:grid;grid-template-columns:1.9rem 1fr;gap:.9rem;padding:.95rem 0;border-bottom:1px solid var(--hair-clair);font-size:.94rem}
+.annots .k{font-family:var(--mono);font-size:.7rem;color:var(--jaune);padding-top:.25rem}
+.annots b{font-weight:600;display:block;margin-bottom:.15rem}
+.annots span.d{opacity:.78}
+
+/* livrables */
+.livrables{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;margin-top:2.4rem}
+.livrable{background:var(--papier);border:1px solid var(--hair);padding:1.6rem 1.5rem}
+.livrable .n{font-family:var(--mono);font-weight:700;font-size:2.2rem;letter-spacing:-.03em;color:var(--outremer);line-height:1;margin-bottom:.7rem}
+.livrable h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.6rem}
+.livrable p{font-size:.92rem;color:#3A3A46}
+
+/* niveaux de délégation */
+.deleg{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.4rem}
+.option{background:var(--craie);border:1px solid var(--hair);padding:1.6rem 1.5rem;display:flex;flex-direction:column}
+.option.reco{border:2px solid var(--encre)}
+.option .lettre{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--outremer);display:block;margin-bottom:.6rem}
+.option h3{font-family:var(--display);font-weight:800;font-size:1.2rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.8rem}
+.option p{font-size:.92rem;color:#3A3A46;margin-bottom:.9rem}
+.badge{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;background:var(--jaune);padding:.35rem .6rem;align-self:flex-start;margin-bottom:.9rem}
+.option .cond{font-family:var(--mono);font-size:.72rem;color:var(--gris);border-top:1px solid var(--hair);padding-top:.8rem;margin-top:auto;line-height:1.6}
+
+/* déroulé */
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.5rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+/* trois mois */
+.trimestre{background:var(--encre);color:var(--craie)}
+.trimestre .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.trimestre .lead{opacity:.85}
+.mois3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.6rem;margin-top:2.4rem}
+.m3{border-top:2px solid var(--jaune);padding-top:1.1rem}
+.m3 .q{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--jaune);display:block;margin-bottom:.6rem}
+.m3 h3{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:.5rem}
+.m3 p{font-size:.92rem;opacity:.84}
+
+/* scénarios */
+.scenarios{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--craie);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--papier);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;border-top:1px solid var(--hair);padding-top:.85rem}
+
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+.prix{background:var(--encre);color:var(--craie)}
+.prix .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.carte{background:var(--craie);color:var(--encre);margin-top:2.4rem;display:grid;grid-template-columns:1fr 1fr}
+.carte-g{padding:2.2rem 2rem;border-right:1px solid var(--hair)}
+.carte-d{padding:2.2rem 2rem;display:flex;flex-direction:column;justify-content:center}
+.montant{font-family:var(--mono);font-weight:700;font-size:3.2rem;letter-spacing:-.04em;line-height:1}
+.montant em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.montant .puis{display:block;font-size:1.05rem;margin-top:.8rem;letter-spacing:-.01em;color:var(--gris)}
+.montant-note{font-family:var(--mono);font-size:.74rem;color:var(--gris);margin-top:.7rem}
+.inclus{list-style:none;margin-top:1.6rem}
+.inclus li{position:relative;padding-left:1.4rem;margin-bottom:.55rem;font-size:.93rem}
+.inclus li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.encadre{background:var(--jaune);padding:1.1rem 1.2rem;margin-bottom:1.5rem}
+.encadre b{font-family:var(--display);font-weight:800;font-size:1.05rem;display:block;margin-bottom:.35rem;letter-spacing:-.02em}
+.encadre p{font-size:.9rem}
+.garantie{border:2px solid var(--craie);padding:2rem;margin-top:2.6rem;max-width:70ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+.final{background:var(--jaune)}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:20ch}
+.final p{max-width:54ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:56ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.sticky{display:none}
+@media (max-width:860px){.paire{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .etape{grid-template-columns:1fr;gap:.5rem}
+  .carte{grid-template-columns:1fr}
+  .carte-g{border-right:none;border-bottom:1px solid var(--hair)}
+  .frise-row,.frise-mois{grid-template-columns:1fr}
+  .frise-lab{padding-bottom:.2rem}
+  .frise-cells{padding:0 .8rem .8rem}
+  .frise-mois .m{padding:0 .8rem .7rem}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 04 · Visibilité · Abonnement</span>
+    <h1 class="display">Quand vous êtes en mission, <em>vous disparaissez.</em></h1>
+    <p class="lede">Une visio d'une heure par mois où vous racontez votre métier. On en tire vingt publications, huit vidéos courtes et deux newsletters — dans vos mots, avec vos exemples et vos chiffres. Vous continuez d'exister pendant que vous travaillez.</p>
+
+    <div class="facts">
+      <div class="fact"><b>1 h</b><small>De votre temps, par mois</small></div>
+      <div class="fact"><b>30</b><small>Contenus livrés chaque mois</small></div>
+      <div class="fact"><b>690 €</b><small>Par mois, tout compris</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#demarrer">Réserver ma visio de démarrage <span>→</span></a>
+    <p class="sub">Engagement 3 mois · Mois 1 remboursé si les publications ne vous ressemblent pas</p>
+    <a class="lien2" href="#exemple">Ou d'abord : voir ce qu'une réponse de 40 secondes devient</a>
+  </div>
+</section>
+
+<!-- ================= LE PROBLÈME ================= -->
+<section class="probleme">
+  <div class="wrap narrow">
+    <h2 class="display h2">Le creux ne vient jamais au moment où vous l'avez créé.</h2>
+    <p class="lead">Vous signez une mission de six mois. Vous êtes content, vous êtes plein, et vous arrêtez naturellement de publier — vous n'avez ni le temps ni le besoin. Le problème, c'est que la conséquence n'arrive pas pendant la mission. Elle arrive après.</p>
+
+    <div class="frise">
+      <div class="frise-row">
+        <div class="frise-lab">Votre mission</div>
+        <div class="frise-cells">
+          <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div><div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+      </div>
+      <div class="frise-row">
+        <div class="frise-lab">Vos publications</div>
+        <div class="frise-cells">
+          <div class="cell on"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+        </div>
+      </div>
+      <div class="frise-row">
+        <div class="frise-lab">Vos entrées</div>
+        <div class="frise-cells">
+          <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          <div class="cell warn"></div><div class="cell warn"></div><div class="cell warn"></div><div class="cell warn"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+      </div>
+      <div class="frise-mois">
+        <div></div>
+        <div class="m"><span>J</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span><span>O</span><span>N</span><span>D</span></div>
+      </div>
+    </div>
+
+    <p>Les quatre cases jaunes, c'est votre été. La mission est terminée, l'agenda est vide, et vous découvrez que personne ne vous a lu depuis six mois. Vous vous remettez à publier en octobre — et les premiers appels arrivent en décembre.</p>
+
+    <p>Ce décalage de trois mois entre l'effort et le résultat est ce qui rend le cycle impossible à casser à la main. Publier quand on a besoin de clients, c'est déjà trop tard. Publier quand on est plein, personne n'y arrive.</p>
+
+    <p class="punch display">Ce n'est pas un problème de discipline. C'est un problème de calendrier.</p>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE : VERBATIM → POST ================= -->
+<section class="transfo" id="exemple">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">L'exemple</span>
+      <h2 class="display h2">Quarante secondes de parole. Une publication.</h2>
+      <p class="lead">C'est la seule question qui compte : est-ce que ça va me ressembler ? Alors voici, côte à côte, ce qui a été dit en visio et ce qui en est sorti.</p>
+    </div>
+
+    <div class="paire">
+      <div class="bloc brut">
+        <div class="tete">Ce qui a été dit — extrait de la visio</div>
+        <p>« Alors euh… ce qui revient tout le temps, c'est qu'on me demande un audit alors que le problème est déjà connu. Genre, la semaine dernière, un client m'appelle pour un audit de son service client. Trois jours de mission. Sauf qu'en fait ses équipes lui avaient déjà dit trois fois ce qui n'allait pas. Il avait pas besoin d'un diagnostic, il avait besoin de quelqu'un pour trancher. Bon. On a fait une journée au lieu de trois. »</p>
+      </div>
+
+      <div class="bloc fini">
+        <div class="tete">Ce qui a été publié</div>
+        <p><mark>La semaine dernière, un client m'a demandé un audit de trois jours.</mark></p>
+        <p><mark>Ses équipes lui avaient déjà dit trois fois ce qui n'allait pas.</mark></p>
+        <p>Il ne lui manquait pas un diagnostic. Il lui manquait quelqu'un pour trancher.</p>
+        <p><mark>On a fait une journée au lieu de trois.</mark></p>
+        <p>Je facture moins. Il avance plus vite.</p>
+        <p>Le problème le plus cher en conseil, ce n'est pas l'ignorance. C'est l'absence d'arbitrage.</p>
+      </div>
+    </div>
+
+    <ol class="annots">
+      <li><span class="k">01</span><span><b>Son exemple, sa semaine, ses chiffres</b><span class="d">Trois jours, une journée, trois remontées d'équipe : tout est à lui. On n'invente jamais un cas client, jamais un chiffre, jamais une anecdote.</span></span></li>
+      <li><span class="k">02</span><span><b>Ses phrases, débarrassées des hésitations</b><span class="d">« Il avait pas besoin d'un diagnostic, il avait besoin de quelqu'un pour trancher » est passé presque intact. C'est lui qui l'a formulé, en parlant, sans y penser.</span></span></li>
+      <li><span class="k">03</span><span><b>Ce qu'on ajoute : la structure et la chute</b><span class="d">L'ordre des phrases, le rythme, et la dernière ligne qui transforme une anecdote en point de vue. C'est le travail d'écriture, et c'est la seule chose qu'on apporte.</span></span></li>
+      <li><span class="k">04</span><span><b>Ce qui n'y est pas</b><span class="d">Aucune statistique sortie de nulle part, aucun « 87 % des dirigeants », aucun emoji, aucune leçon générique sur le conseil. Vos lecteurs sont des professionnels : ils repèrent le remplissage.</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= CE QUI EST LIVRÉ ================= -->
+<section>
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Chaque mois</span>
+      <h2 class="display h2" style="margin-top:1rem">Trente contenus, un seul enregistrement.</h2>
+      <p class="lead">Tout sort de la même heure de visio. On ne vous redemandera ni un texte, ni une idée, ni « juste une petite validation » un dimanche soir.</p>
+    </div>
+
+    <div class="livrables">
+      <div class="livrable">
+        <div class="n">20</div>
+        <h3>Publications</h3>
+        <p>Cinq par semaine sur votre réseau principal. Des prises de position, des retours de mission, des désaccords argumentés — pas des résumés d'articles que tout le monde a déjà lus.</p>
+      </div>
+      <div class="livrable">
+        <div class="n">8</div>
+        <h3>Vidéos courtes</h3>
+        <p>Découpées dans l'enregistrement de la visio, recadrées en vertical et sous-titrées. Vous ne tournez rien de plus : vous avez déjà parlé une heure, il suffit d'y prendre les bons moments.</p>
+      </div>
+      <div class="livrable">
+        <div class="n">2</div>
+        <h3>Newsletters</h3>
+        <p>Deux e-mails à votre liste, construits sur les sujets qui ont le mieux marché en publication. C'est le seul canal que vous possédez vraiment — le reste est loué à des plateformes.</p>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:2.2rem">Le format n'est pas figé. Si vos carrousels prennent trois fois plus que vos vidéos, on bascule le mix le mois suivant. Vous payez un volume de présence, pas un gabarit imposé.</p>
+  </div>
+</section>
+
+<!-- ================= NIVEAUX DE DÉLÉGATION ================= -->
+<section class="deleg">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Votre choix</span>
+      <h2 class="display h2" style="margin-top:1rem">Trois niveaux de délégation. Vous en changez quand vous voulez.</h2>
+      <p class="lead">Confier son compte à quelqu'un demande de la confiance, et cette confiance se construit. Commencez au niveau qui vous met à l'aise, montez si vous en avez envie.</p>
+    </div>
+
+    <div class="options">
+      <div class="option">
+        <span class="lettre">NIVEAU 1</span>
+        <h3>On livre, vous publiez</h3>
+        <p>Les trente contenus arrivent dans un document partagé, datés et prêts à copier. Vous gardez la main sur tout : ce que vous publiez, quand, et ce que vous écartez.</p>
+        <p class="cond">Aucun accès à vos comptes. Le plus rassurant au démarrage — et celui qui demande le plus de discipline de votre part.</p>
+      </div>
+
+      <div class="option reco">
+        <span class="lettre">NIVEAU 2</span>
+        <span class="badge">RECOMMANDÉ</span>
+        <h3>On programme, vous validez</h3>
+        <p>Tout est chargé et daté dans un outil de programmation connecté à votre compte. Vous recevez le calendrier du mois, vous validez d'un clic, ou vous décalez et supprimez ce que vous voulez.</p>
+        <p class="cond">Connexion par autorisation officielle, sans jamais nous communiquer votre mot de passe. Révocable en deux clics depuis vos paramètres.</p>
+      </div>
+
+      <div class="option">
+        <span class="lettre">NIVEAU 3</span>
+        <h3>On s'occupe de tout</h3>
+        <p>On publie, on programme, et on vous signale seulement les commentaires qui appellent votre réponse personnelle. Vous ne rouvrez le sujet qu'une heure par mois.</p>
+        <p class="cond">Même connexion officielle qu'au niveau 2, sans partage d'identifiants. Vous conservez un droit de veto permanent et l'historique de tout ce qui est parti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DÉROULÉ ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Le mois type</span>
+    <h2 class="display h2" style="margin-top:1rem">Une heure le 1er. Plus rien jusqu'au mois suivant.</h2>
+
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-quand">J-2</div>
+        <div>
+          <h3>Vous recevez les sujets</h3>
+          <p>Six à huit questions préparées à partir de vos missions du mois, de ce qui a marché le mois dernier et de ce que votre marché raconte en ce moment. Vous les lisez, vous en écartez, vous en ajoutez. Cinq minutes.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Jour 1</div>
+        <div>
+          <h3>La visio d'une heure</h3>
+          <p>On vous pose les questions, vous répondez comme vous le feriez à un client. C'est un entretien, pas un tournage : on relance, on creuse, on vous fait préciser un chiffre. Enregistrée, caméra allumée — c'est de là que sortent les huit vidéos.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Jour 5</div>
+        <div>
+          <h3>Vous recevez le mois complet</h3>
+          <p>Les trente contenus, datés, dans l'ordre. Vous relisez, vous corrigez, vous supprimez ce qui ne vous va pas. Comptez quinze minutes — et beaucoup moins à partir du deuxième mois.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Jour 6 au 30</div>
+        <div>
+          <h3>Ça part sans vous</h3>
+          <p>Selon le niveau que vous avez choisi. Vous êtes en mission, en formation, en vacances : la publication continue exactement au même rythme.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Fin de mois</div>
+        <div>
+          <h3>Le point en une page</h3>
+          <p>Ce qui a été vu, ce qui a fait réagir, ce qui a généré des messages privés. Et surtout : les deux ou trois sujets à creuser le mois prochain, parce qu'ils ont visiblement touché quelque chose.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="charge">Votre charge totale : 5 min de sujets + 1 h de visio + 15 min de relecture.</p>
+  </div>
+</section>
+
+<!-- ================= POURQUOI 3 MOIS ================= -->
+<section class="trimestre">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">L'engagement</span>
+      <h2 class="display h2">Pourquoi trois mois, et pas un.</h2>
+      <p class="lead">Parce qu'à un mois, vous ne mesurerez rien — et nous non plus. Autant vous dire précisément à quoi sert chacun des trois.</p>
+    </div>
+
+    <div class="mois3">
+      <div class="m3">
+        <span class="q">MOIS 1</span>
+        <h3>On apprend à écrire comme vous</h3>
+        <p>Vos tics de langage, vos formules, ce que vous ne diriez jamais. C'est le mois où vous corrigerez le plus, et c'est normal. On teste aussi cinq ou six formats pour voir lesquels votre audience ouvre.</p>
+      </div>
+      <div class="m3">
+        <span class="q">MOIS 2</span>
+        <h3>On double ce qui accroche</h3>
+        <p>Les formats qui n'ont rien donné disparaissent. Ceux qui ont marché deviennent la colonne vertébrale du mois. Vos corrections tombent généralement à deux ou trois par mois.</p>
+      </div>
+      <div class="m3">
+        <span class="q">MOIS 3</span>
+        <h3>Les premiers effets composés</h3>
+        <p>Soixante publications derrière vous, une audience qui commence à vous reconnaître, et les premiers messages privés de gens qui vous lisent depuis un moment sans avoir réagi. C'est le mois où le canal commence à exister.</p>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:2.2rem;opacity:.85">Passé le troisième mois, c'est mensuel et résiliable par simple e-mail. On ne vous retiendra pas par un contrat — si le canal ne produit rien pour vous, autant l'arrêter et le dire.</p>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que coûte le silence, en euros.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b>, bâties sur les ordres de grandeur habituels du conseil indépendant : taux journaliers, durée entre deux missions, rythme de publication observé. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer à votre activité — ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">Consultant en organisation · 1 100 €/jour</span>
+        <h3>Six mois pleins, puis le vide</h3>
+        <p>Mission longue, agenda saturé, zéro publication de février à juillet. En août, la mission se termine. Le pipeline aussi.</p>
+        <div class="calcul">Délai habituel pour re-signer<br>après un arrêt total de visibilité :<br>6 à 10 semaines<br>= 25 à 40 jours non facturés<br>× 1 100 € = <b>27 500 à 44 000 €</b><br><br>Contenu Autopilot sur 12 mois : <b>8 280 €</b></div>
+        <p class="verdict">Le calcul n'a pas besoin d'être précis pour être écrasant. Il suffit qu'un seul creux soit raccourci d'une seule semaine.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Formatrice indépendante</span>
+        <h3>Quatre publications en janvier, plus rien ensuite</h3>
+        <p>Elle s'y met chaque année en janvier, avec de bonnes résolutions et quatre posts en deux semaines. Puis les sessions reprennent et le sujet disparaît jusqu'à l'année suivante.</p>
+        <div class="calcul">Sa réalité : 12 publications / an<br>toutes concentrées en janvier<br><br>Avec le dispositif : 240 / an<br>étalées sur 12 mois<br><br>= <b>20× plus de présence</b><br>pour 1 h de son temps par mois</div>
+        <p class="verdict">La régularité compte davantage que le volume : une audience se construit par répétition espacée, pas par rafales annuelles.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">« J'ai déjà essayé un ghostwriter »</span>
+        <h3>Bien écrit, et personne ne l'a reconnu</h3>
+        <p>C'est l'objection la plus fréquente, et elle est fondée. Le problème n'est presque jamais la qualité d'écriture : c'est que le texte ne contient aucun de vos exemples, parce que personne n'est allé les chercher.</p>
+        <div class="calcul">Ghostwriter classique :<br>1 800 à 2 500 €/mois<br>+ 3 à 5 allers-retours par texte<br>+ un ton emprunté<br><br>Ici : <b>690 €/mois</b><br>1 h de votre voix en entrée<br>vos cas, vos chiffres, vos formules</div>
+        <p class="verdict">La différence tient à la matière première. Un texte écrit à partir de votre parole ne peut pas sonner comme celui d'un autre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Ce n'est pas pour tout le monde, et ça se voit vite.</h2>
+    <p class="lead">L'entrée du dispositif, c'est votre parole. S'il n'y a pas de matière, aucun outil ne la fabriquera — et vous nous en voudrez, à juste titre.</p>
+
+    <div class="pourqui">
+      <div>
+        <h3>Démarrez si</h3>
+        <ul class="oui-list">
+          <li>Vous facturez à la journée, au-delà de 700 €, et vous vendez des missions</li>
+          <li>Vous avez au moins deux ans de terrain et des histoires de clients à raconter</li>
+          <li>Votre profil existe déjà, avec un réseau que vous n'exploitez pas</li>
+          <li>Vous avez un avis tranché sur votre métier, y compris quand il dérange</li>
+          <li>Vous pouvez bloquer une heure par mois sans la déplacer trois fois</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Attendez si</h3>
+        <ul class="non-list">
+          <li>Vous démarrez et n'avez pas encore de missions à raconter : commencez par en faire trois</li>
+          <li>Vous cherchez des clients sous trente jours — ce canal met trois mois à produire</li>
+          <li>Vous voulez valider chaque mot : l'aller-retour permanent tue la régularité, qui est tout le produit</li>
+          <li>Vous refusez absolument la caméra, même quinze minutes en visio</li>
+          <li>Votre offre n'est pas claire pour vous-même : la visibilité amplifiera le flou</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="demarrer">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Le tarif</span>
+      <h2 class="display h2">690 € par mois. Moins d'une journée facturée.</h2>
+    </div>
+
+    <div class="carte">
+      <div class="carte-g">
+        <div class="montant">
+          <em>690 €</em>
+          <span class="puis">par mois · engagement 3 mois</span>
+        </div>
+        <p class="montant-note">Hors taxes · Puis mensuel, résiliable par simple e-mail</p>
+        <ul class="inclus">
+          <li>Les sujets préparés, envoyés avant chaque visio</li>
+          <li>La visio d'une heure, animée et enregistrée</li>
+          <li>20 publications rédigées et datées</li>
+          <li>8 vidéos courtes recadrées et sous-titrées</li>
+          <li>2 newsletters prêtes à envoyer</li>
+          <li>Le niveau de délégation de votre choix (1, 2 ou 3)</li>
+          <li>Le point mensuel en une page</li>
+          <li>Corrections illimitées le premier mois</li>
+        </ul>
+      </div>
+      <div class="carte-d">
+        <div class="encadre">
+          <b>Ce que ça représente</b>
+          <p>8 280 € sur douze mois. À 1 100 € la journée, c'est sept jours et demi facturés dans l'année — soit une seule mission courte. Si le dispositif ne raccourcit qu'un seul creux d'une semaine, il est remboursé.</p>
+        </div>
+        <a class="btn" href="#demarrer">Réserver ma visio de démarrage <span>→</span></a>
+        <p class="sub">Premier créneau sous 7 jours ouvrés</p>
+      </div>
+    </div>
+
+    <div class="garantie">
+      <h3 class="display">Si le premier mois ne vous ressemble pas, il est remboursé.</h3>
+      <p>Vous recevez les trente contenus du mois 1 au cinquième jour. Si vous les lisez et que ce n'est pas votre voix, vous nous le dites dans les sept jours : le mois est remboursé, l'engagement tombe, et vous gardez les contenus. Nous n'aurons pas su faire, ce n'est pas à vous de le payer.</p>
+      <p style="margin-top:.8rem;opacity:.75;font-size:.9rem">En revanche, on ne vous promettra ni un nombre de vues, ni un nombre de leads, ni une croissance d'audience. Cela dépend de votre marché, de votre réseau de départ, de la pertinence de vos prises de position et d'algorithmes que personne ne maîtrise. Ce qu'on garantit, c'est le volume livré, le respect du calendrier et le fait que ce soit écrit à partir de vos mots.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>On va voir que c'est écrit par une IA ?</summary>
+        <p>On voit une IA quand personne ne lui a donné de matière : d'où les listes de conseils génériques, les statistiques inventées et les tournures que tout le monde reconnaît. Ici, la matière première est une heure de votre parole, avec vos cas et vos chiffres. Une anecdote vécue la semaine dernière chez un client ne peut être produite par aucun modèle.</p>
+        <p>Cela dit, l'outil ne fait pas tout : c'est aussi pour ça qu'il y a une relecture de votre part au mois 1, et des corrections illimitées ce mois-là.</p>
+      </details>
+      <details>
+        <summary>Je déteste me filmer.</summary>
+        <p>La visio est enregistrée, mais rien ne vous oblige à en tirer des vidéos. Beaucoup démarrent en texte seul, puis acceptent une ou deux vidéos au bout de deux mois, en voyant qu'elles font trois fois plus de réactions. Si vous n'en voulez jamais, on remplace les huit vidéos par des carrousels et des extraits illustrés, sans changer le prix.</p>
+      </details>
+      <details>
+        <summary>Combien de clients ça va me rapporter ?</summary>
+        <p>Personne ne peut vous le dire, et méfiez-vous de qui l'annonce. Ce que l'on observe généralement : les premiers messages privés arrivent entre la sixième et la dixième semaine, et ils viennent presque toujours de gens qui vous lisaient en silence depuis un moment.</p>
+        <p>Ce canal ne remplace pas la prospection. Il fait qu'elle devienne plus facile, parce que la personne que vous contactez vous a déjà lu.</p>
+      </details>
+      <details>
+        <summary>Et si je n'ai rien d'intéressant à raconter ce mois-ci ?</summary>
+        <p>C'est ce que disent presque tous nos clients avant la première visio, et aucun après. Ce que vous trouvez banal — la façon dont vous cadrez une mission, pourquoi vous refusez certains dossiers, l'erreur que font tous vos clients au démarrage — est exactement ce que votre marché ne sait pas. Les questions préparées servent précisément à aller le chercher.</p>
+      </details>
+      <details>
+        <summary>À qui appartiennent les contenus ?</summary>
+        <p>À vous, intégralement et définitivement, y compris si vous arrêtez au bout de trois mois. Vous conservez les textes, les vidéos, les newsletters et l'enregistrement des visios. Rien n'est réutilisé pour quelqu'un d'autre, et rien de ce que vous dites en visio n'est cité ailleurs.</p>
+      </details>
+      <details>
+        <summary>Vous travaillez avec mes concurrents ?</summary>
+        <p>Non. On n'accompagne pas deux indépendants qui exercent la même spécialité sur le même marché en même temps. Si vous signez, votre créneau est bloqué tant que vous êtes client. C'est aussi pour cela que le nombre de places ouvertes chaque mois est limité.</p>
+      </details>
+      <details>
+        <summary>Que se passe-t-il si je rate une visio ?</summary>
+        <p>On la reporte dans le mois, sans frais. Si le mois se termine sans qu'elle ait pu avoir lieu, on produit à partir de la matière restante des visios précédentes — mais le volume sera plus faible et vous le verrez. La visio est le seul rendez-vous du dispositif : c'est peu, et c'est indispensable.</p>
+      </details>
+      <details>
+        <summary>Je peux arrêter après les trois mois ?</summary>
+        <p>Oui, par un simple e-mail, sans préavis ni justification. Vous gardez tout ce qui a été produit et les accès sont révoqués le jour même. On préfère un client qui part clairement à un client retenu par une clause.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">La prochaine mission longue arrive. Cette fois, ne disparaissez pas.</h2>
+    <p>Une heure par mois, trente contenus dans vos mots, et une présence qui continue pendant que vous êtes chez vos clients. Le premier mois est remboursé s'il ne vous ressemble pas.</p>
+    <a class="btn" href="#demarrer">Réserver ma visio de démarrage — 690 €/mois <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Engagement 3 mois puis mensuel · Un seul client par spécialité et par marché</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Les contenus produits sont la propriété exclusive du client, y compris après la fin de l'accompagnement. Les connexions aux réseaux sociaux s'effectuent par autorisation officielle, sans communication d'identifiants, et sont révocables à tout moment par le client.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#demarrer">
+  <span><b>690 €/mois</b><small>1 h par mois · 30 contenus</small></span>
+  <em>Démarrer →</em>
+</a>
+
+</body>
+</html>

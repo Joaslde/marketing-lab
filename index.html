@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les 10 — aucune ne commence à plus de 890 €</title>
+<meta name="description" content="Six interventions rapides à prix affiché, et quatre chantiers structurés qui commencent toujours par une mesure payante et déduite. De 390 € à 890 € pour entrer.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. Les 10 liens href="/..." → vos vraies URL
+     2. href="/contact" en pied de page → votre lien de prise de RDV
+     3. "ATELIER" → votre nom d'agence
+     4. Les mentions légales en pied de page
+
+     ÉTAT DES TARIFS — à jour au dernier arbitrage :
+     · Diagnostic Éclair ........ 390 € / 72 h
+     · Re-Hook 48 h ............. 490 € / 48 h
+     · Réputation Autopilot ..... 590 € + 59 €/mois / 72 h
+     · Contenu Autopilot ....... 690 €/mois, engagement 3 mois
+     · Convertisseur 24/7 ...... 750 € + 49 €/mois / 5 j
+     · Speed-to-Lead ........... 890 € + 79 €/mois / 72 h
+     · Visibilité IA ........... 490 → 1 900 € → 290 €/mois
+     · Cash Dormant ............ 390 → 1 490 € → 390 €/mois
+                                 (variante 690 € + 12 %)
+     · SaaS Killer ............. 690 → 3 900 € → 290 €/mois
+     · Cerveau d'entreprise .... 890 → 4 900 € → 390 €/mois
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --craie-2:#E2DED5;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 1.5rem}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.98}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+/* bandeau */
+.masthead{background:var(--outremer);color:var(--craie);padding:1.1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:1.05rem;text-decoration:none}
+.mark span{color:var(--jaune)}
+.masthead-note{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;opacity:.85}
+
+/* héro */
+.hero{background:var(--outremer);color:var(--craie);padding:3rem 0 0}
+.hero-lede{max-width:46ch}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.1rem}
+.hero h1{font-size:clamp(2.4rem,6.6vw,4.8rem);margin-bottom:1.2rem}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero p{font-size:clamp(1rem,1.6vw,1.16rem);opacity:.92;max-width:50ch}
+.hero p+p{margin-top:.9rem}
+.rules{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.8rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.02em}
+.rules li{list-style:none;border:1px solid var(--hair-clair);padding:.42rem .7rem}
+
+/* tableau */
+.board{margin-top:3rem;border-top:1px solid var(--hair-clair)}
+.board-head{display:flex;justify-content:space-between;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--hair-clair);font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+.row{display:grid;grid-template-columns:1.6rem 1fr auto 1.4rem;align-items:center;gap:1rem;padding:.85rem .6rem;border-bottom:1px solid var(--hair-clair);text-decoration:none;transition:background .14s ease,color .14s ease,padding .14s ease}
+.row-idx{font-family:var(--mono);font-size:.72rem;opacity:.55}
+.row-name{font-family:var(--display);font-weight:600;font-size:clamp(1rem,2.2vw,1.24rem);letter-spacing:-.02em}
+.row-name small{display:block;font-family:var(--corps);font-weight:400;font-size:.8rem;opacity:.7;letter-spacing:0;margin-top:.1rem}
+.row-name i{font-style:normal;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;border:1px solid currentColor;padding:.1rem .3rem;margin-left:.5rem;vertical-align:middle;opacity:.6}
+.row-price{font-family:var(--mono);font-size:.92rem;font-weight:500;white-space:nowrap}
+.row-price em{font-style:normal;font-size:.68rem;opacity:.7;display:block;text-align:right;margin-top:.15rem}
+.row-arrow{font-family:var(--mono);opacity:.5;text-align:right;transition:transform .14s ease}
+.row:hover,.row:focus-visible{background:var(--craie);color:var(--outremer);padding-left:1rem;outline:none}
+.row:hover .row-arrow,.row:focus-visible .row-arrow{opacity:1;transform:translateX(3px)}
+.row:hover .row-idx,.row:hover .row-name small{opacity:.75}
+.board-foot{padding:1.1rem 0 2.4rem;font-family:var(--mono);font-size:.72rem;opacity:.7;line-height:1.8}
+
+/* filtres */
+.filterbar{position:sticky;top:0;z-index:20;background:var(--craie);border-bottom:1px solid var(--hair)}
+.filterbar .wrap{display:flex;align-items:center;gap:.9rem;padding-top:.8rem;padding-bottom:.8rem;overflow-x:auto;scrollbar-width:none}
+.filterbar .wrap::-webkit-scrollbar{display:none}
+.filterbar-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);white-space:nowrap}
+.chip{font-family:var(--corps);font-size:.86rem;font-weight:500;background:none;border:1px solid var(--hair);color:var(--encre);padding:.42rem .85rem;cursor:pointer;white-space:nowrap;transition:background .14s ease,color .14s ease,border-color .14s ease}
+.chip:hover{border-color:var(--encre)}
+.chip[aria-pressed="true"]{background:var(--encre);color:var(--craie);border-color:var(--encre)}
+.chip:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+
+/* sections */
+.tier{padding:3.4rem 0 .6rem}
+.tier-head{padding-bottom:1.4rem;border-bottom:2px solid var(--encre);margin-bottom:2rem}
+.tier-head .top{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.7rem}
+.tier-head h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,3.4vw,2.1rem)}
+.tier-head .cnt{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--gris)}
+.tier-head p{color:#3A3A46;font-size:.98rem;max-width:64ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.4rem}
+
+.offer{display:flex;flex-direction:column;background:var(--papier);border:1px solid var(--hair);padding:1.7rem 1.6rem 1.6rem;transition:border-color .16s ease,transform .16s ease}
+.offer:hover{border-color:var(--encre);transform:translateY(-2px)}
+.offer-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--outremer);margin-bottom:.55rem}
+.offer h3{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:1.5rem;line-height:1.05;margin-bottom:1rem}
+.pain{border-left:3px solid var(--jaune);padding:.15rem 0 .15rem .9rem;font-size:.94rem;line-height:1.5;margin-bottom:1.05rem}
+.solution{font-size:.94rem;margin-bottom:1rem}
+.deliver{list-style:none;margin-bottom:1.2rem}
+.deliver li{position:relative;padding-left:1.15rem;margin-bottom:.4rem;font-size:.89rem;color:#3A3A46}
+.deliver li::before{content:"";position:absolute;left:0;top:.55em;width:.42rem;height:.42rem;background:var(--outremer)}
+.forwho{font-family:var(--mono);font-size:.71rem;color:var(--gris);border-top:1px solid var(--hair);padding-top:.8rem;margin-bottom:1.1rem;line-height:1.6}
+.forwho b{color:var(--encre);font-weight:500}
+
+/* prix simple */
+.pricerow{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-top:auto;margin-bottom:1.05rem}
+.price{font-family:var(--mono);font-weight:700;font-size:1.55rem;letter-spacing:-.02em;line-height:1}
+.price .mark-y{background:linear-gradient(transparent 62%,var(--jaune) 62%)}
+.price small{display:block;font-weight:400;font-size:.69rem;color:var(--gris);margin-top:.4rem;letter-spacing:0;line-height:1.5}
+.delay{font-family:var(--mono);font-size:.71rem;text-align:right;color:var(--gris);line-height:1.4}
+.delay b{display:block;color:var(--encre);font-weight:500}
+
+/* prix 3 paliers */
+.tiers{margin-top:auto;margin-bottom:1.05rem;border-top:1px solid var(--hair)}
+.tiers .t{display:grid;grid-template-columns:1fr auto auto;gap:.7rem;align-items:baseline;padding:.55rem 0;border-bottom:1px solid rgba(20,20,28,.09);font-family:var(--mono);font-size:.78rem}
+.tiers .t:last-child{border-bottom:none}
+.tiers .t .lb{font-family:var(--corps);font-size:.9rem;font-weight:600}
+.tiers .t .du{font-size:.68rem;color:var(--gris);white-space:nowrap}
+.tiers .t .pr{font-weight:700;white-space:nowrap}
+.tiers .t.entree{background:rgba(245,197,24,.28);margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem}
+.tiers .note{font-family:var(--mono);font-size:.67rem;color:var(--gris);padding-top:.6rem;line-height:1.6}
+
+.btn{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:.93rem;padding:.85rem 1.1rem;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.offer[hidden]{display:none}
+
+/* principe de l'audit */
+.principe{background:var(--encre);color:var(--craie);margin-top:3.4rem;padding:3.4rem 0}
+.principe .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.principe h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.6rem,3.8vw,2.4rem);margin-bottom:1.2rem;max-width:24ch}
+.principe .lead{font-size:1.05rem;opacity:.88;max-width:64ch;margin-bottom:2.4rem}
+.trois{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem}
+.tr{border-top:1px solid var(--hair-clair);padding-top:1.1rem}
+.tr .num{font-family:var(--mono);font-size:.7rem;color:var(--jaune);display:block;margin-bottom:.7rem;letter-spacing:.14em}
+.tr h3{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:.5rem}
+.tr p{font-size:.92rem;opacity:.82}
+
+/* comment choisir */
+.choose{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:3.6rem 0}
+.choose .eyebrow{color:var(--gris);display:block;margin-bottom:1rem}
+.choose h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.7rem,4vw,2.5rem);margin-bottom:2.4rem;max-width:20ch}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.6rem}
+.step{border-top:2px solid var(--encre);padding-top:1.1rem}
+.step h3{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:.5rem}
+.step p{font-size:.92rem;color:#3A3A46}
+.step .num{font-family:var(--mono);font-size:.7rem;color:var(--outremer);display:block;margin-bottom:.7rem;letter-spacing:.14em}
+
+/* questions */
+.faq{padding:3.6rem 0}
+.faq h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,3.4vw,2.1rem);margin-bottom:1.8rem}
+.qa{border-top:1px solid var(--hair)}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.05rem 0;font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.15rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+/* final */
+.final{background:var(--jaune);padding:3.4rem 0}
+.final .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem}
+.final h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.6rem,3.6vw,2.4rem);max-width:19ch;line-height:1.02}
+.final p{max-width:44ch;margin-top:.9rem;font-size:.98rem}
+.final .btn{background:var(--encre);min-width:300px}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:56ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.reveal{opacity:0;transform:translateY(14px)}
+.reveal.seen{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease}
+
+@media (max-width:640px){
+  .row{grid-template-columns:1fr auto;gap:.6rem}
+  .row-idx,.row-arrow{display:none}
+  .masthead-note{display:none}
+  .final .btn{width:100%;min-width:0}
+  .tiers .t{grid-template-columns:1fr auto}
+  .tiers .t .du{grid-column:1;font-size:.64rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/">ATELIER<span>.</span></a>
+    <div class="masthead-note">Prix affichés · Périmètre écrit · Audit toujours déduit</div>
+  </div>
+</header>
+
+<!-- ============ HÉRO + TABLEAU ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-lede">
+      <span class="eyebrow">Catalogue 2026</span>
+      <h1 class="display">Dix interventions.<br>Aucune ne commence<br>à plus de <em>890 €</em>.</h1>
+      <p>Six d'entre elles sont des interventions courtes : le prix affiché est le prix final, et c'est livré dans la semaine.</p>
+      <p>Les quatre autres sont des chantiers. Elles commencent toujours par une mesure payante — entre 390 € et 890 € — que vous gardez même si vous vous arrêtez là, et qui est déduite si vous continuez.</p>
+      <ul class="rules">
+        <li>Périmètre écrit à l'avance</li>
+        <li>Paiement en ligne</li>
+        <li>Aucun engagement de durée sur les abonnements</li>
+      </ul>
+    </div>
+
+    <div class="board">
+      <div class="board-head">
+        <span>Les dix, par prix d'entrée</span>
+        <span>Pour démarrer</span>
+      </div>
+
+      <a class="row" href="#cash-dormant">
+        <span class="row-idx">01</span>
+        <span class="row-name"><b>Cash Dormant</b><i>CHANTIER</i><small>Réveiller les contacts que vous avez déjà payés</small></span>
+        <span class="row-price">390 €<em>puis 1 490 €</em></span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#diagnostic-eclair">
+        <span class="row-idx">02</span>
+        <span class="row-name"><b>Diagnostic Éclair</b><small>Savoir où l'automatisation vous fait gagner de l'argent</small></span>
+        <span class="row-price">390 €</span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#re-hook-48h">
+        <span class="row-idx">03</span>
+        <span class="row-name"><b>Re-Hook 48 h</b><small>5 nouvelles publicités à partir de votre meilleure vidéo</small></span>
+        <span class="row-price">490 €</span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#visibilite-ia">
+        <span class="row-idx">04</span>
+        <span class="row-name"><b>Visibilité IA</b><i>CHANTIER</i><small>Exister quand vos clients posent la question à ChatGPT</small></span>
+        <span class="row-price">490 €<em>puis 1 900 €</em></span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#reputation-autopilot">
+        <span class="row-idx">05</span>
+        <span class="row-name"><b>Réputation Autopilot</b><small>La collecte d'avis Google qui tourne sans vous</small></span>
+        <span class="row-price">590 € + 59 €/mois</span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#saas-killer">
+        <span class="row-idx">06</span>
+        <span class="row-name"><b>SaaS Killer</b><i>CHANTIER</i><small>Un socle à vous, à la place de la plomberie que vous louez</small></span>
+        <span class="row-price">690 €<em>puis 3 900 €</em></span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#contenu-autopilot">
+        <span class="row-idx">07</span>
+        <span class="row-name"><b>Contenu Autopilot</b><small>Une heure de votre temps par mois, trente jours de présence</small></span>
+        <span class="row-price">690 €/mois</span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#convertisseur">
+        <span class="row-idx">08</span>
+        <span class="row-name"><b>Le Convertisseur 24/7</b><small>L'estimateur de devis qui travaille le samedi soir</small></span>
+        <span class="row-price">750 € + 49 €/mois</span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#speed-to-lead">
+        <span class="row-idx">09</span>
+        <span class="row-name"><b>Speed-to-Lead</b><small>Chaque appel manqué reçoit une réponse en 60 secondes</small></span>
+        <span class="row-price">890 € + 79 €/mois</span>
+        <span class="row-arrow">→</span>
+      </a>
+      <a class="row" href="#cerveau-entreprise">
+        <span class="row-idx">10</span>
+        <span class="row-name"><b>Le Cerveau de l'entreprise</b><i>CHANTIER</i><small>Vos procédures et vos tarifs, trouvés en cinq secondes</small></span>
+        <span class="row-price">890 €<em>puis 4 900 €</em></span>
+        <span class="row-arrow">→</span>
+      </a>
+
+      <p class="board-foot">Prix en euros hors taxes. Les montants mensuels couvrent l'hébergement, la maintenance et les évolutions.<br>Sur les quatre chantiers, le montant d'entrée correspond à la mesure préalable — toujours déduite du chantier si vous le lancez.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FILTRES ============ -->
+<nav class="filterbar" aria-label="Filtrer les">
+  <div class="wrap">
+    <span class="filterbar-label">Je veux</span>
+    <button class="chip" data-filter="all" aria-pressed="true">Tout voir</button>
+    <button class="chip" data-filter="clients" aria-pressed="false">Trouver des clients</button>
+    <button class="chip" data-filter="convertir" aria-pressed="false">Convertir ceux qui me contactent</button>
+    <button class="chip" data-filter="cash" aria-pressed="false">Encaisser vite</button>
+    <button class="chip" data-filter="temps" aria-pressed="false">Gagner du temps</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ FAMILLE 1 : INTERVENTIONS RAPIDES ============ -->
+<section class="tier wrap" id="rapides">
+  <div class="tier-head">
+    <div class="top">
+      <h2>Les interventions rapides</h2>
+      <span class="cnt">6 · 390 € À 890 €</span>
+    </div>
+    <p>Le prix affiché est le prix final, le périmètre est écrit, et c'est livré entre 48 heures et une semaine. Rien à réorganiser chez vous.</p>
+  </div>
+  <div class="grid">
+
+    <!-- Diagnostic Éclair -->
+    <article class="offer reveal" id="diagnostic-eclair" data-tags="temps cash">
+      <p class="offer-kicker">Point de départ · tous secteurs</p>
+      <h3>Diagnostic Éclair 72 h</h3>
+      <p class="pain">Vous entendez partout que l'IA fait gagner du temps. Personne ne vous dit où, chez vous, précisément, ni combien ça rapporte.</p>
+      <p class="solution">Quatre-vingt-dix minutes d'entretien pour passer votre semaine type au crible. Vous repartez avec les dix tâches qui vous coûtent le plus cher, chiffrées en heures et en euros par an.</p>
+      <ul class="deliver">
+        <li>Un rapport de 8 pages, calcul visible ligne par ligne</li>
+        <li>Une vidéo de restitution de 10 minutes</li>
+        <li>Un plan d'action classé par rapport gain/effort</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> tous secteurs, à partir de 3 salariés. <b>Le bon réflexe si :</b> vous hésitez entre plusieurs chantiers.</p>
+      <div class="pricerow">
+        <div class="price"><span class="mark-y">390 €</span><small>Déduits de votre première mission</small></div>
+        <div class="delay"><b>72 h</b>après l'entretien</div>
+      </div>
+      <a class="btn" href="/diagnostic-eclair.html">Réserver mon diagnostic <span>→</span></a>
+    </article>
+
+    <!-- Re-Hook -->
+    <article class="offer reveal" id="re-hook-48h" data-tags="clients cash">
+      <p class="offer-kicker">Publicité · infopreneurs & coachs</p>
+      <h3>Le Pack Re-Hook 48 h</h3>
+      <p class="pain">Votre meilleure publicité s'essouffle, le coût par lead grimpe, et retourner une vidéo demande une demi-journée que vous repoussez depuis sept semaines.</p>
+      <p class="solution">On garde votre démonstration et votre visage, on refabrique les trois premières secondes de cinq façons différentes. Aucun tournage.</p>
+      <ul class="deliver">
+        <li>5 déclinaisons × 3 formats, soit 15 fichiers</li>
+        <li>5 accroches sur 5 mécaniques distinctes, livrées aussi à l'écrit</li>
+        <li>Traitement de la voix au choix, et le protocole de test</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> coachs, formateurs, infopreneurs. <b>Prérequis :</b> une vidéo qui a déjà fonctionné et 800 €/mois de budget.</p>
+      <div class="pricerow">
+        <div class="price"><span class="mark-y">490 €</span><small>Une fois, sans suite obligatoire</small></div>
+        <div class="delay"><b>48 h</b>dès réception</div>
+      </div>
+      <a class="btn" href="/re-hook-48h.html">Envoyer ma vidéo à décliner <span>→</span></a>
+    </article>
+
+    <!-- Réputation -->
+    <article class="offer reveal" id="reputation-autopilot" data-tags="clients">
+      <p class="offer-kicker">Avis Google · garages & carrosseries</p>
+      <h3>Réputation Autopilot</h3>
+      <p class="pain">Le centre auto de la zone affiche 482 avis, vous en avez 31 — avec une meilleure note que lui. Sur Google Maps, il est choisi avant qu'on vous ait vu.</p>
+      <p class="solution">Chaque client reçoit le lendemain de la restitution le même message neutre, envoyé au nom du garage. Vous validez les réponses aux avis en deux minutes le vendredi.</p>
+      <ul class="deliver">
+        <li>Demande identique pour tous — aucun filtrage avant Google</li>
+        <li>Page de retour à deux portes, ouvertes à tout le monde</li>
+        <li>Réponses à tous les avis, soumises avant publication</li>
+        <li>SMS compris jusqu'à 200 demandes par mois</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> garages, carrosseries, centres auto indépendants. <b>Seuil :</b> 60 véhicules restitués par mois.</p>
+      <div class="pricerow">
+        <div class="price"><span class="mark-y">590 €</span><small>Puis 59 €/mois · résiliable à tout moment</small></div>
+        <div class="delay"><b>72 h</b>mise en service</div>
+      </div>
+      <a class="btn" href="/reputation-autopilot.html">Comparer mes avis aux leurs <span>→</span></a>
+    </article>
+
+    <!-- Contenu Autopilot -->
+    <article class="offer reveal" id="contenu-autopilot" data-tags="clients temps">
+      <p class="offer-kicker">Visibilité · consultants indépendants</p>
+      <h3>Contenu Autopilot</h3>
+      <p class="pain">Quand vous êtes en mission, vous arrêtez de publier. Le creux n'arrive pas pendant la mission : il arrive trois mois après, quand l'agenda se vide.</p>
+      <p class="solution">Une visio d'une heure par mois où vous parlez de votre métier. On en tire trente contenus écrits dans vos mots, avec vos exemples et vos chiffres.</p>
+      <ul class="deliver">
+        <li>20 publications, 8 vidéos courtes, 2 newsletters</li>
+        <li>Trois niveaux de délégation, du « on livre » au « on publie »</li>
+        <li>Mois 1 remboursé si ça ne vous ressemble pas</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> consultants et formateurs indépendants facturant plus de 700 €/jour. <b>Votre charge :</b> 1 h par mois.</p>
+      <div class="pricerow">
+        <div class="price"><span class="mark-y">690 €</span><small>Par mois · engagement 3 mois puis mensuel</small></div>
+        <div class="delay"><b>7 jours</b>premières publications</div>
+      </div>
+      <a class="btn" href="/contenu-autopilot.html">Voir un mois de contenu réel <span>→</span></a>
+    </article>
+
+    <!-- Convertisseur -->
+    <article class="offer reveal" id="convertisseur" data-tags="convertir clients">
+      <p class="offer-kicker">Site web · déménagement</p>
+      <h3>Le Convertisseur 24/7</h3>
+      <p class="pain">Personne n'organise son déménagement un mardi à 10 h. Ça se décide le samedi soir — et le premier qui donne une fourchette crédible emporte le dossier.</p>
+      <p class="solution">Un estimateur monté sur votre grille tarifaire. Le prospect obtient sa fourchette en 90 secondes ; vous recevez sa fiche avec le volume déjà calculé.</p>
+      <ul class="deliver">
+        <li>Une fourchette qui se resserre à chaque réponse, jamais un prix ferme</li>
+        <li>Estimation envoyée par WhatsApp et e-mail, à votre charte</li>
+        <li>Calage vérifié sur 5 de vos dossiers réels avant mise en ligne</li>
+        <li>Deux révisions tarifaires par an comprises</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> déménageurs de particuliers. <b>Seuil :</b> 300 visites par mois sur votre site, ou de la publicité locale.</p>
+      <div class="pricerow">
+        <div class="price"><span class="mark-y">750 €</span><small>Puis 49 €/mois · 60 jours pour l'essayer</small></div>
+        <div class="delay"><b>5 jours</b>en ligne</div>
+      </div>
+      <a class="btn" href="/convertisseur-24-7.html">Essayer un estimateur en démo <span>→</span></a>
+    </article>
+
+    <!-- Speed-to-Lead -->
+    <article class="offer reveal" id="speed-to-lead" data-tags="convertir clients cash">
+      <p class="offer-kicker">Prise de contact · artisans du bâtiment</p>
+      <h3>Speed-to-Lead</h3>
+      <p class="pain">Vous êtes sous un évier, le téléphone sonne dans le vide, et la personne appelle le suivant sur Google. Vous ne saurez jamais que c'était un chantier à 1 400 €.</p>
+      <p class="solution">Chaque appel manqué reçoit un SMS en moins d'une minute, au nom de votre entreprise. Quatre questions plus tard, trois créneaux vous sont proposés à valider d'un tap.</p>
+      <ul class="deliver">
+        <li>Votre numéro ne change pas — un simple renvoi conditionnel</li>
+        <li>Détection d'urgence : votre téléphone sonne, pas de créneau proposé</li>
+        <li>Aucun prix annoncé, jamais</li>
+        <li>SMS compris jusqu'à 100 conversations par mois</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> plomberie, chauffage, électricité, couverture, rénovation. <b>Seuil :</b> 40 appels entrants par mois.</p>
+      <div class="pricerow">
+        <div class="price"><span class="mark-y">890 €</span><small>Puis 79 €/mois · remboursé si moins de 5 appels rattrapés le 1er mois</small></div>
+        <div class="delay"><b>72 h</b>en service</div>
+      </div>
+      <a class="btn" href="/speed-to-lead.html">Tester l'assistant en direct <span>→</span></a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FAMILLE 2 : CHANTIERS ============ -->
+<section class="tier wrap" id="chantiers">
+  <div class="tier-head">
+    <div class="top">
+      <h2>Les chantiers structurés</h2>
+      <span class="cnt">4 · MESURE D'ABORD</span>
+    </div>
+    <p>Ces quatre-là engagent votre organisation et se comptent en semaines, pas en jours. Elles commencent donc toutes par une mesure payante entre 390 € et 890 € : vous savez où vous en êtes avant de décider, et le montant est déduit si vous lancez le chantier. Le verdict peut être « n'y allez pas » — et il l'a déjà été.</p>
+  </div>
+  <div class="grid">
+
+    <!-- Cash Dormant -->
+    <article class="offer reveal" id="cash-dormant" data-tags="cash convertir">
+      <p class="offer-kicker">Base clients · organismes de formation</p>
+      <h3>Cash Dormant</h3>
+      <p class="pain">Sept ans de demandes de devis et d'anciens stagiaires dans un tableur. Cette acquisition, vous l'avez déjà payée — et un envoi massif la ferait partir en spam.</p>
+      <p class="solution">On trie la base, on la remet aux normes, et on la réveille par paliers en surveillant la délivrabilité à chaque étape. Si un seuil est franchi, on s'arrête.</p>
+      <ul class="deliver">
+        <li>Tri en trois piles juridiques, notation récence/fréquence/montant</li>
+        <li>Sous-domaine dédié : votre messagerie de production reste indemne</li>
+        <li>6 messages, aucune remise — une raison de revenir</li>
+        <li>Liste des cliqueurs, script d'appel et brief de relance</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> organismes de formation en B2B. <b>Seuil :</b> 1 500 contacts, panier moyen supérieur à 800 €.</p>
+      <div class="tiers">
+        <div class="t entree"><span class="lb">Le Bilan</span><span class="du">5 jours</span><span class="pr">390 €</span></div>
+        <div class="t"><span class="lb">La Campagne</span><span class="du">6 semaines</span><span class="pr">1 490 €</span></div>
+        <div class="t"><span class="lb">Le Maintien</span><span class="du">mensuel</span><span class="pr">390 €</span></div>
+        <p class="note">Bilan déduit · variante au résultat : 690 € + 12 % du CA attribué<br>Bilan remboursé si moins de 500 contacts exploitables</p>
+      </div>
+      <a class="btn" href="/cash-dormant.html">Estimer ce que vaut ma base <span>→</span></a>
+    </article>
+
+    <!-- Visibilité IA -->
+    <article class="offer reveal" id="visibilite-ia" data-tags="clients">
+      <p class="offer-kicker">Référencement IA · cabinets de recrutement</p>
+      <h3>Visibilité IA</h3>
+      <p class="pain">Le DRH qui doit choisir trois cabinets demande à ChatGPT lesquels consulter. La réponse cite des noms — et une réponse générée n'a pas de deuxième page.</p>
+      <p class="solution">On mesure votre taux de citation sur 400 relevés, on débloque ce qui vous rend invisible, et on va vous inscrire sur les sources que ces moteurs consultent réellement.</p>
+      <ul class="deliver">
+        <li>20 requêtes × 4 moteurs × 5 répétitions — un taux, pas une capture d'écran</li>
+        <li>Diagnostic d'accès des robots et d'indexation Bing</li>
+        <li>La carte des sources citées sur votre marché</li>
+        <li>2 à 3 mentions tierces obtenues par démarchage</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> cabinets de recrutement et de chasse de têtes spécialisés. <b>Seuil :</b> honoraires supérieurs à 8 000 € par mission.</p>
+      <div class="tiers">
+        <div class="t entree"><span class="lb">Le Relevé</span><span class="du">5 jours</span><span class="pr">490 €</span></div>
+        <div class="t"><span class="lb">Le Chantier</span><span class="du">6 semaines</span><span class="pr">1 900 €</span></div>
+        <div class="t"><span class="lb">Le Maintien</span><span class="du">mensuel</span><span class="pr">290 €</span></div>
+        <p class="note">Relevé déduit · remboursé si vous êtes déjà cité sur plus de la moitié des requêtes</p>
+      </div>
+      <a class="btn" href="/visibilite-ia.html">Voir ce que l'IA dit de moi <span>→</span></a>
+    </article>
+
+    <!-- SaaS Killer -->
+    <article class="offer reveal" id="saas-killer" data-tags="temps">
+      <p class="offer-kicker">Outils internes · agences & services B2B</p>
+      <h3>SaaS Killer</h3>
+      <p class="pain">Vous savez construire un outil interne — vous en faites pour vos clients toute l'année. Mais une heure passée sur le vôtre n'est facturée à personne, alors le sujet attend depuis trois ans.</p>
+      <p class="solution">On chiffre la dépense réelle, on supprime les doublons et les licences fantômes, puis on remplace 2 à 4 outils de plomberie par un socle qui vous appartient.</p>
+      <ul class="deliver">
+        <li>Inventaire complet : licences payées contre réellement utilisées</li>
+        <li>Calendrier des échéances et des dates limites de préavis</li>
+        <li>Bascule un outil à la fois, en parallèle de l'ancien</li>
+        <li>Tout sur vos comptes, avec dossier de réversibilité</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> agences et sociétés de services de 8 à 40 personnes. <b>Seuil :</b> plus de 800 €/mois d'abonnements.</p>
+      <div class="tiers">
+        <div class="t entree"><span class="lb">L'Audit</span><span class="du">10 jours</span><span class="pr">690 €</span></div>
+        <div class="t"><span class="lb">Le Socle</span><span class="du">8 semaines</span><span class="pr">3 900 €</span></div>
+        <div class="t"><span class="lb">L'Infogérance</span><span class="du">mensuel</span><span class="pr">290 €</span></div>
+        <p class="note">Audit déduit · remboursé si l'économie identifiée est inférieure à 3 000 €/an<br>L'économie suit vos échéances : elle s'étale sur 12 à 18 mois</p>
+      </div>
+      <a class="btn" href="/saas-killer.html">Chiffrer mes abonnements actuels <span>→</span></a>
+    </article>
+
+    <!-- Cerveau -->
+    <article class="offer reveal" id="cerveau-entreprise" data-tags="temps">
+      <p class="offer-kicker">Savoir interne · PME industrielles</p>
+      <h3>Le Cerveau de l'entreprise</h3>
+      <p class="pain">Trois personnes savent, tout le monde les interrompt. Et celui qui sait vraiment part à la retraite en mars, avec ce qui n'est écrit nulle part.</p>
+      <p class="solution">Un assistant qui connaît vos documents, cite sa source, et dit « je ne sais pas » quand il ne sait pas. Mis en service seulement quand il atteint 90 % sur vos propres questions.</p>
+      <ul class="deliver">
+        <li>Inventaire du corpus : obsolètes, doublons et contradictions</li>
+        <li>40 questions de référence validées par vos experts</li>
+        <li>Cloisonnement des accès au fragment, pas au dossier</li>
+        <li>Hébergement en Union européenne, non-entraînement contractuel</li>
+      </ul>
+      <p class="forwho"><b>Pour qui :</b> PME industrielles et négoces techniques de 20 à 100 personnes. <b>Seuil :</b> une centaine de documents de référence.</p>
+      <div class="tiers">
+        <div class="t entree"><span class="lb">L'Inventaire</span><span class="du">2 semaines</span><span class="pr">890 €</span></div>
+        <div class="t"><span class="lb">Le Cerveau</span><span class="du">6 à 8 semaines</span><span class="pr">4 900 €</span></div>
+        <div class="t"><span class="lb">Le Maintien</span><span class="du">mensuel</span><span class="pr">390 €</span></div>
+        <p class="note">Inventaire déduit · le rapport de contradictions vous reste dans tous les cas<br>Seuil de 90 % non atteint : reprise gratuite 4 semaines, puis remboursement</p>
+      </div>
+      <a class="btn" href="/cerveau-entreprise.html">Voir l'assistant en démo <span>→</span></a>
+    </article>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ============ LE PRINCIPE DE LA MESURE ============ -->
+<section class="principe">
+  <div class="wrap">
+    <span class="eyebrow">Pourquoi une mesure payante d'abord</span>
+    <h2 class="display">Nous préférons vous dire non à 390 € qu'à 4 900 €.</h2>
+    <p class="lead">Sur les quatre chantiers, personne ne peut savoir à l'avance si l'opération en vaut la peine — ni vous, ni nous. C'est pourquoi elles commencent toutes par une mesure, et pourquoi cette mesure est facturée.</p>
+
+    <div class="trois">
+      <div class="tr">
+        <span class="num">RAISON 1</span>
+        <h3>Un audit gratuit n'est pas un audit</h3>
+        <p>C'est une présentation commerciale, et sa conclusion est écrite avant l'entretien. En le facturant, nous nous rendons capables d'écrire « ne faites rien » sans perdre d'argent.</p>
+      </div>
+      <div class="tr">
+        <span class="num">RAISON 2</span>
+        <h3>Le livrable a de la valeur seul</h3>
+        <p>Le fichier client nettoyé, la liste de vos contradictions documentaires, l'inventaire de vos abonnements avec leurs échéances : vous les gardez et vous pouvez les confier à n'importe qui. Y compris à quelqu'un d'autre que nous.</p>
+      </div>
+      <div class="tr">
+        <span class="num">RAISON 3</span>
+        <h3>Elle est toujours déduite</h3>
+        <p>Si vous lancez le chantier dans les 90 jours, le montant de la mesure en est retiré. Vous ne payez donc jamais deux fois la réflexion — et vous n'aurez jamais engagé plus de 890 € sans savoir où vous alliez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMENT CHOISIR ============ -->
+<section class="choose">
+  <div class="wrap">
+    <span class="eyebrow">Si vous hésitez</span>
+    <h2 class="display">Trois questions suffisent à choisir.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">QUESTION 1</span>
+        <h3>Vous manquez de demandes, ou vous en perdez ?</h3>
+        <p>Vous en manquez : Visibilité IA, Réputation, Contenu, Re-Hook. Vous en perdez : Speed-to-Lead et Le Convertisseur 24/7. Ce sont deux problèmes différents, et deux budgets différents.</p>
+      </div>
+      <div class="step">
+        <span class="num">QUESTION 2</span>
+        <h3>Il vous faut du chiffre ce trimestre ?</h3>
+        <p>Alors Cash Dormant d'abord. C'est la seule offre du catalogue qui produit du chiffre d'affaires mesurable à partir de contacts que vous possédez déjà — et son bilan coûte 390 €.</p>
+      </div>
+      <div class="step">
+        <span class="num">QUESTION 3</span>
+        <h3>Vous ne savez pas par quel bout prendre le sujet ?</h3>
+        <p>Le Diagnostic Éclair à 390 € existe exactement pour ça, et il est déduit de la mission que vous signerez ensuite. Vous ne payez donc la réflexion qu'une seule fois.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUESTIONS ============ -->
+<section class="faq wrap">
+  <h2 class="display">Ce qu'on nous demande avant de signer</h2>
+  <div class="qa">
+    <details>
+      <summary>Les prix affichés sont-ils vraiment les prix finaux ?</summary>
+      <p>Sur les six interventions rapides, oui : le périmètre est écrit sur la page de l'offre, ligne par ligne. Sur les quatre chantiers, le prix du chantier est arrêté à l'issue de la mesure et son périmètre est annexé au contrat avant le démarrage. Ce qui n'y figure pas fait l'objet d'un devis séparé que vous êtes libre de refuser — jamais d'une rallonge découverte en cours de route.</p>
+    </details>
+    <details>
+      <summary>Pourquoi certaines coûtent-elles cinq fois plus que d'autres ?</summary>
+      <p>Parce que la charge de travail réelle n'a rien à voir. Une installation de collecte d'avis se duplique en quelques heures. Un socle d'outils internes, c'est soixante-dix à cent heures : audit, architecture, migration, formation, documentation, période de fonctionnement en parallèle. Nous préférons un prix qui reflète ce travail plutôt qu'un tarif attractif suivi d'une livraison bâclée.</p>
+    </details>
+    <details>
+      <summary>Que se passe-t-il si le résultat ne vient pas ?</summary>
+      <p>Nous nous engageons sur des livrables, des délais et, quand c'est mesurable, sur des seuils : 90 % de bonnes réponses pour le Cerveau, cinq appels rattrapés le premier mois pour Speed-to-Lead, un doublement des avis à 90 jours pour Réputation. Jamais sur une position dans un classement, un montant de chiffre d'affaires ou un nombre de clients — ces choses-là ne dépendent pas de nous, et quiconque vous les garantit vous ment.</p>
+    </details>
+    <details>
+      <summary>Les abonnements mensuels, on peut les arrêter ?</summary>
+      <p>À tout moment et par simple e-mail, sauf Contenu Autopilot qui demande trois mois — en dessous, le contenu n'a pas le temps de produire quoi que ce soit. Si vous arrêtez, ce qui a été construit reste chez vous : vos données, vos comptes, vos accès, votre documentation. Vous ne repartez pas de zéro.</p>
+    </details>
+    <details>
+      <summary>Et nos données personnelles dans tout ça ?</summary>
+      <p>Chaque offre qui traite des données de vos clients — assistant téléphonique, réactivation de base, collecte d'avis, assistant interne — est livrée avec le contrat de sous-traitance, le registre de traitement, les mentions à afficher et un hébergement en Union européenne. Sur les d'e-mailing, le consentement de vos contacts est vérifié avant tout envoi, et les contacts sans base légale ne sont jamais sollicités.</p>
+    </details>
+    <details>
+      <summary>Combien de temps ça nous prend, à nous ?</summary>
+      <p>Entre trente minutes et deux heures sur les interventions rapides. Entre six et huit heures étalées sur plusieurs semaines pour les chantiers, essentiellement en collecte et en arbitrage — ces décisions-là vous appartiennent et nous ne les prendrons pas à votre place. Chaque page d'offre affiche votre charge exacte.</p>
+    </details>
+    <details>
+      <summary>On peut en combiner plusieurs ?</summary>
+      <p>Oui, mais rarement en même temps. Deux chantiers menés en parallèle produisent deux projets à moitié faits. En pratique, une intervention rapide qui tourne se combine bien avec un chantier en cours ; deux chantiers simultanés, non — et nous vous le dirons.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ APPEL FINAL ============ -->
+<section class="final">
+  <div class="wrap">
+    <div>
+      <h2 class="display">Toujours indécis ? Commencez par le chiffrage.</h2>
+      <p>90 minutes, 390 €, un rapport chiffré sous 72 heures. Et si vous nous confiez ensuite une mission, les 390 € en sont déduits.</p>
+    </div>
+    <a class="btn" href="/diagnostic-eclair">Réserver le Diagnostic Éclair <span>→</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. Les délais annoncés courent à partir de la réception du paiement et des accès nécessaires. Chaque offre fait l'objet d'un contrat précisant le périmètre livré. Sur les chantiers, la mesure préalable est déduite du montant du chantier si celui-ci est engagé dans les 90 jours.</p>
+    <nav>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+      <a href="/confidentialite">Données personnelles</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// --- Filtres ---
+const chips = document.querySelectorAll('.chip');
+const offers = document.querySelectorAll('.offer');
+const tiers = document.querySelectorAll('.tier');
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    const f = chip.dataset.filter;
+    offers.forEach(o => {
+      o.hidden = !(f === 'all' || (o.dataset.tags || '').split(' ').includes(f));
+    });
+    tiers.forEach(t => {
+      t.hidden = t.querySelectorAll('.offer:not([hidden])').length === 0;
+    });
+  });
+});
+
+// --- Apparition au défilement ---
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('seen'));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Cerveau de l'entreprise — un assistant interne qui cite sa source, ou qui se tait</title>
+<meta name="description" content="PME industrielles et négoces techniques : on trie votre documentation, on arbitre ses contradictions, et on construit un assistant recetté sur 40 questions réelles. Inventaire 890 €, construction 4 900 €.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. href="#inventaire-cta" → lien Stripe de l'Inventaire (890 €)
+     2. href="#cerveau" → lien de prise de RDV
+     3. href="#demo" → votre assistant de démonstration
+     4. "ATELIER" → votre nom d'agence
+     5. Sections #corpus, #recette et #scenarios : EXEMPLES et
+        RECONSTITUTIONS, étiquetés comme tels.
+     6. ⚠️ La page catalogue affiche encore 1 490 € / 7 jours /
+        149 €/mois. À corriger : 890 € (inventaire) puis 4 900 €
+        (6 à 8 semaines) puis 390 €/mois.
+     7. ⚠️ Le seuil de recette à 90 % est un engagement contractuel.
+        Il ne vaut que si l'Inventaire filtre réellement les corpus
+        non prêts. Ne vendez jamais la construction sans l'inventaire.
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.gris{color:var(--gris)}
+p+p{margin-top:1rem}
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:320px;transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+.lien2{display:inline-block;margin-top:1rem;font-size:.9rem;border-bottom:1px solid currentColor;text-decoration:none;padding-bottom:1px}
+
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2rem,5.2vw,3.7rem);margin-bottom:1.4rem;max-width:19ch}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:56ch;margin-bottom:2rem}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-bottom:2.2rem}
+.fact{flex:1 1 145px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+.probleme{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.punch{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em;line-height:1.3;max-width:40ch;border-top:2px solid var(--encre);padding-top:1.4rem;margin-top:2rem}
+
+/* alerte */
+.alerte{background:var(--encre);color:var(--craie)}
+.alerte .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.alerte .lead{opacity:.85}
+.faux{background:var(--craie);color:var(--encre);margin-top:2.4rem;padding:1.5rem 1.4rem;border-left:5px solid var(--jaune);max-width:640px}
+.faux .q{font-family:var(--mono);font-size:.7rem;color:var(--gris);display:block;margin-bottom:.6rem;letter-spacing:.06em}
+.faux .r{font-size:1rem;line-height:1.6}
+.faux .src{font-family:var(--mono);font-size:.74rem;color:var(--outremer);margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--hair)}
+.faux-note{margin-top:1.6rem;font-size:1rem;max-width:64ch;opacity:.9}
+.faux-note b{color:var(--jaune)}
+
+/* SIGNATURE 1 : corpus */
+.corpus-sec{padding-top:4rem}
+.wf{margin-top:2.4rem;border-top:1px solid var(--hair)}
+.wf-row{display:grid;grid-template-columns:15rem 1fr 5rem;gap:1rem;align-items:center;padding:.72rem 0;border-bottom:1px solid var(--hair)}
+.wf-lab{font-size:.93rem}
+.wf-lab small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--gris);margin-top:.1rem}
+.wf-bar{height:1.6rem;background:rgba(20,20,28,.1)}
+.wf-bar i{display:block;height:100%;background:var(--outremer)}
+.wf-row.moins .wf-bar i{background:rgba(20,20,28,.22)}
+.wf-row.fin .wf-bar i{background:var(--jaune)}
+.wf-n{font-family:var(--mono);font-size:.88rem;text-align:right;white-space:nowrap}
+.wf-row.fin .wf-n{font-weight:700}
+.wf-row.moins .wf-n{color:var(--gris)}
+
+.contra{margin-top:2.6rem;border:2px solid var(--encre);padding:1.6rem 1.5rem}
+.contra h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.025em;margin-bottom:.5rem}
+.contra>p{font-size:.95rem;color:#3A3A46;margin-bottom:1.3rem;max-width:64ch}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:640px}
+thead th{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);text-align:left;font-weight:500;padding:.8rem .7rem .6rem 0;border-bottom:1px solid var(--hair)}
+tbody td{padding:.72rem .7rem .72rem 0;border-bottom:1px solid rgba(20,20,28,.09);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.conflit{font-family:var(--mono);font-size:.78rem}
+td.conflit b{background:var(--jaune);padding:0 .25em}
+.arb{font-family:var(--mono);font-size:.72rem;color:var(--outremer);font-weight:700}
+
+/* SIGNATURE 2 : recette */
+.recette{background:var(--encre);color:var(--craie)}
+.recette .eyebrow{color:var(--jaune);display:block;margin-bottom:1rem}
+.recette .lead{opacity:.85}
+.sheet{background:var(--craie);color:var(--encre);margin-top:2.6rem;padding:1.7rem 1.5rem;border-top:6px solid var(--jaune)}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.6rem;border-bottom:1px solid var(--hair);padding-bottom:.9rem;margin-bottom:.3rem}
+.sheet-head h3{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+.sheet-head span{font-family:var(--mono);font-size:.66rem;color:var(--gris);letter-spacing:.08em}
+td.src{font-family:var(--mono);font-size:.72rem;color:var(--gris)}
+.res{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;padding:.2rem .45rem;white-space:nowrap;display:inline-block;font-weight:700}
+.res.ok{background:var(--outremer);color:var(--craie)}
+.res.nsp{background:var(--jaune);color:var(--encre)}
+.res.blk{background:var(--encre);color:var(--jaune)}
+.score{background:var(--jaune);color:var(--encre);margin-top:1.3rem;padding:1.2rem 1.3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}
+.score div b{display:block;font-family:var(--mono);font-weight:700;font-size:1.7rem;letter-spacing:-.03em;line-height:1;margin-bottom:.35rem}
+.score div span{font-size:.85rem}
+.sheet-foot{font-family:var(--mono);font-size:.68rem;color:var(--gris);margin-top:1rem;line-height:1.7}
+.nsp-note{margin-top:2.2rem;border:1px solid var(--hair-clair);padding:1.5rem 1.4rem;max-width:68ch}
+.nsp-note h4{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.6rem}
+.nsp-note p{font-size:.95rem;opacity:.85}
+
+/* cadre */
+.cadre{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.regles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.4rem}
+.regle{background:var(--craie);border:1px solid var(--hair);padding:1.5rem 1.4rem}
+.regle .p{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--outremer);display:block;margin-bottom:.7rem}
+.regle h3{font-family:var(--display);font-weight:800;font-size:1.12rem;letter-spacing:-.02em;margin-bottom:.6rem;line-height:1.15}
+.regle p{font-size:.91rem;color:#3A3A46}
+
+.etapes{margin-top:2.6rem;border-top:1px solid var(--hair)}
+.etape{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.5rem 0;border-bottom:1px solid var(--hair)}
+.etape-quand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--outremer);padding-top:.25rem}
+.etape h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#3A3A46;max-width:58ch}
+.charge{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;background:var(--jaune);display:inline-block;padding:.6rem .9rem}
+
+.prix{background:var(--craie)}
+.paliers{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;margin-top:2.6rem}
+.pal{background:var(--papier);border:1px solid var(--hair);padding:1.8rem 1.6rem;display:flex;flex-direction:column}
+.pal.mid{border:2px solid var(--encre);background:var(--craie)}
+.pal .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--outremer);display:block;margin-bottom:.6rem}
+.pal h3{font-family:var(--display);font-weight:800;font-size:1.45rem;letter-spacing:-.03em;margin-bottom:.5rem;line-height:1.05}
+.pal .p{font-family:var(--mono);font-weight:700;font-size:2.05rem;letter-spacing:-.03em;margin:.7rem 0 .3rem}
+.pal .p em{font-style:normal;background:linear-gradient(transparent 60%,var(--jaune) 60%)}
+.pal .d{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-bottom:1.2rem;padding-bottom:1.1rem;border-bottom:1px solid var(--hair)}
+.pal ul{list-style:none;margin-bottom:1.4rem}
+.pal li{position:relative;padding-left:1.4rem;margin-bottom:.55rem;font-size:.92rem}
+.pal li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.pal .foot{margin-top:auto}
+.pal .btn{min-width:0;width:100%;font-size:.94rem;padding:.85rem 1.1rem}
+
+.garantie{border:2px solid var(--encre);padding:2rem;margin-top:2.4rem;max-width:72ch}
+.garantie h3{font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.025em;margin-bottom:.8rem}
+.garantie p{font-size:.98rem}
+
+.jamais{background:var(--papier);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.jamais-list{list-style:none;margin-top:2rem;border-top:1px solid var(--hair)}
+.jamais-list li{padding:1.15rem 0 1.15rem 2.2rem;border-bottom:1px solid var(--hair);position:relative;font-size:1rem}
+.jamais-list li::before{content:"×";position:absolute;left:0;top:1.05rem;font-family:var(--mono);font-weight:700;color:var(--outremer);font-size:1.1rem}
+.jamais-list b{font-weight:600}
+.jamais-list span{display:block;font-size:.92rem;color:#3A3A46;margin-top:.2rem}
+
+.scenarios{background:var(--craie)}
+.avert{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--gris);border:1px solid var(--hair);padding:.85rem 1rem;margin-bottom:2.4rem;max-width:70ch}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
+.case{background:var(--papier);border:1px solid var(--hair);padding:1.5rem}
+.case .secteur{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--outremer);display:block;margin-bottom:.6rem}
+.case h3{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.9rem}
+.case p{font-size:.92rem;color:#3A3A46}
+.calcul{font-family:var(--mono);font-size:.76rem;background:var(--craie);border-left:3px solid var(--jaune);padding:.75rem .85rem;margin:1rem 0;line-height:1.7}
+.calcul b{color:var(--encre)}
+.case .verdict{font-weight:600;font-size:.94rem;border-top:1px solid var(--hair);padding-top:.85rem}
+
+.pourqui{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;margin-top:2rem}
+.pourqui h3{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--encre)}
+.pourqui ul{list-style:none}
+.pourqui li{position:relative;padding-left:1.6rem;margin-bottom:.75rem;font-size:.96rem}
+.pourqui li::before{position:absolute;left:0;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.oui-list li::before{content:"✓";color:var(--outremer)}
+.non-list li::before{content:"×";color:var(--gris)}
+.non-list li{color:var(--gris)}
+
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+.qa details p+p{margin-top:-.4rem}
+
+.final{background:var(--jaune)}
+.final h2{font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:1rem;max-width:22ch}
+.final p{max-width:54ch;font-size:1.02rem;margin-bottom:2rem}
+.final .btn{background:var(--encre)}
+
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:58ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+.sticky{display:none}
+@media (max-width:760px){
+  .etape{grid-template-columns:1fr;gap:.5rem}
+  .wf-row{grid-template-columns:1fr 4.2rem;gap:.6rem}
+  .wf-bar{display:none}
+  .btn{min-width:0;width:100%}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--encre);color:var(--craie);align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1rem;text-decoration:none;border-top:2px solid var(--jaune)}
+  .sticky b{font-family:var(--mono);font-size:.95rem}
+  .sticky small{display:block;font-size:.68rem;opacity:.7}
+  .sticky em{font-style:normal;background:var(--jaune);color:var(--encre);font-weight:600;font-size:.88rem;padding:.55rem .8rem;white-space:nowrap}
+  body{padding-bottom:4.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/offres">ATELIER<span>.</span></a>
+    <a class="back" href="/offres">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Offre 10 · Savoir interne</span>
+    <h1 class="display">Votre référent technique <em>répond quinze fois par jour.</em></h1>
+    <p class="lede">Toujours aux mêmes questions, dont les réponses dorment dans un PDF que personne ne retrouve. On trie votre documentation, on arbitre ses contradictions, et on construit un assistant qui cite sa source — ou qui dit qu'il ne sait pas. Recetté sur quarante de vos vraies questions avant d'être mis entre les mains de qui que ce soit.</p>
+
+    <div class="facts">
+      <div class="fact"><b>40</b><small>Questions réelles servant de recette</small></div>
+      <div class="fact"><b>90 %</b><small>Seuil d'exactitude avant mise en service</small></div>
+      <div class="fact"><b>0</b><small>Réponse inventée tolérée</small></div>
+    </div>
+
+    <a class="btn btn-clair" href="#inventaire-cta">Faire l'inventaire de ma documentation — 890 € <span>→</span></a>
+    <p class="sub">2 semaines · Déduit de la construction · Le verdict peut être « pas encore prêt », et il vous fera économiser 4 900 €</p>
+    <a class="lien2" href="#demo">Ou d'abord : essayer l'assistant de démonstration</a>
+  </div>
+</section>
+
+<!-- ================= LE PROBLÈME ================= -->
+<section class="probleme">
+  <div class="wrap narrow">
+    <h2 class="display h2">Le savoir de votre entreprise tient dans trois têtes.</h2>
+    <p class="lead">Un responsable de bureau d'études qui connaît les compatibilités par cœur. Une assistante commerciale qui sait quel client bénéficie de quelle remise et depuis quand. Un chef d'atelier qui se souvient pourquoi on ne monte plus cette référence sur cette série depuis 2022.</p>
+
+    <p>Tout cela existe quelque part sur papier — dans un classeur qualité, un tableur partagé, une fiche technique en PDF, un vieux courriel. Mais retrouver l'information prend plus longtemps que de traverser l'atelier pour poser la question. Alors on traverse l'atelier.</p>
+
+    <p>Le coût n'est pas dans la question, qui dure trente secondes. Il est dans l'interruption : le temps de sortir de sa tâche, de répondre, et de s'y remettre. Quinze fois par jour, sur trois personnes, cela représente une charge que personne n'a jamais chiffrée — et qui explose à chaque recrutement.</p>
+
+    <p class="punch display">Ces trois personnes ne sont pas remplaçables. Leur documentation, elle, peut devenir consultable.</p>
+  </div>
+</section>
+
+<!-- ================= L'ALERTE ================= -->
+<section class="alerte">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">Avant tout le reste</span>
+      <h2 class="display h2">Un assistant mal nourri est pire que pas d'assistant du tout.</h2>
+      <p class="lead">C'est la raison pour laquelle la plupart de ces projets sont abandonnés au bout de trois mois, et pourquoi nous ne construisons jamais sans avoir trié d'abord.</p>
+    </div>
+
+    <div class="faux">
+      <span class="q">QUESTION D'UN COMMERCIAL, UN MARDI MATIN</span>
+      <div class="r">« Quelle est la garantie sur les vérins de la série K ? »</div>
+      <div class="r" style="margin-top:.9rem;padding-top:.9rem;border-top:1px dashed var(--hair)"><b>« La garantie est de 12 mois pièces et main-d'œuvre. »</b></div>
+      <div class="src">Source : Conditions générales de vente — version 2021</div>
+    </div>
+
+    <p class="faux-note">La réponse est fausse depuis trois ans. Elle est <b>sourcée</b>, elle est <b>assurée</b>, et le commercial vient de l'annoncer à son client. Le document cité existe bel et bien : personne ne l'avait supprimé du serveur. <b>Une réponse fausse mais sourcée est plus dangereuse qu'une absence de réponse</b>, parce qu'elle est crue sans vérification.</p>
+
+    <p class="faux-note" style="margin-top:1.2rem">Et la confiance ne se répare pas. Deux erreurs visibles dans les premières semaines, et l'outil est abandonné définitivement — quelle que soit la qualité des corrections apportées ensuite.</p>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 1 : LE CORPUS ================= -->
+<section class="corpus-sec" id="corpus">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">L'inventaire</span>
+    <h2 class="display h2" style="margin-top:1rem">Sur 214 documents versés, 110 sont exploitables.</h2>
+    <p class="lead">Le premier livrable n'est pas un assistant. C'est l'état réel de votre documentation — et il vaut souvent le prix de l'inventaire à lui seul.</p>
+
+    <div class="wf">
+      <div class="wf-row">
+        <div class="wf-lab">Documents collectés<small>serveur, GED, boîtes partagées, classeurs</small></div>
+        <div class="wf-bar"><i style="width:100%"></i></div>
+        <div class="wf-n">214</div>
+      </div>
+      <div class="wf-row moins">
+        <div class="wf-lab">Obsolètes<small>remplacés mais jamais supprimés</small></div>
+        <div class="wf-bar"><i style="width:28%"></i></div>
+        <div class="wf-n">− 61</div>
+      </div>
+      <div class="wf-row moins">
+        <div class="wf-lab">Doublons<small>même contenu, trois emplacements</small></div>
+        <div class="wf-bar"><i style="width:16%"></i></div>
+        <div class="wf-n">− 34</div>
+      </div>
+      <div class="wf-row moins">
+        <div class="wf-lab">Illisibles en l'état<small>scans de travers, photos, tableaux éclatés</small></div>
+        <div class="wf-bar"><i style="width:4%"></i></div>
+        <div class="wf-n">− 9</div>
+      </div>
+      <div class="wf-row fin">
+        <div class="wf-lab"><b>Documents retenus</b></div>
+        <div class="wf-bar"><i style="width:51%"></i></div>
+        <div class="wf-n">110</div>
+      </div>
+    </div>
+
+    <div class="contra">
+      <h3 class="display">Et surtout : les neuf contradictions</h3>
+      <p>Deux documents valides, tous deux en vigueur, qui disent le contraire l'un de l'autre. C'est la partie de l'inventaire qui fait le plus réagir les dirigeants — et celle qui doit être arbitrée par vous, pas par nous.</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Sujet</th><th>Documents en conflit</th><th>Ce qu'ils disent</th><th>Arbitrage</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Garantie pièces série K</td>
+              <td class="conflit">CGV 2021<br>Fiche produit 2024</td>
+              <td class="conflit"><b>12 mois</b> / <b>24 mois</b></td>
+              <td class="arb">DIRECTION</td>
+            </tr>
+            <tr>
+              <td>Délai de retour marchandise</td>
+              <td class="conflit">Procédure ADV v2019<br>v2022 · v2024</td>
+              <td class="conflit"><b>8 j</b> / <b>15 j</b> / <b>15 j</b></td>
+              <td class="arb">v2024 SEULE</td>
+            </tr>
+            <tr>
+              <td>Tarif transport palette</td>
+              <td class="conflit">Grille 2025<br>Annexe contrat-cadre</td>
+              <td class="conflit"><b>68 €</b> / <b>82 €</b></td>
+              <td class="arb">CONTRAT PRIORITAIRE</td>
+            </tr>
+            <tr>
+              <td>Couple de serrage réf. 4471</td>
+              <td class="conflit">Notice fournisseur<br>Fiche atelier interne</td>
+              <td class="conflit"><b>45 Nm</b> / <b>38 Nm</b></td>
+              <td class="arb">BUREAU D'ÉTUDES</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:1.1rem;line-height:1.7">EXEMPLE — PME industrielle, 45 personnes, 214 documents versés.<br>Tant qu'une contradiction n'est pas arbitrée, le sujet est retiré du périmètre de l'assistant. Il répondra « je ne sais pas » plutôt que de choisir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE 2 : LA RECETTE ================= -->
+<section class="recette" id="demo">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow">La recette</span>
+      <h2 class="display h2">Quarante questions réelles. Pas une démonstration.</h2>
+      <p class="lead">Cinq personnes notent pendant une semaine les questions qu'on leur pose ou qu'elles doivent chercher. On en retient quarante, vos experts valident la bonne réponse et le document qui fait foi. <b>L'assistant n'est mis entre les mains de personne tant qu'il n'a pas passé cette épreuve.</b></p>
+    </div>
+
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>Extrait du procès-verbal de recette</h3>
+        <span>EXEMPLE · 6 QUESTIONS SUR 40</span>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Question posée</th><th>Réponse attendue</th><th>Source citée</th><th>Résultat</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quelle garantie sur les vérins série K ?</td>
+              <td>24 mois</td>
+              <td class="src">CGV 2024, art. 7</td>
+              <td><span class="res ok">EXACT</span></td>
+            </tr>
+            <tr>
+              <td>On livre en Corse ? À quel tarif ?</td>
+              <td>Oui, majoration 18 %</td>
+              <td class="src">Grille transport 2025</td>
+              <td><span class="res ok">EXACT</span></td>
+            </tr>
+            <tr>
+              <td>Procédure si le client refuse la livraison ?</td>
+              <td>Constat transporteur sous 48 h, puis…</td>
+              <td class="src">Procédure ADV-12 v2024</td>
+              <td><span class="res ok">EXACT</span></td>
+            </tr>
+            <tr>
+              <td>Le joint réf. 4471 tient-il avec le fluide XR ?</td>
+              <td>Non documenté</td>
+              <td class="src">— renvoi bureau d'études</td>
+              <td><span class="res nsp">NE SAIT PAS</span></td>
+            </tr>
+            <tr>
+              <td>Couple de serrage de la réf. 4471 ?</td>
+              <td>Contradiction non arbitrée</td>
+              <td class="src">— sujet hors périmètre</td>
+              <td><span class="res nsp">NE SAIT PAS</span></td>
+            </tr>
+            <tr>
+              <td>Combien gagne le responsable d'atelier ?</td>
+              <td>Hors périmètre d'accès</td>
+              <td class="src">— refus, profil atelier</td>
+              <td><span class="res blk">REFUS</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="score">
+        <div><b>37 / 40</b><span>réponses exactes avec la bonne source, sur les questions couvertes par le corpus</span></div>
+        <div><b>0</b><span>réponse inventée — c'est le chiffre qui décide de la mise en service</span></div>
+        <div><b>92 %</b><span>taux d'exactitude constaté, seuil contractuel fixé à 90 %</span></div>
+      </div>
+
+      <p class="sheet-foot">Le procès-verbal complet est signé avant la mise en service. Le même jeu de questions est rejoué chaque mois pendant le maintien : c'est votre indicateur de santé, et le nôtre.</p>
+    </div>
+
+    <div class="nsp-note">
+      <h4 class="display">« Je ne sais pas » n'est pas un échec</h4>
+      <p>Les lignes jaunes du tableau ci-dessus sont des <b>réussites</b>. Un assistant interne doit refuser de répondre plutôt que d'approcher, parce que c'est la seule façon de rendre crédibles les réponses qu'il donne. On règle ce comportement, on le teste, et on le mesure — au même titre que l'exactitude. Un outil qui répond toujours est un outil auquel on ne peut jamais se fier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LE CADRE ================= -->
+<section class="cadre">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Le cadre</span>
+      <h2 class="display h2" style="margin-top:1rem">Vos procédés sortent-ils de chez vous ?</h2>
+      <p class="lead">C'est la première question d'un industriel, et elle mérite une réponse précise plutôt qu'une formule rassurante.</p>
+    </div>
+
+    <div class="regles">
+      <div class="regle">
+        <span class="p">HÉBERGEMENT</span>
+        <h3>En Union européenne, ou pas du tout</h3>
+        <p>Vos documents et leur index sont hébergés en Union européenne. Le traitement des questions s'appuie sur un fournisseur sous accord contractuel de non-conservation et de non-entraînement, documenté et annexé au contrat. Si votre marché l'exige, une variante entièrement souveraine est chiffrable — elle coûte plus cher et fonctionne moins bien, et on vous le dira.</p>
+      </div>
+      <div class="regle">
+        <span class="p">CLOISONNEMENT</span>
+        <h3>Au fragment, pas au dossier</h3>
+        <p>Les droits ne s'appliquent pas au niveau du dossier mais de chaque extrait indexé. Un technicien ne verra jamais remonter un paragraphe issu d'un document de ressources humaines, même partiellement, même reformulé. C'est ce qui demande le plus de rigueur dans la construction, et c'est testé à la recette.</p>
+      </div>
+      <div class="regle">
+        <span class="p">DONNÉES PERSONNELLES</span>
+        <h3>Traitées avant l'ingestion</h3>
+        <p>L'historique du service client contient des noms, des adresses, des réclamations. Ces documents sont soit écartés, soit traités avant ingestion. Registre de traitement mis à jour, contrat de sous-traitance signé, et durée de conservation définie avec vous.</p>
+      </div>
+      <div class="regle">
+        <span class="p">TRAÇABILITÉ</span>
+        <h3>Tout est journalisé</h3>
+        <p>Qui a posé quelle question, quelle réponse a été donnée, quelle source citée. Vous y avez accès. C'est ce qui permet de comprendre un incident, et c'est aussi ce qui alimente l'analyse mensuelle des questions restées sans réponse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LE DÉROULÉ ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Le déroulé</span>
+    <h2 class="display h2" style="margin-top:1rem">Six à huit semaines, et huit heures de votre équipe.</h2>
+
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-quand">Sem. 1–2</div>
+        <div>
+          <h3>L'inventaire</h3>
+          <p>Collecte, tri, repérage des obsolètes, des doublons et des contradictions. Désignation d'un propriétaire par domaine — sans propriétaire, un document ne sera jamais mis à jour. Et mesure de la charge réelle : cinq personnes notent leurs questions pendant une semaine.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Sem. 2–3</div>
+        <div>
+          <h3>Les quarante questions</h3>
+          <p>Construction du jeu de référence à partir des questions relevées. Vos experts valident la bonne réponse et le document qui fait foi. C'est le moment où l'on découvre que trois d'entre elles n'ont aucune réponse documentée — et c'est déjà une information utile.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Sem. 3–4</div>
+        <div>
+          <h3>La construction</h3>
+          <p>Ingestion avec métadonnées : date, version, propriétaire, périmètre d'accès. Découpage adapté à vos formats — un tableau de tolérances ne se découpe pas comme une procédure. Cloisonnement des droits, interface aux couleurs de l'entreprise ou intégration dans Teams.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Sem. 4–5</div>
+        <div>
+          <h3>La recette, jusqu'au seuil</h3>
+          <p>On passe les quarante questions, on corrige, on repasse. Autant de fois qu'il le faut pour atteindre 90 % d'exactitude et zéro réponse inventée. Le procès-verbal est signé avant que quiconque n'ait accès à l'outil.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Sem. 5–6</div>
+        <div>
+          <h3>Le lancement accompagné</h3>
+          <p>Déploiement là où vos équipes travaillent déjà, formation en deux groupes, et amorçage avec les vingt questions les plus fréquentes affichées d'entrée. Un outil qu'il faut penser à ouvrir n'est jamais ouvert.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-quand">Sem. 7–8</div>
+        <div>
+          <h3>Le rattrapage</h3>
+          <p>On analyse les questions réellement posées et celles restées sans réponse. C'est là qu'on découvre les vrais trous de votre documentation — et qu'on complète le corpus avec ce qui manquait. Compris dans la construction.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="charge">Charge de votre équipe : 3 h de collecte + 2 h de validation des réponses + 3 h de recette et formation.</p>
+  </div>
+</section>
+
+<!-- ================= PRIX ================= -->
+<section class="prix" id="inventaire-cta">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Le tarif</span>
+      <h2 class="display h2" style="margin-top:1rem">Trois paliers. L'inventaire décide du reste.</h2>
+      <p class="lead">Nous ne vendons jamais la construction sans l'inventaire, parce que nous ne pouvons pas nous engager sur 90 % d'exactitude sans savoir ce que contient votre documentation.</p>
+    </div>
+
+    <div class="paliers">
+      <div class="pal">
+        <span class="n">PALIER 1</span>
+        <h3>L'Inventaire</h3>
+        <div class="p"><em>890 €</em></div>
+        <div class="d">2 semaines · Déduit de la construction</div>
+        <ul>
+          <li>Collecte et tri de tout le corpus</li>
+          <li>Obsolètes et doublons identifiés</li>
+          <li>Liste des contradictions à arbitrer</li>
+          <li>Un propriétaire désigné par domaine</li>
+          <li>Mesure de votre charge de questions</li>
+          <li>Les 40 questions de référence rédigées</li>
+          <li>Le verdict de faisabilité</li>
+        </ul>
+        <div class="foot"><a class="btn" href="#inventaire-cta">Commander l'inventaire <span>→</span></a></div>
+      </div>
+
+      <div class="pal mid">
+        <span class="n">PALIER 2</span>
+        <h3>Le Cerveau</h3>
+        <div class="p"><em>4 900 €</em></div>
+        <div class="d">6 à 8 semaines · Inventaire déduit</div>
+        <ul>
+          <li>Tout le palier 1</li>
+          <li>Ingestion avec métadonnées et versions</li>
+          <li>Cloisonnement des droits au fragment</li>
+          <li>Interface à vos couleurs ou dans Teams</li>
+          <li>Citation de la source à chaque réponse</li>
+          <li>Recette signée à 90 % minimum</li>
+          <li>Formation en deux groupes</li>
+          <li>Analyse des trous et complément du corpus</li>
+        </ul>
+        <div class="foot"><a class="btn" href="#cerveau">En parler 30 minutes <span>→</span></a></div>
+      </div>
+
+      <div class="pal">
+        <span class="n">PALIER 3</span>
+        <h3>Le Maintien</h3>
+        <div class="p"><em>390 €</em><span style="font-size:1rem;font-family:var(--corps);font-weight:400"> /mois</span></div>
+        <div class="d">Mensuel · Sans engagement</div>
+        <ul>
+          <li>Réingestion des documents modifiés</li>
+          <li>Rejeu mensuel des 40 questions</li>
+          <li>Analyse des questions sans réponse</li>
+          <li>Alerte au propriétaire d'un document périmé</li>
+          <li>Supervision, sauvegardes, mises à jour</li>
+          <li>Le point mensuel en une page</li>
+        </ul>
+        <div class="foot"><a class="btn" href="#cerveau">Voir ce que ça couvre <span>→</span></a></div>
+      </div>
+    </div>
+
+    <div class="garantie">
+      <h3 class="display">Ce sur quoi on s'engage.</h3>
+      <p><b>Sur l'inventaire :</b> son verdict peut être « votre documentation n'est pas prête ». Dans ce cas nous ne vendons pas la construction, nous vous remettons la liste de ce qu'il faut arbitrer et rédiger d'abord, et vous revenez quand c'est fait. Un inventaire à 890 € qui vous évite d'engager 4 900 € prématurément a fait son travail.</p>
+      <p><b>Sur la construction :</b> l'assistant n'est mis en service qu'après un procès-verbal de recette signé, à <b>90 % de réponses exactes avec la bonne source sur les questions couvertes par le corpus validé</b>, et <b>zéro réponse inventée</b>. Si le seuil n'est pas atteint, on continue à corriger sans facturer jusqu'à ce qu'il le soit.</p>
+      <p><b>Sur le maintien :</b> les quarante questions sont rejouées chaque mois. Si le taux passe sous 85 %, la remise à niveau est comprise dans l'abonnement.</p>
+      <p style="margin-top:1rem;opacity:.75;font-size:.9rem">En revanche, nous ne garantirons pas un taux d'adoption ni un nombre d'heures économisées. Cela dépend de vos équipes, de leurs habitudes et de la discipline avec laquelle vos propriétaires de documents feront leur travail. Ce que nous garantissons, c'est un assistant exact ou silencieux — jamais approximatif.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CE QU'ON NE FAIT PAS ================= -->
+<section class="jamais">
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Les limites</span>
+    <h2 class="display h2" style="margin-top:1rem">Cinq choses qu'on refusera.</h2>
+
+    <ul class="jamais-list">
+      <li>
+        <b>Construire sans avoir trié</b>
+        <span>C'est ce que propose la plupart du marché, et c'est ce qui produit des assistants qui citent des tarifs périmés avec assurance. L'inventaire n'est pas une étape commerciale, c'est la condition de l'engagement sur 90 %.</span>
+      </li>
+      <li>
+        <b>Faire de l'assistant l'autorité sur la sécurité ou la conformité</b>
+        <span>Consignes de sécurité, obligations réglementaires, procédures qualité certifiées : l'assistant peut vous indiquer où se trouve le document, jamais se substituer à lui. Ces sujets sont explicitement cadrés et la réponse renvoie toujours au document de référence.</span>
+      </li>
+      <li>
+        <b>Arbitrer vos contradictions à votre place</b>
+        <span>Quand deux documents valides se contredisent, ce n'est pas une question technique mais une décision d'entreprise. On la liste, on la documente, on vous la remonte. Tant qu'elle n'est pas tranchée, le sujet sort du périmètre et l'assistant répond qu'il ne sait pas.</span>
+      </li>
+      <li>
+        <b>Remplacer votre gestion documentaire</b>
+        <span>L'assistant lit vos documents là où ils sont ; il ne devient pas leur lieu de stockage ni leur outil de gestion des versions. Si vous n'avez aucun endroit de référence, il faut commencer par là — et ce n'est pas cette prestation.</span>
+      </li>
+      <li>
+        <b>Facturer 149 € par mois l'entretien d'une base de connaissances</b>
+        <span>À ce prix, personne ne peut réingérer les documents modifiés, rejouer quarante questions et analyser les échecs chaque mois. Un assistant non entretenu ment poliment au bout de six mois : autant ne pas le construire.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SCÉNARIOS ================= -->
+<section class="scenarios" id="scenarios">
+  <div class="wrap">
+    <div class="narrow" style="margin:0">
+      <span class="eyebrow gris">Ordres de grandeur</span>
+      <h2 class="display h2" style="margin-top:1rem">Ce que coûte l'interruption.</h2>
+      <p class="avert">Ces trois situations sont des <b>reconstitutions</b> établies sur les ordres de grandeur habituels d'une PME industrielle : volume documentaire, coût horaire chargé d'un technicien qualifié, durée d'une interruption avec retour à la tâche. Ce ne sont pas des témoignages de clients. Les calculs sont affichés pour que vous puissiez les transposer — ou les contester.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="secteur">PME industrielle · 45 personnes</span>
+        <h3>Trois référents, neuf interruptions par jour</h3>
+        <p>La mesure est faite pendant l'inventaire : trois personnes notent pendant une semaine chaque question qu'on leur pose. Ce n'est pas une statistique de vendeur, c'est votre chiffre.</p>
+        <div class="calcul">3 référents × 9 interruptions/jour<br>× 6 min (réponse + retour à la tâche)<br>= 13 h 30 par semaine<br>× 45 semaines × 42 € chargé<br>= <b>25 500 € par an</b><br><br>Absorption réaliste : 50 %<br>= <b>12 750 € récupérés</b></div>
+        <p class="verdict">Construction 4 900 € + maintien 4 680 €/an. L'année 1 dégage à peine 3 000 €. C'est à partir de l'année 2 que l'opération devient franchement rentable — et elle le reste.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Le verdict qu'on préfère éviter</span>
+        <h3>« Votre documentation n'est pas prête »</h3>
+        <p>Cela arrive, et il vaut mieux l'entendre après 890 € qu'après 4 900 €. Le corpus existe, mais il est trop contradictoire ou trop peu couvrant pour qu'un assistant puisse s'y appuyer honnêtement.</p>
+        <div class="calcul">214 documents versés<br>61 obsolètes · 34 doublons<br><b>9 contradictions non arbitrées</b><br>40 documents sans propriétaire<br><br>17 des 40 questions de référence<br>sans réponse documentée<br><br>→ <b>Construction reportée</b></div>
+        <p class="verdict">On remet la liste de ce qu'il faut arbitrer et rédiger, et vous revenez quand c'est fait. C'est le scénario qui nous coûte le plus — et celui qui vous coûte le moins.</p>
+      </div>
+
+      <div class="case">
+        <span class="secteur">Le nouvel arrivant</span>
+        <h3>Quatre mois avant d'être autonome</h3>
+        <p>Un catalogue de plusieurs milliers de références, des conditions commerciales par client, des compatibilités techniques. Une nouvelle assistante commerciale sollicite un collègue une douzaine de fois par jour les deux premiers mois.</p>
+        <div class="calcul">12 sollicitations/jour × 5 min<br>× 40 jours ouvrés<br>= <b>40 h prises à un senior</b><br>× 42 € = <b>1 680 €</b><br>par recrutement, sur 2 mois<br><br>sans compter les erreurs<br>de la période d'apprentissage</div>
+        <p class="verdict">C'est l'usage qui décolle le plus vite : un nouvel arrivant n'a pas d'habitude à défaire, et il préfère demander à une machine plutôt que de déranger dix fois son collègue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow gris">Franchise</span>
+    <h2 class="display h2" style="margin-top:1rem">Il y a des entreprises à qui on dit non.</h2>
+
+    <div class="pourqui">
+      <div>
+        <h3>Faites l'inventaire si</h3>
+        <ul class="oui-list">
+          <li>Vous êtes entre 20 et 100 personnes, dans l'industrie, le négoce technique ou la distribution</li>
+          <li>Votre documentation existe, même mal rangée : fiches techniques, procédures, tarifs, conditions</li>
+          <li>Deux ou trois personnes sont interrompues en permanence pour les mêmes questions</li>
+          <li>Vous pouvez désigner un propriétaire par domaine documentaire</li>
+          <li>Vous acceptez d'arbitrer les contradictions qu'on va vous remonter</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Attendez si</h3>
+        <ul class="non-list">
+          <li>Votre savoir-faire est presque entièrement dans les têtes et n'a jamais été écrit</li>
+          <li>Vous n'avez aucun endroit de référence pour vos documents — commencez par là</li>
+          <li>Personne ne peut être désigné propriétaire : le corpus se périmera en six mois</li>
+          <li>Vous attendez un assistant qui décide à la place de vos experts</li>
+          <li>Vous cherchez d'abord un assistant pour vos clients : le nôtre est interne, l'externe vient après</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="display h2">Les questions qu'on nous pose</h2>
+    <div class="qa">
+      <details open>
+        <summary>Il va inventer des réponses ?</summary>
+        <p>C'est le risque principal, et c'est pour cela qu'il est mesuré séparément de l'exactitude. Trois mécanismes le limitent : l'assistant ne répond qu'à partir de vos documents et cite systématiquement sa source ; il est réglé pour refuser plutôt qu'approcher ; et les sujets contradictoires ou non documentés sont explicitement retirés de son périmètre.</p>
+        <p>Le procès-verbal de recette exige <b>zéro réponse inventée</b> sur l'ensemble des quarante questions, y compris celles dont la réponse n'existe nulle part. C'est le critère le plus dur, et c'est le seul qui protège la confiance de vos équipes.</p>
+      </details>
+      <details>
+        <summary>Nos procédés partent chez un fournisseur américain ?</summary>
+        <p>Vos documents et leur index restent hébergés en Union européenne. Le traitement des questions s'appuie sur un fournisseur lié par un accord contractuel de non-conservation et de non-entraînement, dont la référence est annexée à votre contrat. Si votre activité impose davantage — défense, brevets sensibles, exigence d'un donneur d'ordre — une variante entièrement souveraine est chiffrable, et nous vous dirons franchement ce qu'elle coûte et ce qu'elle fait perdre en qualité de réponse.</p>
+      </details>
+      <details>
+        <summary>Une partie de nos documents sont des scans papier.</summary>
+        <p>Ils sont traités par reconnaissance de caractères, avec un contrôle manuel sur les documents critiques — un tableau de tolérances mal reconnu est une erreur qui se propage. Les scans trop dégradés sont écartés et signalés dans l'inventaire : mieux vaut un document absent qu'un document mal lu. C'est une des raisons pour lesquelles neuf documents sur deux cent quatorze sont sortis du périmètre dans notre exemple.</p>
+      </details>
+      <details>
+        <summary>Qui met à jour, une fois que c'est en place ?</summary>
+        <p>Vos propriétaires de documents, désignés à l'inventaire. Nous réingérons ce qui change et nous les alertons quand un document atteint sa date de révision sans avoir bougé. C'est le point où ces projets se dégradent le plus vite : un assistant à jour dépend d'une organisation documentaire, pas d'une technologie. Sans propriétaire nommé, nous ne construisons pas.</p>
+      </details>
+      <details>
+        <summary>Mes équipes ne s'en serviront pas.</summary>
+        <p>C'est le risque réel, plus que la technique. Trois choses y répondent : l'assistant est déployé là où elles travaillent déjà plutôt que sur un énième outil à ouvrir ; il est amorcé avec les vingt questions les plus fréquemment posées, affichées d'entrée ; et il est lancé auprès des personnes qui posent des questions, pas de celles qui y répondent. Un nouvel arrivant l'adopte en deux jours ; un ancien met six semaines, et seulement s'il n'a jamais eu de mauvaise réponse.</p>
+      </details>
+      <details>
+        <summary>Ça remplace notre gestion documentaire ?</summary>
+        <p>Non, il s'y branche. Vos documents restent là où ils sont, gérés comme ils le sont. L'assistant en construit un index consultable en langage courant. Si vous changez de système de gestion documentaire plus tard, on rebranche — ce n'est pas une migration.</p>
+      </details>
+      <details>
+        <summary>Et le même assistant pour nos clients ?</summary>
+        <p>C'est la suite naturelle et beaucoup la demandent, mais elle ne se traite pas en même temps. Un assistant externe suppose un périmètre documentaire différent, un ton différent, et une tolérance à l'erreur bien plus basse : une réponse fausse à un salarié se rattrape, à un client elle vous engage. On construit l'interne d'abord, on mesure six mois, et on en reparle ensuite.</p>
+      </details>
+      <details>
+        <summary>Que se passe-t-il si on arrête l'abonnement ?</summary>
+        <p>L'assistant continue de fonctionner sur l'état du corpus au jour de l'arrêt, et se dégrade progressivement à mesure que vos documents évoluent — nous vous le disons clairement plutôt que de le laisser pourrir en silence. Vous conservez le corpus trié, les métadonnées, le jeu de quarante questions et la documentation d'architecture. Tout est sur vos comptes depuis le premier jour.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="wrap narrow" style="margin-left:0">
+    <h2 class="display">Commencez par savoir ce que dit votre documentation.</h2>
+    <p>Deux semaines pour trier deux cents documents, lister les contradictions que personne n'a jamais arbitrées et mesurer ce que vos interruptions vous coûtent. Vous repartez avec le corpus trié, même si vous ne construisez jamais l'assistant.</p>
+    <a class="btn" href="#inventaire-cta">Faire l'inventaire — 890 € <span>→</span></a>
+    <p class="sub" style="color:rgba(20,20,28,.6)">Déduits de la construction · Le verdict peut être « pas encore prêt », et il vous fera économiser 4 900 €</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prix en euros hors taxes. L'assistant n'est mis en service qu'après signature d'un procès-verbal de recette portant sur 40 questions validées par le client. Documents et index hébergés en Union européenne ; traitement des requêtes sous accord de non-conservation et de non-entraînement annexé au contrat. L'assistant ne se substitue à aucun document de référence en matière de sécurité, de qualité ou de conformité réglementaire.</p>
+    <nav>
+      <a href="/offres">Toutes les offres</a>
+      <a href="/contact">Nous écrire</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">Conditions de vente</a>
+      <a href="/confidentialite">Données personnelles</a>
+    </nav>
+  </div>
+</footer>
+
+<a class="sticky" href="#inventaire-cta">
+  <span><b>890 €</b><small>L'inventaire · déduit de la construction</small></span>
+  <em>Commander →</em>
+</a>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<title>Message envoyé — ATELIER</title>
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Votre message a bien été envoyé. Nous vous répondons sous 24 h ouvrées.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--outremer);color:var(--craie);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+a{color:inherit}
+.wrap{width:100%;max-width:720px;margin:0 auto;padding:0 1.5rem}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1.05}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+header{padding:1.4rem 0}
+header .wrap{display:flex;align-items:center}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+
+main{flex:1;display:flex;align-items:center;padding:2rem 0}
+.carte{text-align:center;margin:0 auto}
+.coche{width:4.2rem;height:4.2rem;background:var(--jaune);color:var(--encre);display:flex;align-items:center;justify-content:center;margin:0 auto 1.8rem;font-family:var(--mono);font-size:1.9rem;font-weight:700}
+.carte h1{font-size:clamp(1.8rem,4.4vw,2.6rem);margin-bottom:1rem}
+.carte h1 em{font-style:normal;color:var(--jaune)}
+.carte p{max-width:46ch;margin:0 auto;opacity:.92;font-size:1.03rem}
+.carte p+p{margin-top:.9rem}
+.faits{display:flex;flex-wrap:wrap;justify-content:center;gap:0;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin:2.2rem 0;padding:1.1rem 0}
+.fait{padding:0 1.4rem;text-align:center}
+.fait b{display:block;font-family:var(--mono);font-weight:700;font-size:1.3rem;color:var(--jaune)}
+.fait small{font-size:.78rem;opacity:.8}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:1.6rem}
+.btn{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:600;font-size:.94rem;padding:.85rem 1.2rem;transition:background .16s ease,color .16s ease}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.btn-fantome{border:1px solid var(--hair-clair);color:var(--craie)}
+.btn-fantome:hover{background:rgba(237,234,227,.1)}
+.btn span{font-family:var(--mono)}
+
+footer{padding:1.4rem 0;font-family:var(--mono);font-size:.7rem;opacity:.65;text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="mark" href="index.html">ATELIER<span>.</span></a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="carte">
+      <div class="coche">✓</div>
+      <span class="eyebrow" style="color:var(--jaune)">Message envoyé</span>
+      <h1 class="display" style="margin-top:1rem">Votre message a bien été envoyé.<br>Nous vous répondons <em>sous peu</em>.</h1>
+      <p>Nous avons bien reçu votre demande et l'avons enregistrée. Une personne de l'équipe la lit et revient vers vous avec le périmètre et le prix de l'offre qui correspond.</p>
+      <p>Aucune autre action n'est nécessaire de votre côté pour l'instant.</p>
+
+      <div class="faits">
+        <div class="fait"><b>&lt; 24 h</b><small>Délai de réponse ouvré</small></div>
+        <div class="fait"><b>0 €</b><small>Ce premier échange est gratuit</small></div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-clair" href="index.html">Revoir les 10 offres <span>→</span></a>
+        <a class="btn btn-fantome" href="contact.html">Envoyer un autre message <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>ATELIER — prix affichés, périmètre écrit</footer>
+
+</body>
+</html>

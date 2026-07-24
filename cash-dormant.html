@@ -240,6 +240,38 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.alerte,.jamais,.final,footer{position:relative}
+.hero,.alerte,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.alerte .wrap,.jamais .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — relevé technique dans la colonne libre à droite du titre */
+.deco-hero{top:2rem;right:-5rem;width:min(33rem,42vw);color:var(--craie);opacity:.14}
+/* héro — zigzag de mesure, sous le relevé */
+.deco-hero-2{bottom:1.5rem;right:9%;width:min(11rem,14vw);color:var(--jaune);opacity:.3}
+/* alerte (fond encre) — carrés emboîtés et graduation, angle droit */
+.deco-alerte{top:2.5rem;right:-3rem;width:min(19rem,24vw);color:var(--craie);opacity:.12}
+/* les limites — équerre et hachures, à droite de la colonne étroite */
+.deco-jamais{top:4rem;right:2%;width:min(15rem,19vw);color:var(--outremer);opacity:.09}
+/* appel final (fond jaune) — viseur et cote, angle haut droit */
+.deco-final{top:-3.5rem;right:-2.5rem;width:min(24rem,30vw);color:var(--encre);opacity:.12}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-4rem;width:min(20rem,26vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on ne garde que les décors de fond de section */
+  .deco-hero-2,.deco-jamais{display:none}
+}
+@media (max-width:900px){ .deco{display:none} }
+
 @media (max-width:860px){.ramp-grid{grid-template-columns:1fr;gap:1.8rem}}
 @media (max-width:760px){
   .etape,.m{grid-template-columns:1fr;gap:.5rem}
@@ -267,6 +299,44 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : relevé technique -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 320 300" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M20 40h280M20 90h280M20 140h280M20 190h280M20 240h280" opacity=".35"/>
+      <path d="M20 40v200M76 40v200M132 40v200M188 40v200M244 40v200M300 40v200" opacity=".35"/>
+      <!-- cadre de relevé -->
+      <path d="M76 90h112v100H76z" stroke-width="1.5"/>
+      <!-- cercles concentriques -->
+      <circle cx="132" cy="140" r="46"/>
+      <circle cx="132" cy="140" r="30" opacity=".7"/>
+      <circle cx="132" cy="140" r="14" opacity=".45"/>
+      <!-- croix de repère -->
+      <path d="M132 116v48M108 140h48" opacity=".8"/>
+      <path d="M244 40v50M226 90h36" opacity=".55"/>
+      <!-- cote -->
+      <path d="M76 262h112M76 256v12M188 256v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M212 214l32-32M224 214l32-32M236 214l32-32" opacity=".45"/>
+      <!-- triangle de construction -->
+      <path d="M244 92l34 58h-68z" opacity=".6"/>
+      <!-- points de trame -->
+      <circle cx="76" cy="90" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="188" cy="90" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="76" cy="190" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="188" cy="190" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M20 20h44M20 20v44" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : zigzag de mesure -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 60l14-40 14 40 14-40 14 40 14-40 14 40 14-40 14 40"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 08 · Base clients</span>
     <h1 class="display">Sept ans de demandes de devis. <em>Zéro relance.</em></h1>
@@ -278,7 +348,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>390 €</b><small>Le bilan, déduit de la campagne</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#bilan">Estimer ce que vaut ma base — 390 € <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Estimer ce que vaut ma base — 390 € <span>→</span></a>
     <p class="sub">Livré en 5 jours · Déduit si vous engagez la campagne · Vous gardez le fichier nettoyé</p>
   </div>
 </section>
@@ -299,6 +369,25 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= L'ALERTE ================= -->
 <section class="alerte">
+  <!-- décor : carrés emboîtés et graduation -->
+  <div class="deco deco-alerte" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- carrés emboîtés -->
+      <path d="M30 30h140v140H30z"/>
+      <path d="M55 55h90v90H55z" opacity=".7"/>
+      <path d="M80 80h40v40H80z" opacity=".45"/>
+      <!-- diagonales de construction -->
+      <path d="M30 30l140 140M170 30L30 170" opacity=".3" stroke-width="1"/>
+      <!-- graduation haute -->
+      <path d="M30 14v10M65 18v6M100 14v10M135 18v6M170 14v10" opacity=".55" stroke-width="1"/>
+      <!-- cote latérale -->
+      <path d="M186 30v140M180 30h12M180 170h12" opacity=".6" stroke-width="1"/>
+      <!-- points de repère -->
+      <circle cx="30" cy="30" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="170" cy="170" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">Avant tout le reste</span>
@@ -658,6 +747,20 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= CE QU'ON NE FAIT PAS ================= -->
 <section class="jamais">
+  <!-- décor : équerre et hachures -->
+  <div class="deco deco-jamais" aria-hidden="true">
+    <svg viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- équerre -->
+      <path d="M20 20v120h120"/>
+      <path d="M20 20l120 120" opacity=".5" stroke-width="1"/>
+      <!-- hachures dans l'angle -->
+      <path d="M40 140l40-40M60 140l40-40M80 140l40-40M100 140l40-40" opacity=".4" stroke-width="1"/>
+      <!-- graduations sur la branche verticale -->
+      <path d="M20 44h12M20 68h8M20 92h12M20 116h8" opacity=".55" stroke-width="1"/>
+      <circle cx="20" cy="140" r="3" fill="currentColor" stroke="none" opacity=".85"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow">
     <span class="eyebrow gris">Les limites</span>
     <h2 class="display h2" style="margin-top:1rem">Quatre choses qu'on refusera.</h2>
@@ -795,15 +898,45 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : viseur et cote -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- viseur -->
+      <circle cx="140" cy="90" r="58"/>
+      <circle cx="140" cy="90" r="34" opacity=".65"/>
+      <path d="M140 16v148M66 90h148" opacity=".55" stroke-width="1"/>
+      <circle cx="140" cy="90" r="4" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- trame partielle -->
+      <path d="M20 40h60M20 90h30M20 140h60" opacity=".35" stroke-width="1"/>
+      <path d="M20 30v130M50 30v130" opacity=".3" stroke-width="1"/>
+      <!-- cote basse -->
+      <path d="M66 182h148M66 176v12M214 176v12" opacity=".6" stroke-width="1"/>
+      <!-- triangle -->
+      <path d="M20 176l30-46 30 46z" opacity=".5"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Commencez par savoir ce que vous avez.</h2>
     <p>Cinq jours pour trier, vérifier et compter. Vous saurez combien de contacts sont réellement exploitables, lesquels valent quelque chose, et si votre domaine tiendrait un envoi. Et vous repartez avec le fichier propre, quoi qu'il arrive ensuite.</p>
-    <a class="btn" href="#bilan">Estimer ce que vaut ma base — 390 € <span>→</span></a>
+    <a class="btn" href="contact.html">Estimer ce que vaut ma base — 390 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Déduits de la campagne · Remboursés si moins de 500 contacts exploitables</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 140" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M0 20h200M0 50h200M0 80h200M0 110h200" opacity=".4"/>
+      <path d="M20 0v140M60 0v140M100 0v140M140 0v140M180 0v140" opacity=".4"/>
+      <path d="M100 50h80v60h-80z" stroke-width="1.5" opacity=".8"/>
+      <path d="M140 50v60M100 80h80" opacity=".5"/>
+      <circle cx="140" cy="80" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <path d="M20 20l30 30M20 50l30-30" opacity=".45"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Les envois ne sont réalisés qu'auprès de contacts disposant d'une base légale vérifiée, depuis un sous-domaine dédié authentifié, avec désinscription en un clic. La campagne est suspendue si les seuils de rebond ou de plainte sont franchis. Aucune prospection relative au compte personnel de formation n'est réalisée, conformément à la loi du 19 décembre 2022.</p>
     <nav>
@@ -816,7 +949,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#bilan">
+<a class="sticky" href="contact.html">
   <span><b>390 €</b><small>Le bilan · déduit de la campagne</small></span>
   <em>Commander →</em>
 </a>

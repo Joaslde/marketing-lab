@@ -9,7 +9,7 @@
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
-     1. href="#audit" → lien Stripe de l'Audit (690 €)
+     1. href="contact.html" → lien Stripe de l'Audit (690 €)
      2. href="#socle" → lien de prise de RDV
      3. "ATELIER" → votre nom d'agence
      4. Sections #inventaire, #echeances, #scenarios : EXEMPLES et
@@ -227,6 +227,40 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.inv,.methode,.jamais,.final,footer{position:relative}
+.hero,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.inv .wrap,.methode .wrap,.jamais .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — élévation technique dans la colonne libre à droite du titre */
+.deco-hero{top:2rem;right:-4rem;width:min(32rem,41vw);color:var(--craie);opacity:.14}
+/* héro — escalier de paliers, sous l'élévation */
+.deco-hero-2{bottom:2rem;right:8%;width:min(11rem,14vw);color:var(--jaune);opacity:.32}
+/* l'audit (fond encre) — carrés emboîtés et cotes, à droite du chapeau */
+.deco-inv{top:2.5rem;right:-2.5rem;width:min(17rem,21vw);color:var(--craie);opacity:.12}
+/* la méthode (fond encre) — viseur et hachures, à droite du chapeau */
+.deco-methode{top:2.5rem;right:-2rem;width:min(16rem,20vw);color:var(--jaune);opacity:.14}
+/* les limites — triangles emboîtés, à droite de la colonne étroite */
+.deco-jamais{top:4rem;right:2%;width:min(14rem,18vw);color:var(--outremer);opacity:.09}
+/* appel final (fond jaune) — trame, cercles et cote, angle haut droit */
+.deco-final{top:-3.5rem;right:-2rem;width:min(24rem,30vw);color:var(--encre);opacity:.12}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2rem;right:-3.5rem;width:min(19rem,25vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on ne garde que les décors de fond de section */
+  .deco-hero-2,.deco-jamais,.deco-inv,.deco-methode{display:none}
+}
+@media (max-width:900px){ .deco{display:none} }
+
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
   .er{grid-template-columns:1fr 6rem;gap:.6rem}
@@ -253,6 +287,43 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : élévation technique -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 320 300" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M16 32h288M16 84h288M16 136h288M16 188h288M16 240h288" opacity=".32"/>
+      <path d="M16 32v208M88 32v208M160 32v208M232 32v208M304 32v208" opacity=".32"/>
+      <!-- pile d'éléments emboîtés, vue en élévation -->
+      <path d="M64 200h128v40H64z" stroke-width="1.5"/>
+      <path d="M80 160h96v40H80z" stroke-width="1.5" opacity=".8"/>
+      <path d="M96 120h64v40H96z" stroke-width="1.5" opacity=".6"/>
+      <path d="M112 88h32v32h-32z" stroke-width="1.5" opacity=".45"/>
+      <!-- hachures dans la base -->
+      <path d="M72 240l20-20M92 240l20-20M112 240l20-20M132 240l20-20M152 240l20-20" opacity=".4"/>
+      <!-- axe central -->
+      <path d="M128 60v180" opacity=".45"/>
+      <!-- cote latérale -->
+      <path d="M212 88v152M206 88h12M206 240h12" opacity=".6"/>
+      <!-- triangle de construction -->
+      <path d="M248 100l36 60h-72z" opacity=".5"/>
+      <!-- cote basse -->
+      <path d="M64 262h128M64 256v12M192 256v12" opacity=".6"/>
+      <!-- points de repère -->
+      <circle cx="64" cy="200" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="192" cy="200" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="128" cy="88" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M16 14h40M16 14v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : escalier de paliers -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 64h22V48h22V32h22V16h22V4"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 09 · Outils internes</span>
     <h1 class="display">Vous savez le faire. <em>C'est exactement le problème.</em></h1>
@@ -264,7 +335,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>690 €</b><small>L'audit, déduit du socle</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#audit">Chiffrer mes abonnements — 690 € <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Chiffrer mes abonnements — 690 € <span>→</span></a>
     <p class="sub">Livré en 10 jours · Déduit du socle · Remboursé si l'économie identifiée est inférieure à 3 000 €/an</p>
   </div>
 </section>
@@ -285,6 +356,19 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= SIGNATURE 1 : L'INVENTAIRE ================= -->
 <section class="inv" id="inventaire">
+  <!-- décor : carrés emboîtés et cotes -->
+  <div class="deco deco-inv" aria-hidden="true">
+    <svg viewBox="0 0 180 160" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M24 24h132v112H24z"/>
+      <path d="M46 44h88v72H46z" opacity=".7"/>
+      <path d="M68 64h44v32H68z" opacity=".45"/>
+      <path d="M24 24l132 112M156 24L24 136" opacity=".28" stroke-width="1"/>
+      <path d="M24 12v8M68 14v6M112 12v8M156 14v6" opacity=".5" stroke-width="1"/>
+      <path d="M168 24v112M162 24h12M162 136h12" opacity=".55" stroke-width="1"/>
+      <circle cx="90" cy="80" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">L'audit</span>
@@ -399,6 +483,18 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= LA MÉTHODE ================= -->
 <section class="methode">
+  <!-- décor : viseur et hachures -->
+  <div class="deco deco-methode" aria-hidden="true">
+    <svg viewBox="0 0 160 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="80" cy="70" r="46"/>
+      <circle cx="80" cy="70" r="26" opacity=".65"/>
+      <path d="M80 12v116M22 70h116" opacity=".5" stroke-width="1"/>
+      <path d="M18 130l24-24M36 130l24-24M54 130l24-24" opacity=".4" stroke-width="1"/>
+      <path d="M22 142h116M22 136v12M138 136v12" opacity=".5" stroke-width="1"/>
+      <circle cx="80" cy="70" r="3.5" fill="currentColor" stroke="none" opacity=".95"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">La méthode</span>
@@ -520,7 +616,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <li>Plan d'économies chiffré et daté</li>
           <li>La liste de ce que vous résiliez seul</li>
         </ul>
-        <div class="foot"><a class="btn" href="#audit">Commander l'audit <span>→</span></a></div>
+        <div class="foot"><a class="btn" href="contact.html">Commander l'audit <span>→</span></a></div>
       </div>
 
       <div class="pal mid">
@@ -539,7 +635,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <li>Formation équipe + référent interne</li>
           <li>Documentation et dossier de réversibilité</li>
         </ul>
-        <div class="foot"><a class="btn" href="#socle">En parler 30 minutes <span>→</span></a></div>
+        <div class="foot"><a class="btn" href="contact.html">En parler 30 minutes <span>→</span></a></div>
       </div>
 
       <div class="pal">
@@ -556,7 +652,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <li>Export complet trimestriel</li>
           <li>Alerte avant chaque échéance d'abonnement</li>
         </ul>
-        <div class="foot"><a class="btn" href="#socle">Voir ce que ça couvre <span>→</span></a></div>
+        <div class="foot"><a class="btn" href="contact.html">Voir ce que ça couvre <span>→</span></a></div>
       </div>
     </div>
 
@@ -572,6 +668,18 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= CE QU'ON NE FAIT PAS ================= -->
 <section class="jamais">
+  <!-- décor : triangles emboîtés -->
+  <div class="deco deco-jamais" aria-hidden="true">
+    <svg viewBox="0 0 150 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M75 18l62 108H13z"/>
+      <path d="M75 52l38 60H37z" opacity=".6"/>
+      <path d="M75 82l18 28H57z" opacity=".4"/>
+      <path d="M75 18v108" opacity=".35" stroke-width="1"/>
+      <path d="M13 138h124M13 132v12M137 132v12" opacity=".5" stroke-width="1"/>
+      <circle cx="75" cy="18" r="3" fill="currentColor" stroke="none" opacity=".85"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow">
     <span class="eyebrow gris">Les limites</span>
     <h2 class="display h2" style="margin-top:1rem">Cinq choses qu'on refusera.</h2>
@@ -715,15 +823,43 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : trame, cercles et cote -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M20 30h200M20 80h200M20 130h200" opacity=".32"/>
+      <path d="M20 30v100M70 30v100M120 30v100M170 30v100M220 30v100" opacity=".32"/>
+      <path d="M120 30h100v100H120z" stroke-width="1.5" opacity=".85"/>
+      <circle cx="170" cy="80" r="40" opacity=".7"/>
+      <circle cx="170" cy="80" r="22" opacity=".5"/>
+      <path d="M170 34v92M124 80h92" opacity=".5"/>
+      <path d="M24 138l30-30M44 138l30-30M64 138l30-30" opacity=".4"/>
+      <path d="M120 150h100M120 144v12M220 144v12" opacity=".55"/>
+      <circle cx="170" cy="80" r="3.5" fill="currentColor" stroke="none" opacity=".95"/>
+      <circle cx="120" cy="30" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Commencez par savoir combien vous payez.</h2>
     <p>Dix jours pour reconstituer la facture réelle, relever les licences fantômes et cartographier vos échéances. Vous repartez avec le tableau et la liste de ce que vous pouvez résilier seul — même si vous ne construisez jamais rien avec nous.</p>
-    <a class="btn" href="#audit">Chiffrer mes abonnements — 690 € <span>→</span></a>
+    <a class="btn" href="contact.html">Chiffrer mes abonnements — 690 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Déduits du socle · Remboursés si l'économie identifiée est inférieure à 3 000 €/an</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 190 130" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M0 25h190M0 55h190M0 85h190M0 115h190" opacity=".4"/>
+      <path d="M25 0v130M65 0v130M105 0v130M145 0v130M185 0v130" opacity=".4"/>
+      <path d="M105 25h80v60h-80z" stroke-width="1.5" opacity=".8"/>
+      <path d="M105 25l80 60M185 25l-80 60" opacity=".4"/>
+      <circle cx="145" cy="55" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <path d="M25 95h40v20H25z" opacity=".5"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. L'ensemble des systèmes construits est hébergé sur les comptes du client, à son nom, avec ses accès administrateur, et lui appartient sans réserve. Les frais d'hébergement sont réglés en direct par le client et intégrés au calcul d'économie. Le périmètre du socle est annexé au contrat avant le démarrage des travaux.</p>
     <nav>
@@ -735,7 +871,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#audit">
+<a class="sticky" href="contact.html">
   <span><b>690 €</b><small>L'audit · déduit du socle</small></span>
   <em>Commander →</em>
 </a>

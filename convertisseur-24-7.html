@@ -9,7 +9,7 @@
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
-     1. href="#installer" → votre lien Stripe (boutons + barre fixe mobile)
+     1. href="contact.html" → votre lien Stripe (boutons + barre fixe mobile)
      2. href="#demo" → votre estimateur de démonstration
      3. "ATELIER" → votre nom d'agence
      4. Section #scenarios : RECONSTITUTIONS étiquetées comme telles.
@@ -198,6 +198,38 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.fourch,.final,footer{position:relative}
+.hero,.fourch,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.fourch .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — colonne libre à droite du titre (19ch) */
+.deco-hero{top:2rem;right:-3rem;width:min(28rem,36vw);color:var(--craie);opacity:.14}
+/* héro — fourchette qui se resserre, accent jaune */
+.deco-hero-2{top:25rem;right:8%;width:min(10rem,13vw);color:var(--jaune);opacity:.3}
+/* fourchette (fond encre) — angle haut droit, au-dessus des écrans */
+.deco-fourch{top:2rem;right:-2.5rem;width:min(17rem,22vw);color:var(--craie);opacity:.12}
+/* appel final (fond jaune) — angle haut droit */
+.deco-final{top:-3.5rem;right:-2rem;width:min(22rem,28vw);color:var(--encre);opacity:.13}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-3.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on retire les décors secondaires */
+  .deco-hero-2,.deco-fourch{display:none}
+}
+@media (max-width:900px){
+  /* sous 900px l'espace libre disparaît : on retire le décor */
+  .deco{display:none}
+}
 @media (max-width:860px){
   .deux-vues{grid-template-columns:1fr}
   .step{grid-template-columns:1fr;gap:.7rem}
@@ -230,6 +262,43 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : fourchette d'estimation cotée -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 300 290" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M18 40h264M18 92h264M18 144h264M18 196h264" opacity=".33"/>
+      <path d="M18 40v156M84 40v156M150 40v156M216 40v156M282 40v156" opacity=".33"/>
+      <!-- fourchette qui se resserre : quatre paliers -->
+      <path d="M30 56h240M52 92h196M82 128h136M116 164h68" opacity=".7" stroke-width="1.5"/>
+      <!-- montants d'extrémité -->
+      <path d="M30 50v12M270 50v12M116 158v12M184 158v12" opacity=".6"/>
+      <!-- viseur sur le point final -->
+      <circle cx="150" cy="164" r="26"/>
+      <circle cx="150" cy="164" r="13" opacity=".6"/>
+      <path d="M150 132v64M118 164h64" opacity=".5"/>
+      <circle cx="150" cy="164" r="3.5" fill="currentColor" stroke="none"/>
+      <!-- cote finale -->
+      <path d="M116 218h68M116 212v12M184 212v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M212 214l28-28M224 214l28-28M236 214l28-28" opacity=".4"/>
+      <!-- triangle de convergence -->
+      <path d="M240 92l32 52h-64z" opacity=".5"/>
+      <!-- points de trame -->
+      <circle cx="30" cy="56" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="270" cy="56" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M18 20h40M18 20v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : entonnoir -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 110 80" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M8 12h94L66 46v26L44 60V46z"/>
+      <path d="M8 6h94" stroke-width="1" opacity=".7"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 05 · Site web</span>
     <h1 class="display">Vos prospects organisent leur déménagement <em>le samedi soir.</em></h1>
@@ -242,7 +311,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>0</b><small>Appel d'estimation à passer</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#installer">Installer mon estimateur <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Installer mon estimateur <span>→</span></a>
     <p class="sub">750 € d'installation, puis 49 €/mois · 60 jours pour l'essayer</p>
     <a class="lien2" href="#demo">Ou d'abord : tester l'estimateur de démonstration</a>
   </div>
@@ -280,6 +349,22 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= SIGNATURE 1 : LA FOURCHETTE ================= -->
 <section class="fourch" id="demo">
+  <!-- décor : quatre écrans emboîtés -->
+  <div class="deco deco-fourch" aria-hidden="true">
+    <svg viewBox="0 0 180 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- quatre cadres décalés : les quatre écrans -->
+      <path d="M14 20h64v50H14z"/>
+      <path d="M34 40h64v50H34z" opacity=".7"/>
+      <path d="M54 60h64v50H54z" opacity=".5"/>
+      <path d="M74 80h64v50H74z" opacity=".35"/>
+      <!-- graduation haute -->
+      <path d="M14 10h124M14 4v12M76 6v8M138 4v12" opacity=".5" stroke-width="1"/>
+      <!-- repère -->
+      <circle cx="106" cy="105" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <path d="M150 20l16 26h-32z" opacity=".45" stroke-width="1"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">Le fonctionnement</span>
@@ -568,7 +653,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <b>Ce que ça représente</b>
           <p>750 €, c'est environ trente leads achetés à un apporteur — partagés avec trois confrères et consommés en un mois. Ici, un seul déménagement standard signé grâce à l'outil rembourse l'installation et la première année d'abonnement.</p>
         </div>
-        <a class="btn" href="#installer">Installer mon estimateur <span>→</span></a>
+        <a class="btn" href="contact.html">Installer mon estimateur <span>→</span></a>
         <p class="sub">En ligne sous 5 jours ouvrés</p>
       </div>
     </div>
@@ -626,15 +711,47 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : horloge de garde et hachures -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- équerre -->
+      <path d="M30 190V30h160" stroke-width="1.5"/>
+      <!-- hachures régulières -->
+      <path d="M30 66h36M30 88h60M30 110h84M30 132h108M30 154h132" opacity=".38"/>
+      <!-- cadran : 24/7 -->
+      <circle cx="150" cy="92" r="38"/>
+      <circle cx="150" cy="92" r="22" opacity=".55"/>
+      <!-- aiguilles à angle vif -->
+      <path d="M150 92V60M150 92l24 16" stroke-width="1.5"/>
+      <!-- graduations du cadran -->
+      <path d="M150 54v-8M150 138v-8M188 92h8M112 92h-8" opacity=".6"/>
+      <circle cx="150" cy="92" r="4" fill="currentColor" stroke="none"/>
+      <!-- cote -->
+      <path d="M30 202h120M30 196v12M150 196v12" opacity=".5"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Le prochain samedi soir, soyez celui qui répond.</h2>
     <p>Quarante-cinq minutes d'atelier, cinq jours de mise en place, et vos visiteurs du week-end ne repartent plus chez le concurrent faute d'un ordre de prix. Soixante jours pour l'essayer.</p>
-    <a class="btn" href="#installer">Installer mon estimateur — 750 € <span>→</span></a>
+    <a class="btn" href="contact.html">Installer mon estimateur — 750 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Puis 49 €/mois · Installation remboursée si vous l'arrêtez sous 60 jours</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 38h180M10 78h180M10 118h180" opacity=".45"/>
+      <path d="M55 10v140M105 10v140M155 10v140" opacity=".45"/>
+      <path d="M55 38h50v40H55z" stroke-width="1.5"/>
+      <path d="M105 118l25-25 25 25" opacity=".6"/>
+      <circle cx="155" cy="38" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="105" cy="78" r="13" opacity=".55"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. L'estimation produite par l'outil est indicative et ne constitue ni un devis, ni une offre contractuelle : elle mentionne les hypothèses retenues et renvoie à votre devis écrit. Les coordonnées collectées appartiennent exclusivement au client, sont hébergées en Union européenne et ne font l'objet d'aucune revente.</p>
     <nav>
@@ -647,7 +764,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#installer">
+<a class="sticky" href="contact.html">
   <span><b>750 € + 49 €/mois</b><small>En ligne sous 5 jours</small></span>
   <em>Installer →</em>
 </a>

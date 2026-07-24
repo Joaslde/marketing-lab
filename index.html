@@ -3,9 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Les 10 — aucune ne commence à plus de 890 €</title>
+
+<!-- ========== SEO ==========
+     Domaine actuel : https://marketing-agency-ochre.vercel.app
+     À remplacer partout si vous branchez un nom de domaine définitif
+     (canonical, og:url, twitter, JSON-LD, sitemap.xml, robots.txt). -->
+
+<title>ATELIER — 10 offres d'automatisation et d'IA à prix affiché, de 390 € à 890 €</title>
+<meta name="description" content="Dix interventions d'automatisation et d'IA pour PME : prix affiché, périmètre écrit, aucune ne commence à plus de 890 €. Six livrées en moins d'une semaine, quatre chantiers qui démarrent par une mesure payante et déduite.">
+<link rel="canonical" href="https://marketing-agency-ochre.vercel.app/index.html">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="author" content="ATELIER">
+<meta name="theme-color" content="#2A34C8">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<meta name="description" content="Six interventions rapides à prix affiché, et quatre chantiers structurés qui commencent toujours par une mesure payante et déduite. De 390 € à 890 € pour entrer.">
+
+<!-- langue et zone : francophonie (France + Afrique francophone) -->
+<meta http-equiv="content-language" content="fr">
+<link rel="alternate" hreflang="fr" href="https://marketing-agency-ochre.vercel.app/index.html">
+<link rel="alternate" hreflang="x-default" href="https://marketing-agency-ochre.vercel.app/index.html">
+
+<!-- Open Graph (partages Facebook, LinkedIn, WhatsApp) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ATELIER">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://marketing-agency-ochre.vercel.app/index.html">
+<meta property="og:title" content="ATELIER — 10 offres d'automatisation et d'IA à prix affiché">
+<meta property="og:description" content="Prix affiché, périmètre écrit, aucune offre ne commence à plus de 890 €. Six interventions livrées en moins d'une semaine, quatre chantiers qui démarrent par une mesure payante et déduite.">
+<meta property="og:image" content="https://marketing-agency-ochre.vercel.app/og-image.png">
+<meta property="og:image:alt" content="ATELIER — catalogue de dix offres d'automatisation et d'IA">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ATELIER — 10 offres d'automatisation et d'IA à prix affiché">
+<meta name="twitter:description" content="Prix affiché, périmètre écrit, aucune offre ne commence à plus de 890 €. De 390 € à 890 € pour entrer.">
+<meta name="twitter:image" content="https://marketing-agency-ochre.vercel.app/og-image.png">
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
@@ -27,6 +58,78 @@
      · SaaS Killer ............. 690 → 3 900 € → 290 €/mois
      · Cerveau d'entreprise .... 890 → 4 900 € → 390 €/mois
      ================================================================= -->
+
+<!-- ========== DONNÉES STRUCTURÉES ==========
+     Décrivent l'organisation, le catalogue et la FAQ pour Google.
+     Les prix doivent rester synchronisés avec ceux affichés sur la page. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://marketing-agency-ochre.vercel.app/#organisation",
+      "name": "ATELIER",
+      "url": "https://marketing-agency-ochre.vercel.app/",
+      "description": "Agence d'automatisation et d'intelligence artificielle pour PME : dix offres à prix affiché, périmètre écrit, de 390 € à 890 € pour entrer.",
+      "areaServed": [
+        {"@type":"Country","name":"France"},
+        {"@type":"Place","name":"Afrique francophone"}
+      ],
+      "knowsLanguage": "fr"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://marketing-agency-ochre.vercel.app/#site",
+      "url": "https://marketing-agency-ochre.vercel.app/",
+      "name": "ATELIER",
+      "inLanguage": "fr",
+      "publisher": {"@id":"https://marketing-agency-ochre.vercel.app/#organisation"}
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://marketing-agency-ochre.vercel.app/index.html#page",
+      "url": "https://marketing-agency-ochre.vercel.app/index.html",
+      "name": "Les dix offres d'ATELIER",
+      "description": "Six interventions rapides à prix affiché et quatre chantiers structurés qui commencent par une mesure payante et déduite.",
+      "inLanguage": "fr",
+      "isPartOf": {"@id":"https://marketing-agency-ochre.vercel.app/#site"},
+      "about": {"@id":"https://marketing-agency-ochre.vercel.app/#organisation"}
+    },
+    {
+      "@type": "OfferCatalog",
+      "name": "Les dix offres",
+      "url": "https://marketing-agency-ochre.vercel.app/index.html",
+      "provider": {"@id":"https://marketing-agency-ochre.vercel.app/#organisation"},
+      "itemListElement": [
+        {"@type":"Offer","name":"Cash Dormant","description":"Réveiller les contacts que vous avez déjà payés.","url":"https://marketing-agency-ochre.vercel.app/cash-dormant.html","price":"390","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Diagnostic Éclair","description":"Savoir où l'automatisation vous fait gagner de l'argent.","url":"https://marketing-agency-ochre.vercel.app/diagnostic-eclair.html","price":"390","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Re-Hook 48 h","description":"5 nouvelles publicités à partir de votre meilleure vidéo.","url":"https://marketing-agency-ochre.vercel.app/re-hook-48h.html","price":"490","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Visibilité IA","description":"Exister quand vos clients posent la question à ChatGPT.","url":"https://marketing-agency-ochre.vercel.app/visibilite-ia.html","price":"490","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Réputation Autopilot","description":"La collecte d'avis Google qui tourne sans vous.","url":"https://marketing-agency-ochre.vercel.app/reputation-autopilot.html","price":"590","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"SaaS Killer","description":"Un socle à vous, à la place de la plomberie que vous louez.","url":"https://marketing-agency-ochre.vercel.app/saas-killer.html","price":"690","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Contenu Autopilot","description":"Un mois de contenu écrit dans vos mots, à partir d'une visio par mois.","url":"https://marketing-agency-ochre.vercel.app/contenu-autopilot.html","price":"690","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Le Convertisseur 24/7","description":"Un estimateur monté sur votre grille tarifaire.","url":"https://marketing-agency-ochre.vercel.app/convertisseur-24-7.html","price":"750","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Speed-to-Lead","description":"Chaque appel manqué reçoit un SMS en moins d'une minute.","url":"https://marketing-agency-ochre.vercel.app/speed-to-lead.html","price":"890","priceCurrency":"EUR","availability":"https://schema.org/InStock"},
+        {"@type":"Offer","name":"Le Cerveau de l'entreprise","description":"Un assistant qui connaît vos documents et cite sa source.","url":"https://marketing-agency-ochre.vercel.app/cerveau-entreprise.html","price":"890","priceCurrency":"EUR","availability":"https://schema.org/InStock"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://marketing-agency-ochre.vercel.app/index.html#faq",
+      "mainEntity": [
+        {"@type":"Question","name":"Les prix affichés sont-ils vraiment les prix finaux ?","acceptedAnswer":{"@type":"Answer","text":"Sur les six interventions rapides, oui : le périmètre est écrit sur la page de l'offre, ligne par ligne. Sur les quatre chantiers, le prix du chantier est arrêté à l'issue de la mesure et son périmètre est annexé au contrat avant le démarrage."}},
+        {"@type":"Question","name":"Pourquoi certaines coûtent-elles cinq fois plus que d'autres ?","acceptedAnswer":{"@type":"Answer","text":"Parce que la charge de travail réelle n'a rien à voir. Une installation de collecte d'avis se duplique en quelques heures. Un socle d'outils internes, c'est soixante-dix à cent heures : audit, architecture, migration, formation, documentation."}},
+        {"@type":"Question","name":"Que se passe-t-il si le résultat ne vient pas ?","acceptedAnswer":{"@type":"Answer","text":"Nous nous engageons sur des livrables, des délais et, quand c'est mesurable, sur des seuils : 90 % de bonnes réponses pour le Cerveau, cinq appels rattrapés le premier mois pour Speed-to-Lead, un doublement des avis à 90 jours pour Réputation."}},
+        {"@type":"Question","name":"Les abonnements mensuels, on peut les arrêter ?","acceptedAnswer":{"@type":"Answer","text":"À tout moment et par simple e-mail, sauf Contenu Autopilot qui demande trois mois. Si vous arrêtez, ce qui a été construit reste chez vous : vos données, vos comptes, vos accès, votre documentation."}},
+        {"@type":"Question","name":"Et nos données personnelles dans tout ça ?","acceptedAnswer":{"@type":"Answer","text":"Chaque offre qui traite des données de vos clients est livrée avec le contrat de sous-traitance, le registre de traitement, les mentions à afficher et un hébergement en Union européenne."}},
+        {"@type":"Question","name":"Combien de temps ça nous prend, à nous ?","acceptedAnswer":{"@type":"Answer","text":"Entre trente minutes et deux heures sur les interventions rapides. Entre six et huit heures étalées sur plusieurs semaines pour les chantiers, essentiellement en collecte et en arbitrage."}},
+        {"@type":"Question","name":"On peut en combiner plusieurs ?","acceptedAnswer":{"@type":"Answer","text":"Oui, mais rarement en même temps. Deux chantiers menés en parallèle produisent deux projets à moitié faits. Une intervention rapide qui tourne se combine bien avec un chantier en cours."}}
+      ]
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,9 +167,9 @@ a{color:inherit}
 
 /* héro */
 .hero{background:var(--outremer);color:var(--craie);padding:3rem 0 0}
-.hero-lede{max-width:46ch}
+.hero-lede{max-width:min(58ch,62%)}
 .hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.1rem}
-.hero h1{font-size:clamp(2.4rem,6.6vw,4.8rem);margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.2rem,5.2vw,4.2rem);margin-bottom:1.2rem;text-wrap:balance}
 .hero h1 em{font-style:normal;color:var(--jaune)}
 .hero p{font-size:clamp(1rem,1.6vw,1.16rem);opacity:.92;max-width:50ch}
 .hero p+p{margin-top:.9rem}
@@ -196,6 +299,68 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 .reveal{opacity:0;transform:translateY(14px)}
 .reveal.seen{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease}
 
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.principe,.final,.choose,.faq,.tier,footer{position:relative}
+.hero,.principe,.final,.choose,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.principe .wrap,.final .wrap,.choose .wrap,footer .wrap,
+.tier-head,.faq h2,.qa{position:relative;z-index:1}
+.grid{position:relative;z-index:0}
+.grid>.offer{position:relative;z-index:1}
+/* les 4 chantiers tiennent sur une seule ligne de 4 colonnes égales,
+   au lieu de 3 + 1 esseulé */
+#chantiers .grid{grid-template-columns:repeat(4,1fr);gap:1rem}
+#chantiers .offer{padding:1.4rem 1.15rem 1.3rem}
+#chantiers .offer h3{font-size:1.28rem}
+#chantiers .pain{font-size:.88rem}
+#chantiers .solution{font-size:.88rem}
+#chantiers .deliver li{font-size:.83rem}
+#chantiers .forwho{font-size:.67rem}
+#chantiers .tiers .t{font-size:.72rem;gap:.45rem}
+#chantiers .tiers .t .lb{font-size:.83rem}
+#chantiers .tiers .t .du{font-size:.62rem}
+#chantiers .tiers .note{font-size:.62rem}
+#chantiers .btn{font-size:.86rem;padding:.78rem .9rem}
+@media (max-width:1180px){
+  /* sous cette largeur 4 colonnes deviennent illisibles : retour à 2 */
+  #chantiers .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:720px){
+  #chantiers .grid{grid-template-columns:1fr}
+}
+
+/* héro — colonne libre à droite du texte */
+.deco-hero{top:1.5rem;right:-4rem;width:min(34rem,44vw);color:var(--craie);opacity:.13}
+/* héro — petit repère bas gauche, sous les règles */
+.deco-hero-2{top:26rem;right:6%;width:min(11rem,14vw);color:var(--jaune);opacity:.3}
+/* chantiers — compas à droite du titre de section */
+.deco-tier-2{top:3rem;right:-2rem;width:min(17rem,22vw);color:var(--outremer);opacity:.05}
+/* principe (fond encre) — angle bas gauche */
+.deco-principe{bottom:-5rem;left:-6rem;width:min(28rem,36vw);color:var(--craie);opacity:.11}
+/* principe — second repère haut droit */
+.deco-principe-2{top:2rem;right:-3rem;width:min(16rem,22vw);color:var(--jaune);opacity:.13}
+/* appel final (fond jaune) — angle haut droit */
+.deco-final{top:-4rem;right:-2.5rem;width:min(23rem,30vw);color:var(--encre);opacity:.13}
+/* pied de page — trame discrète à droite */
+.deco-footer{top:-2rem;right:-4rem;width:min(20rem,26vw);color:var(--craie);opacity:.09}
+/* comment choisir — schéma à branches, à droite de la 3e question */
+.deco-choose-2{top:3rem;right:6%;width:min(12rem,15vw);color:var(--encre);opacity:.14}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on ne garde que les décors de fond de section */
+  .deco-hero-2,.deco-tier-2{display:none}
+}
+@media (max-width:900px){
+  /* sous 900px l'espace libre disparaît : on retire le décor */
+  .deco{display:none}
+}
+
 @media (max-width:640px){
   .row{grid-template-columns:1fr auto;gap:.6rem}
   .row-idx,.row-arrow{display:none}
@@ -222,6 +387,44 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ============ HÉRO + TABLEAU ============ -->
 <section class="hero">
+  <!-- décor : relevé technique -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 320 300" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M20 40h280M20 90h280M20 140h280M20 190h280M20 240h280" opacity=".35"/>
+      <path d="M20 40v200M76 40v200M132 40v200M188 40v200M244 40v200M300 40v200" opacity=".35"/>
+      <!-- cadre de relevé -->
+      <path d="M76 90h112v100H76z" stroke-width="1.5"/>
+      <!-- cercles concentriques -->
+      <circle cx="132" cy="140" r="46"/>
+      <circle cx="132" cy="140" r="30" opacity=".7"/>
+      <circle cx="132" cy="140" r="14" opacity=".45"/>
+      <!-- croix de repère -->
+      <path d="M132 118v44M110 140h44" opacity=".8"/>
+      <path d="M244 40v50M226 90h36" opacity=".55"/>
+      <!-- cote -->
+      <path d="M76 262h112M76 256v12M188 256v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M212 214l32-32M224 214l32-32M236 214l32-32" opacity=".45"/>
+      <!-- triangle de construction -->
+      <path d="M244 90l34 58h-68z" opacity=".6"/>
+      <!-- points de trame -->
+      <circle cx="76" cy="90" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="188" cy="90" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="76" cy="190" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="188" cy="190" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M20 20h44M20 20v44" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : zigzag de mesure -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 60l14-40 14 40 14-40 14 40 14-40 14 40 14-40 14 40"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="hero-lede">
       <span class="eyebrow">Catalogue 2026</span>
@@ -308,7 +511,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </section>
 
 <!-- ============ FILTRES ============ -->
-<nav class="filterbar" aria-label="Filtrer les">
+<nav class="filterbar" aria-label="Filtrer les offres par besoin">
   <div class="wrap">
     <span class="filterbar-label">Je veux</span>
     <button class="chip" data-filter="all" aria-pressed="true">Tout voir</button>
@@ -322,10 +525,10 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 <main>
 
 <!-- ============ FAMILLE 1 : INTERVENTIONS RAPIDES ============ -->
-<section class="tier wrap" id="rapides">
+<section class="tier wrap" id="rapides" aria-labelledby="titre-rapides">
   <div class="tier-head">
     <div class="top">
-      <h2>Les interventions rapides</h2>
+      <h2 id="titre-rapides">Les interventions rapides</h2>
       <span class="cnt">6 · 390 € À 890 €</span>
     </div>
     <p>Le prix affiché est le prix final, le périmètre est écrit, et c'est livré entre 48 heures et une semaine. Rien à réorganiser chez vous.</p>
@@ -453,10 +656,24 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </section>
 
 <!-- ============ FAMILLE 2 : CHANTIERS ============ -->
-<section class="tier wrap" id="chantiers">
+<section class="tier wrap" id="chantiers" aria-labelledby="titre-chantiers">
+  <!-- décor : compas et paliers -->
+  <div class="deco deco-tier-2" aria-hidden="true">
+    <svg viewBox="0 0 170 140" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- arc de compas -->
+      <path d="M20 120a65 65 0 0 1 130 0" stroke-width="1"/>
+      <path d="M85 55L20 120M85 55l65 65"/>
+      <circle cx="85" cy="55" r="6"/>
+      <!-- paliers -->
+      <path d="M20 132h30v-14h30v-14h30v-14h30v-14h30" opacity=".55" stroke-width="1"/>
+      <!-- graduation -->
+      <path d="M20 20v14M85 14v14M150 20v14" opacity=".45" stroke-width="1"/>
+    </svg>
+  </div>
+
   <div class="tier-head">
     <div class="top">
-      <h2>Les chantiers structurés</h2>
+      <h2 id="titre-chantiers">Les chantiers structurés</h2>
       <span class="cnt">4 · MESURE D'ABORD</span>
     </div>
     <p>Ces quatre-là engagent votre organisation et se comptent en semaines, pas en jours. Elles commencent donc toutes par une mesure payante entre 390 € et 890 € : vous savez où vous en êtes avant de décider, et le montant est déduit si vous lancez le chantier. Le verdict peut être « n'y allez pas » — et il l'a déjà été.</p>
@@ -557,10 +774,35 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </main>
 
 <!-- ============ LE PRINCIPE DE LA MESURE ============ -->
-<section class="principe">
+<section class="principe" aria-labelledby="titre-principe">
+  <!-- décor : trois mesures emboîtées -->
+  <div class="deco deco-principe" aria-hidden="true">
+    <svg viewBox="0 0 260 260" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M40 40h180v180H40z" stroke-width="1.5"/>
+      <path d="M70 70h120v120H70z" opacity=".7"/>
+      <path d="M100 100h60v60h-60z" opacity=".45"/>
+      <!-- diagonales de construction -->
+      <path d="M40 40l180 180M220 40L40 220" opacity=".25"/>
+      <!-- points de repère aux angles -->
+      <path d="M40 26v-14M220 26v-14M26 40H12M26 220H12" opacity=".6"/>
+      <!-- graduation -->
+      <path d="M40 240h180M40 234v12M100 236v8M160 236v8M220 234v12" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : cible de mesure -->
+  <div class="deco deco-principe-2" aria-hidden="true">
+    <svg viewBox="0 0 140 140" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="70" cy="70" r="52"/>
+      <circle cx="70" cy="70" r="32" opacity=".65"/>
+      <path d="M70 4v132M4 70h132" opacity=".45" stroke-width="1"/>
+      <path d="M70 58l12 12-12 12-12-12z" fill="currentColor" stroke="none" opacity=".5"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Pourquoi une mesure payante d'abord</span>
-    <h2 class="display">Nous préférons vous dire non à 390 € qu'à 4 900 €.</h2>
+    <h2 class="display" id="titre-principe">Nous préférons vous dire non à 390 € qu'à 4 900 €.</h2>
     <p class="lead">Sur les quatre chantiers, personne ne peut savoir à l'avance si l'opération en vaut la peine — ni vous, ni nous. C'est pourquoi elles commencent toutes par une mesure, et pourquoi cette mesure est facturée.</p>
 
     <div class="trois">
@@ -584,10 +826,20 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </section>
 
 <!-- ============ COMMENT CHOISIR ============ -->
-<section class="choose">
+<section class="choose" aria-labelledby="titre-choisir">
+  <!-- décor : trois branches -->
+  <div class="deco deco-choose-2" aria-hidden="true">
+    <svg viewBox="0 0 130 110" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 55h30M40 55V20h34M40 55v35h34"/>
+      <path d="M40 55h34"/>
+      <circle cx="10" cy="55" r="5" fill="currentColor" stroke="none"/>
+      <path d="M80 12h40v16H80zM80 47h40v16H80zM80 82h40v16H80z" opacity=".75"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Si vous hésitez</span>
-    <h2 class="display">Trois questions suffisent à choisir.</h2>
+    <h2 class="display" id="titre-choisir">Trois questions suffisent à choisir.</h2>
     <div class="steps">
       <div class="step">
         <span class="num">QUESTION 1</span>
@@ -609,8 +861,8 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </section>
 
 <!-- ============ QUESTIONS ============ -->
-<section class="faq wrap">
-  <h2 class="display">Ce qu'on nous demande avant de signer</h2>
+<section class="faq wrap" aria-labelledby="titre-faq">
+  <h2 class="display" id="titre-faq">Ce qu'on nous demande avant de signer</h2>
   <div class="qa">
     <details>
       <summary>Les prix affichés sont-ils vraiment les prix finaux ?</summary>
@@ -644,10 +896,27 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </section>
 
 <!-- ============ APPEL FINAL ============ -->
-<section class="final">
+<section class="final" aria-labelledby="titre-final">
+  <!-- décor : angle de visée -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- équerre -->
+      <path d="M30 190V30h160" stroke-width="1.5"/>
+      <!-- hachures régulières -->
+      <path d="M30 70h40M30 90h70M30 110h100M30 130h130M30 150h160" opacity=".4"/>
+      <!-- viseur -->
+      <circle cx="150" cy="90" r="34"/>
+      <circle cx="150" cy="90" r="18" opacity=".6"/>
+      <path d="M150 46v88M106 90h88" opacity=".55"/>
+      <!-- carré de repère -->
+      <path d="M120 60h60v60h-60z" opacity=".4"/>
+      <circle cx="150" cy="90" r="4" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div>
-      <h2 class="display">Toujours indécis ? Commencez par le chiffrage.</h2>
+      <h2 class="display" id="titre-final">Toujours indécis ? Commencez par le chiffrage.</h2>
       <p>90 minutes, 390 €, un rapport chiffré sous 72 heures. Et si vous nous confiez ensuite une mission, les 390 € en sont déduits.</p>
     </div>
     <a class="btn" href="diagnostic-eclair.html">Réserver le Diagnostic Éclair <span>→</span></a>
@@ -655,9 +924,20 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 30h180M10 70h180M10 110h180" opacity=".45"/>
+      <path d="M50 10v140M100 10v140M150 10v140" opacity=".45"/>
+      <path d="M50 30h50v40H50z" stroke-width="1.5"/>
+      <path d="M150 110l20-20 20 20" opacity=".6"/>
+      <circle cx="100" cy="110" r="16" opacity=".6"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Les délais annoncés courent à partir de la réception du paiement et des accès nécessaires. Chaque offre fait l'objet d'un contrat précisant le périmètre livré. Sur les chantiers, la mesure préalable est déduite du montant du chantier si celui-ci est engagé dans les 90 jours.</p>
-    <nav>
+    <nav aria-label="Liens légaux et contact">
       <a href="contact.html">Nous écrire</a>
       <a href="mentions-legales.html">Mentions légales</a>
       <a href="cgv.html">Conditions de vente</a>

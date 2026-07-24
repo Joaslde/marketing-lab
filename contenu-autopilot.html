@@ -9,7 +9,7 @@
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
-     1. href="#demarrer" → votre lien Stripe (boutons + barre fixe mobile)
+     1. href="contact.html" → votre lien Stripe (boutons + barre fixe mobile)
      2. href="#exemple" pointe vers la section d'exemple de la page —
         remplacez par un lien vers un vrai mois de contenu dès que vous
         en aurez un à montrer.
@@ -213,6 +213,39 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.trimestre,.final,footer{position:relative}
+.hero,.trimestre,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.trimestre .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — colonne libre à droite du titre (19ch) */
+.deco-hero{top:2rem;right:-3rem;width:min(28rem,36vw);color:var(--craie);opacity:.14}
+/* héro — trois barres de cadence, accent jaune */
+.deco-hero-2{top:25rem;right:8%;width:min(10rem,13vw);color:var(--jaune);opacity:.3}
+/* trimestre (fond encre) — angle haut droit, au-dessus des colonnes */
+.deco-trimestre{top:2rem;right:-2.5rem;width:min(18rem,23vw);color:var(--craie);opacity:.12}
+/* appel final (fond jaune) — angle haut droit */
+.deco-final{top:-3.5rem;right:-2rem;width:min(22rem,28vw);color:var(--encre);opacity:.13}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-3.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on retire les décors secondaires */
+  .deco-hero-2,.deco-trimestre{display:none}
+}
+@media (max-width:900px){
+  /* sous 900px l'espace libre disparaît : on retire le décor */
+  .deco{display:none}
+}
+
 @media (max-width:860px){.paire{grid-template-columns:1fr}}
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
@@ -243,6 +276,44 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : trame de parution et cadence -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 300 290" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame calendaire -->
+      <path d="M18 40h264M18 84h264M18 128h264M18 172h264M18 216h264" opacity=".33"/>
+      <path d="M18 40v176M84 40v176M150 40v176M216 40v176M282 40v176" opacity=".33"/>
+      <!-- une case pleine : la visio mensuelle -->
+      <path d="M84 84h66v44H84z" stroke-width="1.5"/>
+      <!-- essaimage : petits carrés issus de la case -->
+      <path d="M160 92h20v20h-20zM188 92h20v20h-20zM160 118h20v20h-20zM188 118h20v20h-20z" opacity=".55"/>
+      <path d="M216 92h20v20h-20zM216 118h20v20h-20z" opacity=".35"/>
+      <!-- cercles concentriques -->
+      <circle cx="117" cy="172" r="36"/>
+      <circle cx="117" cy="172" r="21" opacity=".65"/>
+      <path d="M117 136v72M81 172h72" opacity=".55"/>
+      <circle cx="117" cy="172" r="3.5" fill="currentColor" stroke="none"/>
+      <!-- cote sur la case source -->
+      <path d="M84 240h66M84 234v12M150 234v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M192 212l28-28M204 212l28-28M216 212l28-28" opacity=".4"/>
+      <!-- triangle de diffusion -->
+      <path d="M250 148l30 50h-60z" opacity=".5"/>
+      <!-- points de trame -->
+      <circle cx="84" cy="84" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="150" cy="128" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M18 20h40M18 20v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : cadence en barres -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M10 58V30M34 58V14M58 58V38M82 58V22M106 58V44"/>
+      <path d="M4 64h112" stroke-width="1" opacity=".7"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 04 · Visibilité · Abonnement</span>
     <h1 class="display">Quand vous êtes en mission, <em>vous disparaissez.</em></h1>
@@ -254,7 +325,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>690 €</b><small>Par mois, tout compris</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#demarrer">Réserver ma visio de démarrage <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Réserver ma visio de démarrage <span>→</span></a>
     <p class="sub">Engagement 3 mois · Mois 1 remboursé si les publications ne vous ressemblent pas</p>
     <a class="lien2" href="#exemple">Ou d'abord : voir ce qu'une réponse de 40 secondes devient</a>
   </div>
@@ -453,6 +524,24 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= POURQUOI 3 MOIS ================= -->
 <section class="trimestre">
+  <!-- décor : trois paliers cotés -->
+  <div class="deco deco-trimestre" aria-hidden="true">
+    <svg viewBox="0 0 190 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- trois paliers : les trois mois -->
+      <path d="M20 128h44V96h44V64h44V32h18"/>
+      <!-- montants verticaux -->
+      <path d="M64 128V96M108 128V64M152 128V32" opacity=".45" stroke-width="1"/>
+      <!-- cote basse -->
+      <path d="M20 142h132M20 136v12M64 138v8M108 138v8M152 136v12" opacity=".55" stroke-width="1"/>
+      <!-- repères -->
+      <circle cx="64" cy="96" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="108" cy="64" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="152" cy="32" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M20 128V20M12 20h16" opacity=".5" stroke-width="1"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">L'engagement</span>
@@ -582,7 +671,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <b>Ce que ça représente</b>
           <p>8 280 € sur douze mois. À 1 100 € la journée, c'est sept jours et demi facturés dans l'année — soit une seule mission courte. Si le dispositif ne raccourcit qu'un seul creux d'une semaine, il est remboursé.</p>
         </div>
-        <a class="btn" href="#demarrer">Réserver ma visio de démarrage <span>→</span></a>
+        <a class="btn" href="contact.html">Réserver ma visio de démarrage <span>→</span></a>
         <p class="sub">Premier créneau sous 7 jours ouvrés</p>
       </div>
     </div>
@@ -640,15 +729,46 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : trame et carrés emboîtés -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- équerre -->
+      <path d="M32 190V32h158" stroke-width="1.5"/>
+      <!-- trame -->
+      <path d="M32 72h158M32 112h158M32 152h158" opacity=".3"/>
+      <path d="M72 32v158M112 32v158M152 32v158" opacity=".3"/>
+      <!-- carrés emboîtés -->
+      <path d="M72 72h80v80H72z" stroke-width="1.5"/>
+      <path d="M92 92h40v40H92z" opacity=".6"/>
+      <!-- diagonales de construction -->
+      <path d="M72 72l80 80M152 72l-80 80" opacity=".25"/>
+      <!-- cote -->
+      <path d="M72 176h80M72 170v12M152 170v12" opacity=".55"/>
+      <circle cx="112" cy="112" r="4" fill="currentColor" stroke="none" opacity=".7"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">La prochaine mission longue arrive. Cette fois, ne disparaissez pas.</h2>
     <p>Une heure par mois, trente contenus dans vos mots, et une présence qui continue pendant que vous êtes chez vos clients. Le premier mois est remboursé s'il ne vous ressemble pas.</p>
-    <a class="btn" href="#demarrer">Réserver ma visio de démarrage — 690 €/mois <span>→</span></a>
+    <a class="btn" href="contact.html">Réserver ma visio de démarrage — 690 €/mois <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Engagement 3 mois puis mensuel · Un seul client par spécialité et par marché</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 32h180M10 72h180M10 112h180" opacity=".45"/>
+      <path d="M50 10v140M100 10v140M150 10v140" opacity=".45"/>
+      <path d="M100 32h50v40h-50z" stroke-width="1.5"/>
+      <path d="M50 112l25-25 25 25" opacity=".6"/>
+      <circle cx="50" cy="72" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="150" cy="112" r="14" opacity=".55"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Les contenus produits sont la propriété exclusive du client, y compris après la fin de l'accompagnement. Les connexions aux réseaux sociaux s'effectuent par autorisation officielle, sans communication d'identifiants, et sont révocables à tout moment par le client.</p>
     <nav>
@@ -660,7 +780,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#demarrer">
+<a class="sticky" href="contact.html">
   <span><b>690 €/mois</b><small>1 h par mois · 30 contenus</small></span>
   <em>Démarrer →</em>
 </a>

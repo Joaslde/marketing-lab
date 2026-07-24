@@ -9,7 +9,7 @@
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
-     1. href="#commander" → votre lien Stripe (4 boutons + barre fixe mobile)
+     1. href="contact.html" → votre lien Stripe (4 boutons + barre fixe mobile)
      2. "ATELIER" → votre nom d'agence
      3. Section #scenarios : les 3 cas sont des RECONSTITUTIONS, étiquetées
         comme telles. Remplacez-les par vos cas réels dès votre 3ᵉ client
@@ -206,6 +206,39 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.anatomie,.final,footer{position:relative}
+.hero,.anatomie,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.anatomie .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — colonne libre à droite du titre (18ch) */
+.deco-hero{top:2rem;right:-3rem;width:min(29rem,37vw);color:var(--craie);opacity:.14}
+/* héro — chevrons d'accent (les 3 secondes rejouées) */
+.deco-hero-2{top:25rem;right:8%;width:min(11rem,14vw);color:var(--jaune);opacity:.3}
+/* anatomie (fond encre) — angle haut droit, au-dessus de la bande */
+.deco-anatomie{top:2rem;right:-2.5rem;width:min(18rem,23vw);color:var(--craie);opacity:.12}
+/* appel final (fond jaune) — angle haut droit */
+.deco-final{top:-3.5rem;right:-2rem;width:min(22rem,28vw);color:var(--encre);opacity:.13}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-3.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on retire les décors secondaires */
+  .deco-hero-2,.deco-anatomie{display:none}
+}
+@media (max-width:900px){
+  /* sous 900px l'espace libre disparaît : on retire le décor */
+  .deco{display:none}
+}
+
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
   .carte{grid-template-columns:1fr}
@@ -234,6 +267,44 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : banc de montage coté -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 300 290" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M18 40h264M18 96h264M18 152h264M18 208h264" opacity=".33"/>
+      <path d="M18 40v168M84 40v168M150 40v168M216 40v168M282 40v168" opacity=".33"/>
+      <!-- cadre principal : les 3 premières secondes -->
+      <path d="M18 96h66v56H18z" stroke-width="1.5"/>
+      <!-- les cinq déclinaisons, carrés emboîtés décalés -->
+      <path d="M96 104h44v40H96zM108 112h44v40h-44z" opacity=".55"/>
+      <!-- viseur -->
+      <circle cx="216" cy="124" r="38"/>
+      <circle cx="216" cy="124" r="22" opacity=".65"/>
+      <path d="M216 82v84M174 124h84" opacity=".55"/>
+      <circle cx="216" cy="124" r="3.5" fill="currentColor" stroke="none"/>
+      <!-- cote sur le segment refait -->
+      <path d="M18 232h66M18 226v12M84 226v12" opacity=".7"/>
+      <!-- hachures diagonales -->
+      <path d="M96 208l30-30M108 208l30-30M120 208l30-30" opacity=".4"/>
+      <!-- triangle de lecture -->
+      <path d="M244 194l32 26h-64z" opacity=".55"/>
+      <!-- points de trame -->
+      <circle cx="18" cy="96" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="84" cy="96" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="84" cy="152" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M18 20h40M18 20v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : chevrons de relance -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M8 60l22-46 22 46M56 60l22-46 22 46"/>
+      <path d="M8 66h104" stroke-width="1" opacity=".7"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 02 · Publicité</span>
     <h1 class="display">Votre meilleure vidéo n'est pas morte. <em>Son ouverture, si.</em></h1>
@@ -246,7 +317,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>0</b><small>Minute de tournage</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#commander">Envoyer ma vidéo à décliner <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Envoyer ma vidéo à décliner <span>→</span></a>
     <p class="sub">Paiement en ligne · Livraison sous 48 h ouvrées · 1 aller-retour de correction inclus</p>
   </div>
 </section>
@@ -278,6 +349,22 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= ANATOMIE (SIGNATURE) ================= -->
 <section class="anatomie">
+  <!-- décor : segments et compas -->
+  <div class="deco deco-anatomie" aria-hidden="true">
+    <svg viewBox="0 0 190 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- arc de compas -->
+      <path d="M25 126a70 70 0 0 1 140 0" stroke-width="1"/>
+      <path d="M95 56L25 126M95 56l70 70"/>
+      <circle cx="95" cy="56" r="6"/>
+      <!-- segments : le premier isolé, les autres conservés -->
+      <path d="M25 138h30" stroke-width="2"/>
+      <path d="M63 138h30M101 138h30M139 138h26" opacity=".45" stroke-width="1"/>
+      <!-- graduation haute -->
+      <path d="M25 18v14M95 12v20M165 18v14" opacity=".45" stroke-width="1"/>
+      <circle cx="40" cy="138" r="3" fill="currentColor" stroke="none" opacity=".8"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">La méthode</span>
@@ -534,7 +621,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <b>Ce qu'on vous demande</b>
           <p>Une vidéo, votre offre en une phrase, votre audience, et votre choix pour la voix. Dix minutes de formulaire. Le compte à rebours des 48 h démarre à la réception du fichier.</p>
         </div>
-        <a class="btn" href="#commander">Envoyer ma vidéo à décliner <span>→</span></a>
+        <a class="btn" href="contact.html">Envoyer ma vidéo à décliner <span>→</span></a>
         <p class="sub">Livraison sous 48 h ouvrées</p>
       </div>
     </div>
@@ -588,15 +675,45 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : cible et hachures -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- équerre inversée -->
+      <path d="M190 30H30v160" stroke-width="1.5"/>
+      <!-- hachures diagonales -->
+      <path d="M46 60l40-40M46 84l64-64M46 108l88-88M70 132l88-88M94 156l88-88" opacity=".35"/>
+      <!-- cible -->
+      <circle cx="146" cy="132" r="36"/>
+      <circle cx="146" cy="132" r="20" opacity=".6"/>
+      <path d="M146 86v92M100 132h92" opacity=".5"/>
+      <!-- losange central -->
+      <path d="M146 118l14 14-14 14-14-14z" fill="currentColor" stroke="none" opacity=".5"/>
+      <!-- cote -->
+      <path d="M30 200h116M30 194v12M146 194v12" opacity=".55"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Vendredi, vous aurez cinq munitions neuves.</h2>
     <p>Envoyez la vidéo qui marchait le mieux. Pas besoin de la retoucher, pas besoin de vous excuser pour le son. On s'occupe des trois premières secondes — c'est là que tout se joue.</p>
-    <a class="btn" href="#commander">Envoyer ma vidéo — 490 € <span>→</span></a>
+    <a class="btn" href="contact.html">Envoyer ma vidéo — 490 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Livraison sous 48 h ouvrées · 1 correction incluse · 3 angles refaits si rien ne vous convient</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 40h180M10 80h180M10 120h180" opacity=".45"/>
+      <path d="M60 10v140M110 10v140M160 10v140" opacity=".45"/>
+      <path d="M110 40h50v40h-50z" stroke-width="1.5"/>
+      <path d="M40 120l20-20 20 20" opacity=".6"/>
+      <circle cx="60" cy="40" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="160" cy="120" r="14" opacity=".6"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Le délai de 48 heures court à compter de la réception du fichier vidéo et du formulaire complété, hors samedi et dimanche. Le clonage vocal n'est réalisé que sur la voix du commanditaire, sur autorisation écrite révocable à tout moment.</p>
     <nav>
@@ -608,7 +725,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#commander">
+<a class="sticky" href="contact.html">
   <span><b>490 €</b><small>5 déclinaisons sous 48 h</small></span>
   <em>Commander →</em>
 </a>

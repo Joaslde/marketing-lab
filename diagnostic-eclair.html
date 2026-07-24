@@ -9,7 +9,7 @@
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
-     1. href="#reserver" → votre lien Stripe / Calendly de réservation
+     1. href="contact.html" → votre lien Stripe / Calendly de réservation
         (4 boutons dans la page + 1 en barre fixe mobile)
      2. "ATELIER" → votre nom d'agence
      3. Les 3 scénarios (section #scenarios) sont ILLUSTRATIFS.
@@ -195,6 +195,39 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 /* ---- barre fixe mobile ---- */
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.rapport,.final,footer{position:relative}
+.hero,.rapport,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.rapport .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — colonne libre à droite du titre (17ch) */
+.deco-hero{top:2.5rem;right:-3.5rem;width:min(30rem,38vw);color:var(--craie);opacity:.14}
+/* héro — graduation d'accent, sous le décor principal */
+.deco-hero-2{top:24rem;right:9%;width:min(10rem,13vw);color:var(--jaune);opacity:.3}
+/* rapport (fond encre) — angle haut droit, au-dessus du tableau */
+.deco-rapport{top:1.5rem;right:-3rem;width:min(19rem,24vw);color:var(--craie);opacity:.12}
+/* appel final (fond jaune) — angle haut droit */
+.deco-final{top:-3rem;right:-2rem;width:min(22rem,28vw);color:var(--encre);opacity:.13}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-3.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on retire les décors secondaires */
+  .deco-hero-2,.deco-rapport{display:none}
+}
+@media (max-width:900px){
+  /* sous 900px l'espace libre disparaît : on retire le décor */
+  .deco{display:none}
+}
+
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
   .carte{grid-template-columns:1fr}
@@ -220,6 +253,46 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : relevé technique -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 300 290" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M16 36h268M16 86h268M16 136h268M16 186h268M16 236h268" opacity=".35"/>
+      <path d="M16 36v200M70 36v200M124 36v200M178 36v200M232 36v200M284 36v200" opacity=".35"/>
+      <!-- cadre de relevé -->
+      <path d="M70 86h108v100H70z" stroke-width="1.5"/>
+      <!-- cercles concentriques -->
+      <circle cx="124" cy="136" r="44"/>
+      <circle cx="124" cy="136" r="28" opacity=".7"/>
+      <circle cx="124" cy="136" r="13" opacity=".45"/>
+      <!-- croix de repère -->
+      <path d="M124 114v44M102 136h44" opacity=".8"/>
+      <path d="M232 36v50M214 86h36" opacity=".55"/>
+      <!-- cote -->
+      <path d="M70 258h108M70 252v12M178 252v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M202 210l30-30M214 210l30-30M226 210l30-30" opacity=".45"/>
+      <!-- triangle de construction -->
+      <path d="M232 86l32 56h-64z" opacity=".6"/>
+      <!-- points de trame -->
+      <circle cx="70" cy="86" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="178" cy="86" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="70" cy="186" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="178" cy="186" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M16 16h42M16 16v42" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : règle graduée -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 44h112"/>
+      <path d="M4 44V16M32 44V26M60 44V16M88 44V26M116 44V16"/>
+      <path d="M18 44v-8M46 44v-8M74 44v-8M102 44v-8" opacity=".6"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 01 · Diagnostic</span>
     <h1 class="display">Vous savez que vous perdez du temps. <em>Vous ne savez pas combien.</em></h1>
@@ -231,7 +304,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>390 €</b><small>Déduits de votre première mission</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#reserver">Réserver mon diagnostic <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Réserver mon diagnostic <span>→</span></a>
     <p class="sub">Paiement en ligne · Créneaux sous 5 jours ouvrés · Remboursé si le rapport ne vous apprend rien</p>
   </div>
 </section>
@@ -286,6 +359,22 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= LE RAPPORT (SIGNATURE) ================= -->
 <section class="rapport">
+  <!-- décor : carrés emboîtés et cote -->
+  <div class="deco deco-rapport" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M30 30h140v140H30z" stroke-width="1.5"/>
+      <path d="M56 56h88v88H56z" opacity=".7"/>
+      <path d="M82 82h36v36H82z" opacity=".45"/>
+      <!-- diagonales de construction -->
+      <path d="M30 30l140 140M170 30L30 170" opacity=".22"/>
+      <!-- amorces d'angle -->
+      <path d="M30 18V4M170 18V4M18 30H4M18 170H4" opacity=".6"/>
+      <!-- graduation basse -->
+      <path d="M30 188h140M30 182v12M100 184v8M170 182v12" opacity=".5"/>
+      <circle cx="100" cy="100" r="3" fill="currentColor" stroke="none" opacity=".8"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">Extrait</span>
@@ -516,15 +605,43 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : angle de visée -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- équerre -->
+      <path d="M30 190V30h160" stroke-width="1.5"/>
+      <!-- hachures régulières -->
+      <path d="M30 70h40M30 92h70M30 114h100M30 136h130M30 158h160" opacity=".4"/>
+      <!-- viseur -->
+      <circle cx="152" cy="88" r="34"/>
+      <circle cx="152" cy="88" r="17" opacity=".6"/>
+      <path d="M152 44v88M108 88h88" opacity=".55"/>
+      <!-- carré de repère -->
+      <path d="M122 58h60v60h-60z" opacity=".4"/>
+      <circle cx="152" cy="88" r="4" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Dans 72 heures, vous aurez le chiffre.</h2>
     <p>Vous saurez ce que vos tâches répétitives vous coûtent réellement, lesquelles valent la peine d'être traitées, et dans quel ordre. Que vous agissiez avec nous, en interne, ou pas du tout.</p>
-    <a class="btn" href="#reserver">Réserver mon diagnostic — 390 € <span>→</span></a>
+    <a class="btn" href="contact.html">Réserver mon diagnostic — 390 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Déduits de votre première mission · Remboursés si le rapport ne vous apprend rien</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 30h180M10 70h180M10 110h180" opacity=".45"/>
+      <path d="M50 10v140M100 10v140M150 10v140" opacity=".45"/>
+      <path d="M50 30h50v40H50z" stroke-width="1.5"/>
+      <path d="M150 110l20-20 20 20" opacity=".6"/>
+      <circle cx="100" cy="110" r="16" opacity=".6"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Le délai de 72 heures court à compter de la fin de l'entretien, hors samedi et dimanche. Prestation encadrée par un contrat d'une page précisant le périmètre livré et les conditions de remboursement.</p>
     <nav>
@@ -536,7 +653,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#reserver">
+<a class="sticky" href="contact.html">
   <span><b>390 €</b><small>Déduits de votre 1ʳᵉ mission</small></span>
   <em>Réserver →</em>
 </a>

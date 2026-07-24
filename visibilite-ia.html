@@ -215,6 +215,38 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.proto,.jamais,.final,footer{position:relative}
+.hero,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.proto .wrap,.jamais .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — relevé de mesure dans la colonne libre à droite du titre */
+.deco-hero{top:2.5rem;right:-4.5rem;width:min(32rem,41vw);color:var(--craie);opacity:.14}
+/* héro — mire de graduation, sous le relevé */
+.deco-hero-2{bottom:2rem;right:8%;width:min(10rem,13vw);color:var(--jaune);opacity:.32}
+/* le chantier (fond encre) — compas et paliers, à droite du chapeau */
+.deco-proto{top:2.5rem;right:-2rem;width:min(17rem,21vw);color:var(--craie);opacity:.12}
+/* les limites — croix de repère et cotes, à droite de la colonne étroite */
+.deco-jamais{top:4rem;right:2%;width:min(14rem,18vw);color:var(--outremer);opacity:.09}
+/* appel final (fond jaune) — trame et arcs de construction, angle haut droit */
+.deco-final{top:-3rem;right:-2rem;width:min(23rem,29vw);color:var(--encre);opacity:.12}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2rem;right:-3.5rem;width:min(19rem,25vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on ne garde que les décors de fond de section */
+  .deco-hero-2,.deco-jamais,.deco-proto{display:none}
+}
+@media (max-width:900px){ .deco{display:none} }
+
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
   .lev{grid-template-columns:1fr;gap:.4rem}
@@ -239,6 +271,42 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : relevé radial -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 320 300" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M16 36h288M16 88h288M16 140h288M16 192h288M16 244h288" opacity=".32"/>
+      <path d="M16 36v208M88 36v208M160 36v208M232 36v208M304 36v208" opacity=".32"/>
+      <!-- éventail de relevés depuis un point d'origine -->
+      <path d="M160 244L54 96M160 244L106 78M160 244v-166M160 244l54-166M160 244l106 148" opacity=".55" stroke-width="1"/>
+      <!-- arcs de construction concentriques -->
+      <path d="M64 244a96 96 0 0 1 192 0" opacity=".8" stroke-width="1.5"/>
+      <path d="M96 244a64 64 0 0 1 128 0" opacity=".55"/>
+      <path d="M128 244a32 32 0 0 1 64 0" opacity=".4"/>
+      <!-- cadre du relevé -->
+      <path d="M100 120h120v72H100z" stroke-width="1.5" opacity=".7"/>
+      <!-- croix de repère -->
+      <path d="M232 36v40M214 60h36" opacity=".5"/>
+      <!-- graduation d'axe -->
+      <path d="M64 258v10M112 262v6M160 258v10M208 262v6M256 258v10" opacity=".55"/>
+      <path d="M64 268h192" opacity=".5"/>
+      <!-- points d'origine -->
+      <circle cx="160" cy="244" r="3.5" fill="currentColor" stroke="none" opacity=".95"/>
+      <circle cx="100" cy="120" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
+      <circle cx="220" cy="192" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
+      <!-- amorce d'axe -->
+      <path d="M16 16h40M16 16v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : mire de graduation -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 110 70" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 62V6M28 62V26M50 62V14M72 62V34M94 62V20"/>
+      <path d="M0 62h110" stroke-width="1"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 07 · Référencement IA</span>
     <h1 class="display">Le DRH qui cherche un cabinet <em>ne vous trouve pas.</em></h1>
@@ -251,7 +319,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>490 €</b><small>Le relevé, déduit du chantier</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#releve">Commander mon relevé — 490 € <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Commander mon relevé — 490 € <span>→</span></a>
     <p class="sub">Livré en 5 jours · Intégralement déduit si vous engagez le chantier · Remboursé si vous êtes déjà cité</p>
   </div>
 </section>
@@ -400,6 +468,21 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= LE CHANTIER ================= -->
 <section class="proto">
+  <!-- décor : compas et paliers -->
+  <div class="deco deco-proto" aria-hidden="true">
+    <svg viewBox="0 0 170 140" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- arc de compas -->
+      <path d="M20 120a65 65 0 0 1 130 0" stroke-width="1"/>
+      <path d="M85 55L20 120M85 55l65 65"/>
+      <circle cx="85" cy="55" r="6"/>
+      <!-- paliers -->
+      <path d="M20 132h30v-14h30v-14h30v-14h30v-14h30" opacity=".55" stroke-width="1"/>
+      <!-- graduation haute -->
+      <path d="M20 18v14M85 12v14M150 18v14" opacity=".45" stroke-width="1"/>
+      <circle cx="150" cy="120" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">Le chantier</span>
@@ -479,7 +562,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <li>Rapport de 10 pages + visio de 30 min</li>
         </ul>
         <div class="foot">
-          <a class="btn" href="#releve">Commander le relevé <span>→</span></a>
+          <a class="btn" href="contact.html">Commander le relevé <span>→</span></a>
         </div>
       </div>
 
@@ -499,7 +582,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <li>Remesure à 8 et 12 semaines</li>
         </ul>
         <div class="foot">
-          <a class="btn" href="#chantier">En parler 20 minutes <span>→</span></a>
+          <a class="btn" href="contact.html">En parler 20 minutes <span>→</span></a>
         </div>
       </div>
 
@@ -517,7 +600,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <li>Le point mensuel en une page</li>
         </ul>
         <div class="foot">
-          <a class="btn" href="#chantier">Voir si c'est utile pour vous <span>→</span></a>
+          <a class="btn" href="contact.html">Voir si c'est utile pour vous <span>→</span></a>
         </div>
       </div>
     </div>
@@ -533,6 +616,21 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= CE QU'ON NE FAIT PAS ================= -->
 <section class="jamais">
+  <!-- décor : croix de repère et cotes -->
+  <div class="deco deco-jamais" aria-hidden="true">
+    <svg viewBox="0 0 150 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- cadre -->
+      <path d="M25 25h100v100H25z"/>
+      <!-- croix de repère -->
+      <path d="M75 10v130M10 75h130" opacity=".5" stroke-width="1"/>
+      <!-- carré tourné -->
+      <path d="M75 40l35 35-35 35-35-35z" opacity=".6"/>
+      <!-- cote basse -->
+      <path d="M25 138h100M25 132v12M125 132v12" opacity=".55" stroke-width="1"/>
+      <circle cx="75" cy="75" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow">
     <span class="eyebrow gris">Les limites</span>
     <h2 class="display h2" style="margin-top:1rem">Quatre choses qu'on ne fera pas.</h2>
@@ -671,15 +769,45 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : arcs de construction -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 230 190" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- arcs successifs depuis l'angle -->
+      <path d="M210 20a70 70 0 0 0-70 70" opacity=".8"/>
+      <path d="M210 20a110 110 0 0 0-110 110" opacity=".6"/>
+      <path d="M210 20A150 150 0 0 0 60 170" opacity=".45"/>
+      <!-- rayons -->
+      <path d="M210 20L60 170M210 20l-70 130M210 20L100 30" opacity=".35" stroke-width="1"/>
+      <!-- trame partielle -->
+      <path d="M20 40h60M20 80h60M20 120h60" opacity=".3" stroke-width="1"/>
+      <path d="M20 40v80M50 40v80M80 40v80" opacity=".3" stroke-width="1"/>
+      <!-- équerre -->
+      <path d="M20 150v20h50" opacity=".55"/>
+      <circle cx="210" cy="20" r="4" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Commencez par savoir où vous en êtes.</h2>
     <p>Vingt requêtes, quatre moteurs, cinq répétitions, cinq jours. Vous saurez si vous êtes cité, à quel taux, face à qui, et ce qui vous en empêche. Et si vous êtes déjà bien placé, on vous rembourse et on vous le dit.</p>
-    <a class="btn" href="#releve">Commander mon relevé — 490 € <span>→</span></a>
+    <a class="btn" href="contact.html">Commander mon relevé — 490 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Déduits du chantier · Remboursés si vous êtes déjà cité sur plus de la moitié des requêtes</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 190 130" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M0 25h190M0 55h190M0 85h190M0 115h190" opacity=".4"/>
+      <path d="M25 0v130M65 0v130M105 0v130M145 0v130M185 0v130" opacity=".4"/>
+      <circle cx="105" cy="55" r="30" opacity=".7"/>
+      <circle cx="105" cy="55" r="16" opacity=".5"/>
+      <path d="M105 15v80M65 55h80" opacity=".45"/>
+      <circle cx="105" cy="55" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Les taux de citation sont mesurés selon un protocole de 5 répétitions par requête sur 4 moteurs en sessions vierges, et sont valables à la date du relevé : ces systèmes n'étant pas déterministes, aucun résultat n'est reproductible à l'identique. Aucune position, aucun classement et aucune citation ne sont garantis.</p>
     <nav>
@@ -691,7 +819,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#releve">
+<a class="sticky" href="contact.html">
   <span><b>490 €</b><small>Le relevé · déduit du chantier</small></span>
   <em>Commander →</em>
 </a>

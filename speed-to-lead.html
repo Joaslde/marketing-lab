@@ -228,6 +228,39 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   .convo-grid{grid-template-columns:1fr;gap:1.8rem}
   .duo{grid-template-columns:1fr}
 }
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.urgence,.prix,.jamais,.final,footer{position:relative}
+.hero,.urgence,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.urgence .wrap,.prix .wrap,.jamais .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — chronomètre technique dans la colonne libre à droite du titre */
+.deco-hero{top:2rem;right:-4rem;width:min(32rem,41vw);color:var(--craie);opacity:.14}
+/* héro — graduation de secondes, sous le chronomètre */
+.deco-hero-2{bottom:2rem;right:8%;width:min(11rem,14vw);color:var(--jaune);opacity:.32}
+/* l'urgence (fond jaune) — croix d'alerte et hachures, angle droit */
+.deco-urgence{top:2rem;right:-2.5rem;width:min(18rem,22vw);color:var(--encre);opacity:.1}
+/* le tarif (fond encre) — carrés emboîtés, à droite du chapeau */
+.deco-prix{top:2.5rem;right:-2rem;width:min(16rem,20vw);color:var(--craie);opacity:.12}
+/* les limites — équerre et cotes, à droite de la colonne étroite */
+.deco-jamais{top:4rem;right:2%;width:min(14rem,18vw);color:var(--outremer);opacity:.09}
+/* appel final (fond jaune) — cadran et rayons, angle haut droit */
+.deco-final{top:-3.5rem;right:-2rem;width:min(23rem,29vw);color:var(--encre);opacity:.12}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2rem;right:-3.5rem;width:min(19rem,25vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on ne garde que les décors de fond de section */
+  .deco-hero-2,.deco-jamais,.deco-prix{display:none}
+}
+@media (max-width:900px){ .deco{display:none} }
+
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
   .carte{grid-template-columns:1fr}
@@ -254,6 +287,45 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : chronomètre technique -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 320 300" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M16 36h288M16 88h288M16 140h288M16 192h288M16 244h288" opacity=".3"/>
+      <path d="M16 36v208M88 36v208M160 36v208M232 36v208M304 36v208" opacity=".3"/>
+      <!-- cadran -->
+      <circle cx="150" cy="146" r="72" stroke-width="1.5"/>
+      <circle cx="150" cy="146" r="52" opacity=".55"/>
+      <!-- graduations du cadran -->
+      <path d="M150 74v14M150 204v14M78 146h14M208 146h14M99 95l10 10M191 187l10 10M201 95l-10 10M109 187l-10 10" opacity=".7"/>
+      <!-- aiguilles -->
+      <path d="M150 146V90M150 146l42 24" stroke-width="1.5" opacity=".85"/>
+      <!-- secteur balayé -->
+      <path d="M150 90a56 56 0 0 1 48 84" opacity=".4"/>
+      <!-- cadre de repère -->
+      <path d="M232 44h56v56h-56z" opacity=".6"/>
+      <path d="M232 44l56 56M288 44l-56 56" opacity=".35"/>
+      <!-- hachures d'angle -->
+      <path d="M32 220l28-28M48 220l28-28M64 220l28-28" opacity=".4"/>
+      <!-- cote basse -->
+      <path d="M78 262h144M78 256v12M222 256v12" opacity=".6"/>
+      <!-- points de repère -->
+      <circle cx="150" cy="146" r="4" fill="currentColor" stroke="none" opacity=".95"/>
+      <circle cx="232" cy="44" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
+      <circle cx="288" cy="100" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
+      <!-- amorce d'axe -->
+      <path d="M16 16h40M16 16v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : graduation de secondes -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 10v50M28 22v38M50 10v50M72 22v38M94 10v50M114 30v30"/>
+      <path d="M0 60h120" stroke-width="1"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 06 · Prise de contact</span>
     <h1 class="display">Vous ne perdez pas des chantiers. <em>Vous ratez des appels.</em></h1>
@@ -266,7 +338,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>1 tap</b><small>Pour valider un créneau</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#installer">Installer Speed-to-Lead <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Installer Speed-to-Lead <span>→</span></a>
     <p class="sub">890 € d'installation, puis 79 €/mois · SMS inclus · Résiliable à tout moment</p>
     <a class="lien2" href="#demo">Ou d'abord : appelez notre numéro de démonstration et ne laissez pas sonner</a>
   </div>
@@ -398,6 +470,22 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= L'URGENCE ================= -->
 <section class="urgence">
+  <!-- décor : croix d'alerte et hachures -->
+  <div class="deco deco-urgence" aria-hidden="true">
+    <svg viewBox="0 0 180 180" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- carré tourné -->
+      <path d="M90 20l70 70-70 70-70-70z"/>
+      <path d="M90 48l42 42-42 42-42-42z" opacity=".6"/>
+      <!-- croix centrale -->
+      <path d="M90 20v140M20 90h140" opacity=".45" stroke-width="1"/>
+      <!-- hachures dans le quadrant bas droit -->
+      <path d="M104 118l30-30M116 130l24-24M128 142l18-18" opacity=".45" stroke-width="1"/>
+      <!-- graduations -->
+      <path d="M20 8v10M90 4v14M160 8v10" opacity=".5" stroke-width="1"/>
+      <circle cx="90" cy="90" r="4" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow">
     <span class="eyebrow">La règle qui prime sur tout</span>
     <h2 class="display h2" style="margin-top:1rem">Quand c'est une vraie urgence, l'assistant s'efface.</h2>
@@ -457,6 +545,19 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= CE QUE ÇA NE FAIT PAS ================= -->
 <section class="jamais">
+  <!-- décor : équerre et cotes -->
+  <div class="deco deco-jamais" aria-hidden="true">
+    <svg viewBox="0 0 150 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M20 20h110v110"/>
+      <path d="M20 20l110 110" opacity=".45" stroke-width="1"/>
+      <path d="M44 20v24M68 20v16M92 20v24M116 20v16" opacity=".5" stroke-width="1"/>
+      <path d="M130 44h-24M130 68h-16M130 92h-24M130 116h-16" opacity=".5" stroke-width="1"/>
+      <path d="M40 100l40-40M40 120l60-60" opacity=".4" stroke-width="1"/>
+      <circle cx="20" cy="20" r="3" fill="currentColor" stroke="none" opacity=".85"/>
+      <circle cx="130" cy="130" r="3" fill="currentColor" stroke="none" opacity=".85"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow">
     <span class="eyebrow gris">Les limites</span>
     <h2 class="display h2" style="margin-top:1rem">Quatre choses que cet assistant ne fera pas.</h2>
@@ -554,6 +655,19 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= PRIX ================= -->
 <section class="prix" id="installer">
+  <!-- décor : carrés emboîtés et cote -->
+  <div class="deco deco-prix" aria-hidden="true">
+    <svg viewBox="0 0 160 150" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M22 22h116v106H22z"/>
+      <path d="M42 42h76v66H42z" opacity=".7"/>
+      <path d="M62 62h36v26H62z" opacity=".45"/>
+      <path d="M22 22l116 106M138 22L22 128" opacity=".28" stroke-width="1"/>
+      <path d="M150 22v106M144 22h12M144 128h12" opacity=".55" stroke-width="1"/>
+      <path d="M22 12h116" opacity=".4" stroke-width="1"/>
+      <circle cx="80" cy="75" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="narrow" style="margin:0">
       <span class="eyebrow">Le tarif</span>
@@ -600,7 +714,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <b>Ce que ça représente</b>
           <p>79 € par mois, c'est un quart d'un dépannage. Si l'assistant rattrape une seule intervention par mois, il est payé quatre fois. S'il en rattrape un chantier dans l'année, la question ne se pose plus.</p>
         </div>
-        <a class="btn" href="#installer">Installer Speed-to-Lead <span>→</span></a>
+        <a class="btn" href="contact.html">Installer Speed-to-Lead <span>→</span></a>
         <p class="sub">En service sous 72 h ouvrées</p>
       </div>
     </div>
@@ -659,15 +773,45 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : cadran et rayons -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 230 190" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="150" cy="80" r="62"/>
+      <circle cx="150" cy="80" r="42" opacity=".6"/>
+      <!-- graduations du cadran -->
+      <path d="M150 18v12M150 130v12M88 80h12M200 80h12M106 36l9 9M185 115l9 9M194 36l-9 9M115 115l-9 9" opacity=".65" stroke-width="1"/>
+      <!-- aiguilles -->
+      <path d="M150 80V38M150 80l30 18" opacity=".85"/>
+      <!-- trame partielle -->
+      <path d="M20 40h50M20 80h40M20 120h50" opacity=".3" stroke-width="1"/>
+      <path d="M20 30v100M50 30v100" opacity=".3" stroke-width="1"/>
+      <!-- cote basse -->
+      <path d="M88 172h124M88 166v12M212 166v12" opacity=".55" stroke-width="1"/>
+      <circle cx="150" cy="80" r="4" fill="currentColor" stroke="none" opacity=".95"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Demain, vers 14 h, votre téléphone sonnera dans le vide.</h2>
     <p>Ce jour-là, soit la personne appellera le suivant sur Google, soit elle recevra un SMS soixante secondes plus tard. C'est la seule chose que cette page vous propose de changer.</p>
-    <a class="btn" href="#installer">Installer Speed-to-Lead — 890 € <span>→</span></a>
+    <a class="btn" href="contact.html">Installer Speed-to-Lead — 890 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Puis 79 €/mois, SMS inclus · En service sous 72 h · Remboursé si moins de 5 appels rattrapés le 1ᵉʳ mois</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 190 130" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M0 25h190M0 55h190M0 85h190M0 115h190" opacity=".4"/>
+      <path d="M25 0v130M65 0v130M105 0v130M145 0v130M185 0v130" opacity=".4"/>
+      <path d="M105 55l40-30 40 30-40 30z" stroke-width="1.5" opacity=".75"/>
+      <path d="M145 25v60M105 55h80" opacity=".45"/>
+      <circle cx="145" cy="55" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <path d="M25 95l20 20M45 95l20 20" opacity=".45"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Le renvoi conditionnel est posé sur votre ligne existante sans modification de votre numéro et retiré sur simple demande. L'assistant ne communique aucun montant et ne confirme aucun rendez-vous sans validation de votre part. Coordonnées hébergées en Union européenne, propriété exclusive du client, aucune revente.</p>
     <nav>
@@ -680,7 +824,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#installer">
+<a class="sticky" href="contact.html">
   <span><b>890 € + 79 €/mois</b><small>En service sous 72 h</small></span>
   <em>Installer →</em>
 </a>

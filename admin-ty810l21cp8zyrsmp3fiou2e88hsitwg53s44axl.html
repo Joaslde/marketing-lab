@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<title>Messages reçus — ATELIER</title>
+<meta name="robots" content="noindex,nofollow">
+
+<!-- =================================================================
+     PAGE INTERNE — non liée depuis le site public, non indexée.
+     Affiche, modifie et supprime les lignes de la table Supabase
+     "contact_messages", via l'Edge Function "contact-admin".
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 1.5rem}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.03em}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+.entete{padding:2.4rem 0 1.6rem}
+.entete h1{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:.5rem}
+.entete p{color:var(--gris);font-size:.92rem}
+
+.barre-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-bottom:1.6rem}
+.compteur{font-family:var(--mono);font-size:.76rem;color:var(--gris)}
+.compteur b{color:var(--encre)}
+.actions-groupees{display:flex;gap:.6rem}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:.86rem;padding:.6rem .95rem;border:none;cursor:pointer;font-family:var(--corps);transition:background .14s ease}
+.btn:hover{background:var(--outremer)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-danger{background:#9A1F1F}
+.btn-danger:hover{background:#C22}
+.btn-fantome{background:transparent;color:var(--encre);border:1px solid var(--hair)}
+.btn-fantome:hover{background:var(--encre);color:var(--craie)}
+.btn-petit{padding:.4rem .7rem;font-size:.78rem}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--hair);background:var(--papier)}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:1180px}
+thead th{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);text-align:left;font-weight:500;padding:.8rem .7rem;border-bottom:2px solid var(--encre);background:var(--craie);position:sticky;top:0}
+tbody td{padding:.7rem .7rem;border-bottom:1px solid var(--hair);vertical-align:top}
+tbody tr:hover{background:var(--craie)}
+tbody tr.selectionnee{background:rgba(42,52,200,.08)}
+td.msg{max-width:280px;white-space:pre-wrap;color:#3A3A46}
+.tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;padding:.22rem .5rem;display:inline-block;border:1px solid var(--hair)}
+.tag-envoye{background:rgba(42,52,200,.12);border-color:var(--outremer);color:var(--outremer)}
+.tag-echec{background:rgba(154,31,31,.1);border-color:#9A1F1F;color:#9A1F1F}
+.tag-whatsapp{background:rgba(245,197,24,.25);border-color:var(--jaune);color:#6b5900}
+.tag-nouveau{background:var(--craie);color:var(--gris)}
+.date{font-family:var(--mono);font-size:.74rem;color:var(--gris);white-space:nowrap}
+.actions-ligne{display:flex;gap:.4rem;white-space:nowrap}
+.vide{padding:3rem 1rem;text-align:center;color:var(--gris);font-size:.92rem}
+
+/* ---- modale édition ---- */
+.overlay{display:none;position:fixed;inset:0;background:rgba(20,20,28,.55);z-index:100;align-items:center;justify-content:center;padding:1.5rem}
+.overlay.actif{display:flex}
+.modale{background:var(--papier);border-top:6px solid var(--outremer);max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:1.8rem}
+.modale h2{font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:1.2rem}
+.modale .champ{margin-bottom:1rem}
+.modale label{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-bottom:.4rem}
+.modale input,.modale select,.modale textarea{width:100%;background:var(--craie);border:1px solid var(--hair);color:var(--encre);font-family:var(--corps);font-size:.92rem;padding:.6rem .7rem}
+.modale textarea{min-height:6.5rem;resize:vertical}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.modale-actions{display:flex;justify-content:flex-end;gap:.7rem;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--hair)}
+
+/* ---- modale confirmation suppression ---- */
+.modale-confirm{max-width:420px;text-align:left}
+.modale-confirm p{color:#3A3A46;font-size:.94rem;margin:.8rem 0 1.4rem}
+.modale-confirm .liste-noms{font-family:var(--mono);font-size:.78rem;color:var(--gris);max-height:8rem;overflow-y:auto;border:1px solid var(--hair);padding:.7rem;margin-bottom:1rem;background:var(--craie)}
+
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--encre);color:var(--craie);padding:.9rem 1.2rem;font-family:var(--mono);font-size:.8rem;z-index:200;max-width:360px;opacity:0;transform:translateY(10px);transition:opacity .2s ease,transform .2s ease;pointer-events:none}
+.toast.actif{opacity:1;transform:none}
+.toast.erreur{background:#9A1F1F}
+
+@media (max-width:700px){
+  .deux{grid-template-columns:1fr}
+  .barre-actions{flex-direction:column;align-items:stretch}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="index.html">ATELIER<span>.</span></a>
+    <a class="back" href="index.html">← Toutes les offres</a>
+  </div>
+</header>
+
+<section class="entete">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--outremer)">Interne</span>
+    <h1 class="display">Messages reçus depuis le formulaire de contact</h1>
+    <p>Liste des demandes enregistrées, avec leur canal de recontact préféré et le statut d'envoi.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+
+    <div class="barre-actions">
+      <span class="compteur" id="compteur">Chargement…</span>
+      <div class="actions-groupees">
+        <button class="btn btn-fantome btn-petit" id="btn-recharger">↻ Recharger</button>
+        <button class="btn btn-danger btn-petit" id="btn-supprimer-select" disabled>Supprimer la sélection</button>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:2rem"><input type="checkbox" id="case-tout-cocher"></th>
+            <th>Reçu le</th>
+            <th>Contact</th>
+            <th>Entreprise</th>
+            <th>Secteur / taille</th>
+            <th>Offre</th>
+            <th>Message</th>
+            <th>Coordonnées</th>
+            <th>Canal préféré</th>
+            <th>Statut</th>
+            <th style="width:8rem">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="corps-tableau">
+          <tr><td colspan="11" class="vide">Chargement des messages…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= MODALE ÉDITION ================= -->
+<div class="overlay" id="overlay-edition">
+  <div class="modale">
+    <h2>Modifier le message</h2>
+    <form id="form-edition">
+      <input type="hidden" id="edit-id">
+      <div class="deux">
+        <div class="champ"><label>Prénom</label><input type="text" id="edit-prenom" required></div>
+        <div class="champ"><label>Nom</label><input type="text" id="edit-nom" required></div>
+      </div>
+      <div class="champ"><label>Entreprise</label><input type="text" id="edit-entreprise" required></div>
+      <div class="deux">
+        <div class="champ"><label>Secteur</label><input type="text" id="edit-secteur"></div>
+        <div class="champ"><label>Taille</label>
+          <select id="edit-taille">
+            <option value="">—</option>
+            <option value="solo">Seul, sans salarié</option>
+            <option value="3-10">3 à 10 personnes</option>
+            <option value="11-30">11 à 30 personnes</option>
+            <option value="31-60">31 à 60 personnes</option>
+            <option value="60+">Plus de 60 personnes</option>
+          </select>
+        </div>
+      </div>
+      <div class="champ"><label>Offre</label><input type="text" id="edit-offre"></div>
+      <div class="champ"><label>Message</label><textarea id="edit-message" required></textarea></div>
+      <div class="deux">
+        <div class="champ"><label>E-mail</label><input type="email" id="edit-email" required></div>
+        <div class="champ"><label>Téléphone</label><input type="tel" id="edit-telephone" required></div>
+      </div>
+      <div class="deux">
+        <div class="champ"><label>Canal préféré</label>
+          <select id="edit-canal">
+            <option value="E-mail">E-mail</option>
+            <option value="Téléphone">Téléphone</option>
+            <option value="WhatsApp">WhatsApp</option>
+          </select>
+        </div>
+        <div class="champ"><label>Statut d'envoi</label>
+          <select id="edit-statut">
+            <option value="nouveau">Nouveau</option>
+            <option value="a_envoyer">À envoyer</option>
+            <option value="envoye">Envoyé</option>
+            <option value="echec_envoi">Échec d'envoi</option>
+            <option value="whatsapp">WhatsApp</option>
+          </select>
+        </div>
+      </div>
+      <div class="modale-actions">
+        <button type="button" class="btn btn-fantome" id="btn-annuler-edition">Annuler</button>
+        <button type="submit" class="btn">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODALE CONFIRMATION SUPPRESSION ================= -->
+<div class="overlay" id="overlay-confirmation">
+  <div class="modale modale-confirm">
+    <h2 id="confirm-titre">Confirmer la suppression</h2>
+    <p id="confirm-texte">Cette action est définitive.</p>
+    <div class="liste-noms" id="confirm-liste"></div>
+    <div class="modale-actions">
+      <button type="button" class="btn btn-fantome" id="btn-annuler-suppression">Annuler</button>
+      <button type="button" class="btn btn-danger" id="btn-confirmer-suppression">Supprimer définitivement</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = "https://dlfbwbrcsriqllypjpkx.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZmJ3YnJjc3JpcWxseXBqcGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MDI0NzgsImV4cCI6MjA4NDQ3ODQ3OH0.uDhDe7oEht-Y_phrlLIeu4HyiyIHh54MNEO5ok0lGgU";
+const URL_FONCTION = SUPABASE_URL + "/functions/v1/contact-admin";
+
+let messages = [];
+const selection = new Set();
+
+async function appelerFonction(corps){
+  const reponse = await fetch(URL_FONCTION, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+    },
+    body: JSON.stringify(corps),
+  });
+  const resultat = await reponse.json();
+  if (!reponse.ok) throw new Error(resultat.erreur || "Erreur inconnue.");
+  return resultat;
+}
+
+function afficherToast(texte, estErreur){
+  const toast = document.getElementById('toast');
+  toast.textContent = texte;
+  toast.classList.toggle('erreur', !!estErreur);
+  toast.classList.add('actif');
+  clearTimeout(afficherToast._t);
+  afficherToast._t = setTimeout(function(){ toast.classList.remove('actif'); }, 3500);
+}
+
+// Fuseau fixe (Bénin, GMT+1, pas de changement d'heure) : l'affichage
+// reste correct quel que soit le fuseau du navigateur qui ouvre la page.
+const FUSEAU_AFFICHAGE = 'Africa/Porto-Novo';
+function formaterDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric', timeZone: FUSEAU_AFFICHAGE }) +
+    ' ' + d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit', timeZone: FUSEAU_AFFICHAGE }) + ' (GMT+1)';
+}
+
+function tagStatut(statut){
+  const carte = {
+    envoye: ['tag-envoye', 'Envoyé'],
+    echec_envoi: ['tag-echec', 'Échec d’envoi'],
+    whatsapp: ['tag-whatsapp', 'WhatsApp'],
+    a_envoyer: ['tag-nouveau', 'À envoyer'],
+    nouveau: ['tag-nouveau', 'Nouveau'],
+  };
+  const [classe, texte] = carte[statut] || ['tag-nouveau', statut];
+  return '<span class="tag ' + classe + '">' + texte + '</span>';
+}
+
+function echapper(v){
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function majCompteurEtBoutons(){
+  document.getElementById('compteur').innerHTML = messages.length
+    ? '<b>' + messages.length + '</b> message' + (messages.length > 1 ? 's' : '')
+    : 'Aucun message';
+  document.getElementById('btn-supprimer-select').disabled = selection.size === 0;
+}
+
+function dessinerTableau(){
+  const corps = document.getElementById('corps-tableau');
+  if (messages.length === 0){
+    corps.innerHTML = '<tr><td colspan="11" class="vide">Aucun message reçu pour l’instant.</td></tr>';
+    majCompteurEtBoutons();
+    return;
+  }
+  corps.innerHTML = messages.map(function(m){
+    const coche = selection.has(m.id) ? 'checked' : '';
+    const ligneSelectionnee = selection.has(m.id) ? 'selectionnee' : '';
+    return '<tr class="' + ligneSelectionnee + '" data-id="' + m.id + '">' +
+      '<td><input type="checkbox" class="case-ligne" data-id="' + m.id + '" ' + coche + '></td>' +
+      '<td class="date">' + formaterDate(m.created_at) + '</td>' +
+      '<td><b>' + echapper(m.prenom) + ' ' + echapper(m.nom) + '</b></td>' +
+      '<td>' + echapper(m.entreprise) + '</td>' +
+      '<td>' + echapper(m.secteur || '—') + '<br><span style="color:var(--gris);font-size:.78rem">' + echapper(m.taille_entreprise || '—') + '</span></td>' +
+      '<td>' + echapper(m.offre || '—') + '</td>' +
+      '<td class="msg">' + echapper(m.message) + '</td>' +
+      '<td>' + echapper(m.email) + '<br><span style="color:var(--gris);font-size:.78rem">' + echapper(m.telephone || '—') + '</span></td>' +
+      '<td>' + echapper(m.canal_prefere) + '</td>' +
+      '<td>' + tagStatut(m.statut_envoi) + '</td>' +
+      '<td class="actions-ligne">' +
+        '<button class="btn btn-fantome btn-petit btn-editer" data-id="' + m.id + '">Modifier</button>' +
+        '<button class="btn btn-danger btn-petit btn-supprimer-un" data-id="' + m.id + '">Suppr.</button>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+  majCompteurEtBoutons();
+}
+
+async function chargerMessages(){
+  document.getElementById('corps-tableau').innerHTML = '<tr><td colspan="11" class="vide">Chargement des messages…</td></tr>';
+  try {
+    const resultat = await appelerFonction({ action: 'list' });
+    messages = resultat.messages || [];
+    dessinerTableau();
+  } catch (erreur) {
+    document.getElementById('corps-tableau').innerHTML = '<tr><td colspan="11" class="vide">Erreur de chargement : ' + echapper(erreur.message) + '</td></tr>';
+  }
+}
+
+document.getElementById('btn-recharger').addEventListener('click', chargerMessages);
+
+document.getElementById('case-tout-cocher').addEventListener('change', function(e){
+  selection.clear();
+  if (e.target.checked) messages.forEach(function(m){ selection.add(m.id); });
+  dessinerTableau();
+});
+
+document.getElementById('corps-tableau').addEventListener('change', function(e){
+  if (e.target.classList.contains('case-ligne')){
+    const id = e.target.dataset.id;
+    if (e.target.checked) selection.add(id); else selection.delete(id);
+    document.getElementById('case-tout-cocher').checked = selection.size === messages.length && messages.length > 0;
+    document.getElementById('btn-supprimer-select').disabled = selection.size === 0;
+    e.target.closest('tr').classList.toggle('selectionnee', e.target.checked);
+  }
+});
+
+// ---- édition ----
+const overlayEdition = document.getElementById('overlay-edition');
+function ouvrirEdition(id){
+  const m = messages.find(function(x){ return x.id === id; });
+  if (!m) return;
+  document.getElementById('edit-id').value = m.id;
+  document.getElementById('edit-prenom').value = m.prenom || '';
+  document.getElementById('edit-nom').value = m.nom || '';
+  document.getElementById('edit-entreprise').value = m.entreprise || '';
+  document.getElementById('edit-secteur').value = m.secteur || '';
+  document.getElementById('edit-taille').value = m.taille_entreprise || '';
+  document.getElementById('edit-offre').value = m.offre || '';
+  document.getElementById('edit-message').value = m.message || '';
+  document.getElementById('edit-email').value = m.email || '';
+  document.getElementById('edit-telephone').value = m.telephone || '';
+  document.getElementById('edit-canal').value = m.canal_prefere || 'E-mail';
+  document.getElementById('edit-statut').value = m.statut_envoi || 'nouveau';
+  overlayEdition.classList.add('actif');
+}
+document.getElementById('corps-tableau').addEventListener('click', function(e){
+  if (e.target.classList.contains('btn-editer')) ouvrirEdition(e.target.dataset.id);
+  if (e.target.classList.contains('btn-supprimer-un')) demanderConfirmation([e.target.dataset.id]);
+});
+document.getElementById('btn-annuler-edition').addEventListener('click', function(){
+  overlayEdition.classList.remove('actif');
+});
+document.getElementById('form-edition').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const id = document.getElementById('edit-id').value;
+  const champs = {
+    prenom: document.getElementById('edit-prenom').value.trim(),
+    nom: document.getElementById('edit-nom').value.trim(),
+    entreprise: document.getElementById('edit-entreprise').value.trim(),
+    secteur: document.getElementById('edit-secteur').value.trim(),
+    taille_entreprise: document.getElementById('edit-taille').value,
+    offre: document.getElementById('edit-offre').value.trim(),
+    message: document.getElementById('edit-message').value.trim(),
+    email: document.getElementById('edit-email').value.trim(),
+    telephone: document.getElementById('edit-telephone').value.trim(),
+    canal_prefere: document.getElementById('edit-canal').value,
+    statut_envoi: document.getElementById('edit-statut').value,
+  };
+  try {
+    await appelerFonction({ action: 'update', id: id, champs: champs });
+    overlayEdition.classList.remove('actif');
+    afficherToast('Message mis à jour.');
+    await chargerMessages();
+  } catch (erreur) {
+    afficherToast('Échec de la mise à jour : ' + erreur.message, true);
+  }
+});
+
+// ---- suppression (avec confirmation, y compris suppression multiple) ----
+const overlayConfirmation = document.getElementById('overlay-confirmation');
+let idsASupprimer = [];
+
+function demanderConfirmation(ids){
+  idsASupprimer = ids;
+  const items = messages.filter(function(m){ return ids.includes(m.id); });
+  document.getElementById('confirm-titre').textContent = ids.length > 1
+    ? 'Supprimer ' + ids.length + ' messages ?'
+    : 'Supprimer ce message ?';
+  document.getElementById('confirm-texte').textContent = 'Cette action est définitive et ne peut pas être annulée.';
+  document.getElementById('confirm-liste').innerHTML = items.map(function(m){
+    return echapper(m.prenom) + ' ' + echapper(m.nom) + ' — ' + echapper(m.entreprise);
+  }).join('<br>');
+  overlayConfirmation.classList.add('actif');
+}
+
+document.getElementById('btn-supprimer-select').addEventListener('click', function(){
+  demanderConfirmation(Array.from(selection));
+});
+document.getElementById('btn-annuler-suppression').addEventListener('click', function(){
+  overlayConfirmation.classList.remove('actif');
+});
+document.getElementById('btn-confirmer-suppression').addEventListener('click', async function(){
+  try {
+    await appelerFonction({ action: 'delete', ids: idsASupprimer });
+    idsASupprimer.forEach(function(id){ selection.delete(id); });
+    overlayConfirmation.classList.remove('actif');
+    afficherToast('Suppression effectuée.');
+    await chargerMessages();
+  } catch (erreur) {
+    afficherToast('Échec de la suppression : ' + erreur.message, true);
+  }
+});
+
+// fermeture des modales en cliquant sur le fond
+[overlayEdition, overlayConfirmation].forEach(function(overlay){
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) overlay.classList.remove('actif');
+  });
+});
+
+chargerMessages();
+</script>
+
+</body>
+</html>

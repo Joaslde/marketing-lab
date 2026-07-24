@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<title>Nous écrire — ATELIER</title>
+<meta name="description" content="Décrivez votre besoin en quelques champs : nous revenons vers vous avec le périmètre et le prix de l'offre qui correspond, jamais avec un devis surprise.">
+
+<!-- =================================================================
+     À MODIFIER AVANT MISE EN LIGNE
+     1. NUMÉRO_WHATSAPP — remplacer la constante tout en haut du
+        script en bas de page (const NUMERO_WHATSAPP = "..."), au
+        format international sans espaces ni signe +, ex: "33612345678"
+     2. "ATELIER" → votre nom d'agence
+     3. L'adresse e-mail affichée en repli (si vous en voulez une)
+     4. Les mentions légales en pied de page
+     5. Le formulaire n'a pas de destination d'envoi : branchez une
+        API, Formspree, un mailto ou un webhook dans le <script>
+        en bas de page (voir le commentaire "À CONNECTER").
+     ================================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --craie-2:#E2DED5;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --hair-clair:rgba(237,234,227,.22);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:760px;margin:0 auto}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+/* ---- bandeau ---- */
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+/* ---- boutons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--encre);color:var(--craie);text-decoration:none;font-weight:600;font-size:1rem;padding:1rem 1.3rem;min-width:290px;border:none;cursor:pointer;font-family:var(--corps);transition:background .16s ease}
+.btn span{font-family:var(--mono);transition:transform .16s ease}
+.btn:hover{background:var(--outremer)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--outremer);outline-offset:3px}
+.btn-clair{background:var(--jaune);color:var(--encre)}
+.btn-clair:hover{background:var(--craie)}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:.75rem}
+.hero .sub{color:rgba(237,234,227,.7)}
+
+/* ---- héro ---- */
+.hero{background:var(--outremer);color:var(--craie);padding:3.5rem 0 3.8rem}
+.hero .eyebrow{color:var(--jaune);display:block;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.2rem,5.6vw,4rem);margin-bottom:1.4rem;max-width:17ch}
+.hero .lede{font-size:clamp(1.02rem,1.7vw,1.22rem);opacity:.93;max-width:52ch}
+.facts{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--hair-clair);border-bottom:1px solid var(--hair-clair);margin-top:2.2rem}
+.fact{flex:1 1 160px;padding:1.1rem 1.2rem 1.1rem 0}
+.fact b{display:block;font-family:var(--mono);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--jaune)}
+.fact small{font-size:.8rem;opacity:.8}
+
+/* ---- sections ---- */
+section{padding:4rem 0}
+.h2{font-size:clamp(1.6rem,3.8vw,2.5rem);margin-bottom:1.4rem;max-width:22ch}
+.lead{font-size:1.08rem;max-width:62ch;margin-bottom:1.2rem}
+p+p{margin-top:1rem}
+.gris{color:var(--gris)}
+
+/* ---- formulaire ---- */
+.formulaire{background:var(--craie)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.6rem;align-items:start}
+.form-aide{padding-top:.3rem}
+.form-aide h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.4rem,3vw,1.9rem);margin-bottom:1.1rem;max-width:20ch}
+.form-aide p{font-size:.96rem;color:#3A3A46;margin-bottom:1rem}
+.aide-liste{list-style:none;margin-top:1.6rem;border-top:1px solid var(--hair);padding-top:1.4rem}
+.aide-liste li{position:relative;padding-left:1.5rem;margin-bottom:.9rem;font-size:.92rem;color:#3A3A46}
+.aide-liste li::before{content:"→";position:absolute;left:0;font-family:var(--mono);color:var(--outremer)}
+.aide-liste b{color:var(--encre);font-weight:600}
+
+form{background:var(--papier);border:1px solid var(--hair);padding:2rem 1.9rem}
+.champ{margin-bottom:1.4rem}
+.champ label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
+.champ label b{color:var(--outremer);font-weight:500}
+.champ input,.champ select,.champ textarea{width:100%;background:var(--craie);border:1px solid var(--hair);color:var(--encre);font-family:var(--corps);font-size:.98rem;padding:.8rem .85rem;transition:border-color .14s ease}
+.champ input:focus,.champ select:focus,.champ textarea:focus{outline:none;border-color:var(--outremer)}
+.champ textarea{resize:vertical;min-height:8rem;line-height:1.5}
+.champ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gris) 50%),linear-gradient(135deg,var(--gris) 50%,transparent 50%);background-position:calc(100% - 22px) center,calc(100% - 16px) center;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.champ .note{font-family:var(--mono);font-size:.66rem;color:var(--gris);margin-top:.45rem;line-height:1.5}
+fieldset{border:none;margin-bottom:1.4rem}
+fieldset legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:.6rem;padding:0}
+.canaux{display:flex;flex-wrap:wrap;gap:.6rem}
+.canal{position:relative}
+.canal input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.canal span{display:inline-block;font-size:.86rem;font-weight:500;background:var(--craie);border:1px solid var(--hair);color:var(--encre);padding:.55rem .9rem;transition:background .14s ease,color .14s ease,border-color .14s ease}
+.canal input:checked+span{background:var(--encre);color:var(--craie);border-color:var(--encre)}
+.canal input:focus-visible+span{outline:2px solid var(--outremer);outline-offset:2px}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:1.2rem;margin-top:.4rem}
+.form-note{font-family:var(--mono);font-size:.7rem;color:var(--gris);line-height:1.6;max-width:40ch}
+.form-etat{display:none;font-family:var(--mono);font-size:.82rem;padding:.9rem 1rem;margin-top:1.2rem;border-left:3px solid var(--outremer);background:var(--craie)}
+.form-etat.actif{display:block}
+
+/* ---- alternative whatsapp ---- */
+.whatsapp{background:var(--encre);color:var(--craie);border-top:1px solid var(--hair-clair)}
+.whatsapp .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.6rem}
+.whatsapp h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.3rem,2.8vw,1.7rem);max-width:22ch}
+.whatsapp p{opacity:.82;font-size:.94rem;max-width:44ch;margin-top:.6rem}
+.whatsapp .btn{background:var(--jaune);color:var(--encre)}
+.whatsapp .btn:hover{background:var(--craie)}
+
+/* ---- questions ---- */
+.qa{border-top:1px solid var(--hair);margin-top:2.2rem}
+.qa details{border-bottom:1px solid var(--hair)}
+.qa summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--mono);color:var(--outremer);font-size:1.2rem}
+.qa details[open] summary::after{content:"–"}
+.qa summary:focus-visible{outline:2px solid var(--outremer);outline-offset:2px}
+.qa p{padding:0 0 1.2rem;max-width:70ch;font-size:.95rem;color:#3A3A46}
+
+/* ---- pied ---- */
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:52ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+.hero,.whatsapp,footer{position:relative;overflow:hidden}
+.hero .wrap,.whatsapp .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — colonne libre à droite du titre (17ch) */
+.deco-hero{top:2.5rem;right:-3.5rem;width:min(28rem,36vw);color:var(--craie);opacity:.13}
+/* whatsapp (fond encre) — angle haut droit */
+.deco-whatsapp{top:-2.5rem;right:-2.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.1}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-3.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  .deco-hero{width:min(20rem,28vw);opacity:.09}
+}
+@media (max-width:900px){
+  .deco{display:none}
+}
+@media (max-width:860px){
+  .form-grid{grid-template-columns:1fr;gap:2rem}
+  .deux{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  form{padding:1.5rem 1.3rem}
+  .btn{min-width:0;width:100%}
+  .whatsapp .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="index.html">ATELIER<span>.</span></a>
+    <a class="back" href="index.html">← Toutes les offres</a>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero">
+  <!-- décor : relevé technique -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 260 260" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 20h240M10 70h240M10 120h240M10 170h240M10 220h240" opacity=".3"/>
+      <path d="M10 20v200M70 20v200M130 20v200M190 20v200M250 20v200" opacity=".3"/>
+      <path d="M70 70h120v100H70z" stroke-width="1.5"/>
+      <circle cx="130" cy="120" r="42"/>
+      <circle cx="130" cy="120" r="24" opacity=".6"/>
+      <path d="M130 96v48M106 120h48" opacity=".7"/>
+      <path d="M70 232h120M70 226v12M190 226v12" opacity=".55"/>
+      <circle cx="70" cy="70" r="3" fill="currentColor" stroke="none"/>
+      <circle cx="190" cy="70" r="3" fill="currentColor" stroke="none"/>
+      <circle cx="70" cy="170" r="3" fill="currentColor" stroke="none"/>
+      <circle cx="190" cy="170" r="3" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <span class="eyebrow">Nous écrire</span>
+    <h1 class="display">Décrivez votre besoin. On revient avec un prix, pas un devis surprise.</h1>
+    <p class="lede">Deux minutes de formulaire suffisent : votre secteur, l'offre qui vous intéresse, et ce que vous cherchez à résoudre. On vous répond avec le périmètre exact et le prix affiché de l'offre concernée.</p>
+    <div class="facts">
+      <div class="fact"><b>&lt; 24 h</b><small>Délai de réponse ouvré</small></div>
+      <div class="fact"><b>0 €</b><small>Le premier échange est gratuit</small></div>
+      <div class="fact"><b>10</b><small>Offres, de 390 € à 890 € pour entrer</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORMULAIRE ================= -->
+<section class="formulaire">
+  <div class="wrap">
+    <div class="form-grid">
+
+      <div class="form-aide">
+        <span class="eyebrow" style="color:var(--outremer)">Avant d'envoyer</span>
+        <h2 class="display">Ce qui nous permet de répondre vite</h2>
+        <p>Plus votre message est précis, plus la première réponse l'est aussi. Si vous hésitez entre deux offres, dites-le : c'est une réponse en soi.</p>
+        <ul class="aide-liste">
+          <li><b>Votre secteur et votre taille</b> — chaque offre a un seuil au-dessous duquel elle ne vaut pas la peine, et nous vous le dirons franchement.</li>
+          <li><b>L'offre qui vous a fait venir</b> — même approximative, elle nous évite un aller-retour.</li>
+          <li><b>Le problème dans vos mots</b> — pas besoin de vocabulaire technique, le contexte réel vaut mieux qu'une formulation soignée.</li>
+          <li><b>Un moyen de vous recontacter</b> — e-mail et téléphone, pour vous joindre par le canal qui vous convient.</li>
+        </ul>
+      </div>
+
+      <form id="form-contact" novalidate>
+        <div class="deux">
+          <div class="champ">
+            <label for="prenom">Prénom <b>*</b></label>
+            <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+          </div>
+          <div class="champ">
+            <label for="nom">Nom <b>*</b></label>
+            <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+          </div>
+        </div>
+
+        <div class="champ">
+          <label for="entreprise">Entreprise <b>*</b></label>
+          <input type="text" id="entreprise" name="entreprise" autocomplete="organization" required>
+        </div>
+
+        <div class="deux">
+          <div class="champ">
+            <label for="taille">Taille de l'entreprise <b>*</b></label>
+            <select id="taille" name="taille" required>
+              <option value="" disabled selected>Choisir…</option>
+              <option value="solo">Seul, sans salarié</option>
+              <option value="3-10">3 à 10 personnes</option>
+              <option value="11-30">11 à 30 personnes</option>
+              <option value="31-60">31 à 60 personnes</option>
+              <option value="60+">Plus de 60 personnes</option>
+            </select>
+          </div>
+          <div class="champ">
+            <label for="secteur">Secteur d'activité <b>*</b></label>
+            <input type="text" id="secteur" name="secteur" placeholder="Ex. bâtiment, santé, immobilier…" required>
+          </div>
+        </div>
+
+        <div class="champ">
+          <label for="offre">Offre qui vous intéresse <b>*</b></label>
+          <select id="offre" name="offre" required>
+            <option value="">Je ne sais pas encore / plusieurs offres</option>
+            <option value="Diagnostic Éclair — 390 €">Diagnostic Éclair — 390 €</option>
+            <option value="Re-Hook 48 h — 490 €">Re-Hook 48 h — 490 €</option>
+            <option value="Réputation Autopilot — 590 € + 59 €/mois">Réputation Autopilot — 590 € + 59 €/mois</option>
+            <option value="Contenu Autopilot — 690 €/mois">Contenu Autopilot — 690 €/mois</option>
+            <option value="Le Convertisseur 24/7 — 750 € + 49 €/mois">Le Convertisseur 24/7 — 750 € + 49 €/mois</option>
+            <option value="Speed-to-Lead — 890 € + 79 €/mois">Speed-to-Lead — 890 € + 79 €/mois</option>
+            <option value="Visibilité IA — 490 € puis 1 900 €">Visibilité IA — 490 € puis 1 900 €</option>
+            <option value="Cash Dormant — 390 € puis 1 490 €">Cash Dormant — 390 € puis 1 490 €</option>
+            <option value="SaaS Killer — 690 € puis 3 900 €">SaaS Killer — 690 € puis 3 900 €</option>
+            <option value="Le Cerveau de l'entreprise — 890 € puis 4 900 €">Le Cerveau de l'entreprise — 890 € puis 4 900 €</option>
+          </select>
+        </div>
+
+        <div class="champ">
+          <label for="message">Votre besoin, dans vos mots <b>*</b></label>
+          <textarea id="message" name="message" placeholder="Ce qui vous prend du temps, ce qui vous coûte cher, ou ce qui vous a fait cliquer sur cette page." required></textarea>
+        </div>
+
+        <div class="deux">
+          <div class="champ">
+            <label for="email">E-mail <b>*</b></label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="champ">
+            <label for="telephone">Téléphone <b>*</b></label>
+            <input type="tel" id="telephone" name="telephone" autocomplete="tel" required>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Vous préférez être recontacté par</legend>
+          <div class="canaux">
+            <label class="canal"><input type="radio" name="canal" value="E-mail" checked><span>E-mail</span></label>
+            <label class="canal"><input type="radio" name="canal" value="Téléphone"><span>Téléphone</span></label>
+            <label class="canal"><input type="radio" name="canal" value="WhatsApp"><span>WhatsApp</span></label>
+          </div>
+        </fieldset>
+
+        <div class="form-foot">
+          <button type="submit" class="btn">Envoyer ma demande <span>→</span></button>
+          <p class="form-note">Réponse sous 24 h ouvrées. Vos informations servent uniquement à vous répondre.</p>
+        </div>
+
+        <div class="form-etat" id="form-etat" role="status"></div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= ALTERNATIVE WHATSAPP ================= -->
+<section class="whatsapp">
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-whatsapp" aria-hidden="true">
+    <svg viewBox="0 0 180 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 20h160M10 60h160M10 100h160" opacity=".4"/>
+      <path d="M50 10v130M110 10v130" opacity=".4"/>
+      <circle cx="110" cy="60" r="22" opacity=".7"/>
+      <path d="M110 42v36M92 60h36" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div>
+      <h2 class="display">Vous préférez écrire directement ?</h2>
+      <p>Un message WhatsApp fait aussi très bien l'affaire — utile si votre question tient en deux lignes.</p>
+    </div>
+    <a class="btn" id="lien-whatsapp" href="#" target="_blank" rel="noopener">Écrire sur WhatsApp <span>→</span></a>
+  </div>
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="h2 display">Avant d'envoyer, deux questions fréquentes</h2>
+    <div class="qa">
+      <details>
+        <summary>Le premier échange est-il vraiment gratuit ?</summary>
+        <p>Oui. Répondre à votre message, qualifier votre besoin et vous dire quelle offre correspond — ou vous dire qu'aucune ne correspond — ne coûte rien. Le prix affiché sur chaque offre commence seulement quand vous décidez d'avancer.</p>
+      </details>
+      <details>
+        <summary>Et si je ne sais pas encore quelle offre me correspond ?</summary>
+        <p>Laissez le champ « Offre » vide et décrivez votre situation dans le message. C'est justement le rôle du premier échange : vous orienter vers la bonne offre, ou vers le Diagnostic Éclair si le sujet mérite d'être posé à plat avant de choisir.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 30h180M10 70h180M10 110h180" opacity=".45"/>
+      <path d="M50 10v140M100 10v140M150 10v140" opacity=".45"/>
+      <path d="M50 30h50v40H50z" stroke-width="1.5"/>
+      <path d="M150 110l20-20 20 20" opacity=".6"/>
+      <circle cx="100" cy="110" r="16" opacity=".6"/>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <p>Vos informations ne sont utilisées que pour vous répondre. Aucune newsletter, aucune revente à des tiers. Chaque offre livrée fait l'objet d'un contrat écrit précisant le périmètre.</p>
+    <nav aria-label="Liens légaux">
+      <a href="index.html">Toutes les offres</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgv.html">Conditions de vente</a>
+      <a href="confidentialite.html">Données personnelles</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// À CONNECTER — remplacer par votre numéro WhatsApp au format
+// international, sans espaces ni symbole + (exemple : "33612345678").
+const NUMERO_WHATSAPP = "212656183890";
+
+// Edge Function Supabase qui enregistre le message dans la table
+// contact_messages, et envoie un e-mail via Resend si le canal
+// préféré est "E-mail".
+const SUPABASE_URL = "https://dlfbwbrcsriqllypjpkx.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZmJ3YnJjc3JpcWxseXBqcGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MDI0NzgsImV4cCI6MjA4NDQ3ODQ3OH0.uDhDe7oEht-Y_phrlLIeu4HyiyIHh54MNEO5ok0lGgU";
+
+const lienWhatsApp = document.getElementById('lien-whatsapp');
+function texteWhatsApp(){
+  const prenom = document.getElementById('prenom').value.trim();
+  const message = document.getElementById('message').value.trim();
+  let texte = "Bonjour ATELIER,";
+  if (prenom) texte += " je m'appelle " + prenom + ".";
+  if (message) texte += " " + message;
+  return texte;
+}
+function majLienWhatsApp(){
+  const texte = encodeURIComponent(texteWhatsApp());
+  lienWhatsApp.href = "https://wa.me/" + NUMERO_WHATSAPP + "?text=" + texte;
+}
+majLienWhatsApp();
+document.getElementById('prenom').addEventListener('input', majLienWhatsApp);
+document.getElementById('message').addEventListener('input', majLienWhatsApp);
+
+document.getElementById('form-contact').addEventListener('submit', async function(e){
+  e.preventDefault();
+  majLienWhatsApp();
+
+  const etat = document.getElementById('form-etat');
+  const bouton = e.target.querySelector('button[type="submit"]');
+  const canal = e.target.querySelector('input[name="canal"]:checked').value;
+
+  const donnees = {
+    prenom: document.getElementById('prenom').value.trim(),
+    nom: document.getElementById('nom').value.trim(),
+    entreprise: document.getElementById('entreprise').value.trim(),
+    taille: document.getElementById('taille').value,
+    secteur: document.getElementById('secteur').value.trim(),
+    offre: document.getElementById('offre').value,
+    message: document.getElementById('message').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    telephone: document.getElementById('telephone').value.trim(),
+    canal: canal,
+  };
+
+  bouton.disabled = true;
+  const texteBoutonInitial = bouton.innerHTML;
+  bouton.innerHTML = "Envoi en cours…";
+
+  try {
+    const reponse = await fetch(SUPABASE_URL + "/functions/v1/contact-form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+      },
+      body: JSON.stringify(donnees),
+    });
+    const resultat = await reponse.json();
+
+    if (!reponse.ok) {
+      throw new Error(resultat.erreur || "Erreur inconnue.");
+    }
+
+    if (canal === "WhatsApp") {
+      etat.textContent = "Votre demande est enregistrée. Vous allez être redirigé vers WhatsApp.";
+      etat.classList.add('actif');
+      majLienWhatsApp();
+      setTimeout(function(){ window.location.href = lienWhatsApp.href; }, 500);
+    } else {
+      window.location.href = "merci.html";
+    }
+  } catch (erreur) {
+    etat.textContent = "Votre demande n'a pas pu être envoyée (" + erreur.message + "). Utilisez le bouton WhatsApp ci-dessous en attendant.";
+    etat.classList.add('actif');
+  } finally {
+    bouton.disabled = false;
+    bouton.innerHTML = texteBoutonInitial;
+  }
+});
+</script>
+
+</body>
+</html>

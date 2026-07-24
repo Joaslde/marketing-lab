@@ -9,7 +9,7 @@
 
 <!-- =================================================================
      À MODIFIER AVANT MISE EN LIGNE
-     1. href="#installer" → votre lien Stripe (boutons + barre fixe mobile)
+     1. href="contact.html" → votre lien Stripe (boutons + barre fixe mobile)
      2. href="#scan" → votre formulaire de comparatif gratuit
      3. "ATELIER" → votre nom d'agence
      4. Section #scenarios : RECONSTITUTIONS étiquetées comme telles.
@@ -201,6 +201,39 @@ footer nav a{opacity:.75;text-decoration:none}
 footer nav a:hover{opacity:1;color:var(--jaune)}
 
 .sticky{display:none}
+
+/* ============ DÉCOR — tracés techniques ============
+   SVG décoratifs, purement ornementaux. Toujours derrière
+   le contenu, jamais cliquables, masqués aux lecteurs d'écran.
+   Retirer un bloc .deco n'affecte aucune fonctionnalité. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco svg{display:block;width:100%;height:auto}
+/* les sections qui accueillent un décor deviennent le repère de position */
+.hero,.jamais,.final,footer{position:relative}
+.hero,.jamais,.final,footer{overflow:hidden}
+/* le contenu repasse systématiquement au-dessus du décor */
+.hero .wrap,.jamais .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
+
+/* héro — colonne libre à droite du titre (18ch) */
+.deco-hero{top:2rem;right:-3rem;width:min(29rem,37vw);color:var(--craie);opacity:.14}
+/* héro — étoile de repère, accent jaune */
+.deco-hero-2{top:25rem;right:8%;width:min(9rem,12vw);color:var(--jaune);opacity:.3}
+/* ligne rouge (fond papier clair) — colonne libre à droite du texte étroit */
+.deco-jamais{top:5rem;right:4%;width:min(13rem,16vw);color:var(--outremer);opacity:.07}
+/* appel final (fond jaune) — angle haut droit */
+.deco-final{top:-3.5rem;right:-2rem;width:min(22rem,28vw);color:var(--encre);opacity:.13}
+/* pied de page — trame d'angle discrète à droite */
+.deco-footer{top:-2.5rem;right:-3.5rem;width:min(18rem,24vw);color:var(--craie);opacity:.09}
+
+@media (max-width:1100px){
+  /* l'espace libre se réduit : on retire les décors secondaires */
+  .deco-hero-2,.deco-jamais{display:none}
+}
+@media (max-width:900px){
+  /* sous 900px l'espace libre disparaît : on retire le décor */
+  .deco{display:none}
+}
+
 @media (max-width:860px){.sms-grid{grid-template-columns:1fr;gap:1.8rem}}
 @media (max-width:760px){
   .etape{grid-template-columns:1fr;gap:.5rem}
@@ -230,6 +263,42 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
+  <!-- décor : relevé de mesure et histogramme -->
+  <div class="deco deco-hero" aria-hidden="true">
+    <svg viewBox="0 0 300 290" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M18 44h264M18 100h264M18 156h264M18 212h264" opacity=".33"/>
+      <path d="M18 44v168M84 44v168M150 44v168M216 44v168M282 44v168" opacity=".33"/>
+      <!-- histogramme de progression, colonnes à angles vifs -->
+      <path d="M30 212v-28h24v28M66 212v-48h24v48M102 212v-72h24v72M138 212v-104h24v104" opacity=".65"/>
+      <!-- cercles concentriques, à droite -->
+      <circle cx="224" cy="132" r="42"/>
+      <circle cx="224" cy="132" r="26" opacity=".7"/>
+      <circle cx="224" cy="132" r="12" opacity=".45"/>
+      <path d="M224 90v84M182 132h84" opacity=".6"/>
+      <!-- carré de repère autour du viseur -->
+      <path d="M192 100h64v64h-64z" opacity=".4"/>
+      <!-- cote sous l'histogramme -->
+      <path d="M30 236h132M30 230v12M162 230v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M186 208l28-28M198 208l28-28M210 208l28-28" opacity=".4"/>
+      <!-- points de trame -->
+      <circle cx="162" cy="108" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="30" cy="212" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="224" cy="132" r="3.5" fill="currentColor" stroke="none"/>
+      <!-- amorce d'axe -->
+      <path d="M18 22h40M18 22v40" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- décor : étoile de repère -->
+  <div class="deco deco-hero-2" aria-hidden="true">
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M50 8l11 30 32 1-25 20 9 31-27-19-27 19 9-31L7 39l32-1z"/>
+      <circle cx="50" cy="52" r="4" fill="currentColor" stroke="none" opacity=".8"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <span class="eyebrow">Offre 03 · Avis Google</span>
     <h1 class="display">Vos clients reviennent depuis dix ans. <em>Google l'ignore.</em></h1>
@@ -242,7 +311,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
       <div class="fact"><b>0</b><small>Logiciel à installer à l'atelier</small></div>
     </div>
 
-    <a class="btn btn-clair" href="#installer">Installer Réputation Autopilot <span>→</span></a>
+    <a class="btn btn-clair" href="contact.html">Installer Réputation Autopilot <span>→</span></a>
     <p class="sub">590 € d'installation, puis 59 €/mois · Résiliable à tout moment</p>
     <a class="lien2" href="#scan">Ou d'abord : recevoir le comparatif de ma fiche face aux 4 garages voisins (gratuit)</a>
   </div>
@@ -340,6 +409,20 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= CE QU'ON NE FAIT PAS ================= -->
 <section class="jamais">
+  <!-- décor : croix de refus et graduation -->
+  <div class="deco deco-jamais" aria-hidden="true">
+    <svg viewBox="0 0 140 180" fill="none" stroke="currentColor" stroke-width="1.5">
+      <!-- cadre barré -->
+      <path d="M20 20h100v100H20z"/>
+      <path d="M20 20l100 100M120 20L20 120" opacity=".7"/>
+      <!-- graduation verticale -->
+      <path d="M20 140h100M20 134v12M53 136v8M87 136v8M120 134v12" opacity=".55" stroke-width="1"/>
+      <!-- amorces d'angle -->
+      <path d="M20 8V0M120 8V0M8 20H0M8 120H0" opacity=".6" stroke-width="1"/>
+      <circle cx="70" cy="70" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow">
     <span class="eyebrow gris">La ligne rouge</span>
     <h2 class="display h2" style="margin-top:1rem">Quatre choses que font nos concurrents et qu'on ne fera pas.</h2>
@@ -567,7 +650,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
           <b>Les SMS sont dans le prix</b>
           <p>Jusqu'à 200 demandes par mois, relance comprise. Aucun crédit à acheter, aucune surprise sur la facture. Au-delà, chaque demande supplémentaire est à 0,09 € — un garage de trois compagnons dépasse rarement ce seuil après le premier mois.</p>
         </div>
-        <a class="btn" href="#installer">Installer Réputation Autopilot <span>→</span></a>
+        <a class="btn" href="contact.html">Installer Réputation Autopilot <span>→</span></a>
         <p class="sub">Mise en service sous 72 h ouvrées</p>
         <a class="lien2" href="#scan" style="color:var(--gris)">Ou recevoir d'abord le comparatif gratuit</a>
       </div>
@@ -627,15 +710,45 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= FINAL ================= -->
 <section class="final">
+  <!-- décor : équerre et paliers -->
+  <div class="deco deco-final" aria-hidden="true">
+    <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- équerre -->
+      <path d="M32 188V32h156" stroke-width="1.5"/>
+      <!-- paliers montants -->
+      <path d="M32 172h30v-26h30v-26h30v-26h30v-26h30" opacity=".6"/>
+      <!-- viseur -->
+      <circle cx="150" cy="84" r="32"/>
+      <circle cx="150" cy="84" r="16" opacity=".6"/>
+      <path d="M150 42v84M108 84h84" opacity=".5"/>
+      <circle cx="150" cy="84" r="4" fill="currentColor" stroke="none"/>
+      <!-- graduation haute -->
+      <path d="M32 20h156M32 14v12M110 16v8M188 14v12" opacity=".45"/>
+      <!-- triangle de construction -->
+      <path d="M62 188l28-38 28 38z" opacity=".35"/>
+    </svg>
+  </div>
+
   <div class="wrap narrow" style="margin-left:0">
     <h2 class="display">Votre note est déjà meilleure que la leur. Rendez-la visible.</h2>
     <p>Mise en service sous 72 heures, cinq minutes par semaine au comptoir, et un message que vous pouvez montrer à n'importe qui. Sans engagement de durée.</p>
-    <a class="btn" href="#installer">Installer Réputation Autopilot — 590 € <span>→</span></a>
+    <a class="btn" href="contact.html">Installer Réputation Autopilot — 590 € <span>→</span></a>
     <p class="sub" style="color:rgba(20,20,28,.6)">Puis 59 €/mois, SMS inclus · Avis doublés en 90 jours ou mois offerts</p>
   </div>
 </section>
 
 <footer>
+  <!-- décor : trame d'angle -->
+  <div class="deco deco-footer" aria-hidden="true">
+    <svg viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M10 36h180M10 76h180M10 116h180" opacity=".45"/>
+      <path d="M55 10v140M105 10v140M155 10v140" opacity=".45"/>
+      <path d="M55 76h50v40H55z" stroke-width="1.5"/>
+      <path d="M105 36l25 20 25-20" opacity=".6"/>
+      <circle cx="155" cy="76" r="3" fill="currentColor" stroke="none" opacity=".9"/>
+    </svg>
+  </div>
+
   <div class="wrap">
     <p>Prix en euros hors taxes. Les demandes d'avis sont envoyées sans sélection préalable ni contrepartie, conformément aux règles de Google relatives aux avis. Les données transmises se limitent au prénom, au numéro de mobile et à la date de restitution, et sont supprimées après 90 jours.</p>
     <nav>
@@ -648,7 +761,7 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   </div>
 </footer>
 
-<a class="sticky" href="#installer">
+<a class="sticky" href="contact.html">
   <span><b>590 € + 59 €/mois</b><small>SMS inclus · Sans engagement</small></span>
   <em>Installer →</em>
 </a>

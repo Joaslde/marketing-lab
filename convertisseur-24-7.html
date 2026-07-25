@@ -211,12 +211,10 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 /* le contenu repasse systématiquement au-dessus du décor */
 .hero .wrap,.fourch .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
 
-/* héro — TEST A/B : volume isométrique en rotation lente.
-   Le SVG est centré sur son viewBox : on garde le décor entièrement
-   dans le cadre plutôt que de le laisser déborder à droite. */
-.deco-hero{top:2.5rem;right:2%;width:min(26rem,32vw);color:var(--craie);opacity:.16}
-/* héro — entonnoir d'accent jaune, sous le volume isométrique */
-.deco-hero-2{top:27.5rem;right:6%;width:min(9rem,11vw);color:var(--jaune);opacity:.3}
+/* héro — colonne libre à droite du titre (19ch) */
+.deco-hero{top:2rem;right:-3rem;width:min(28rem,36vw);color:var(--craie);opacity:.14}
+/* héro — fourchette qui se resserre, accent jaune */
+.deco-hero-2{top:25rem;right:8%;width:min(10rem,13vw);color:var(--jaune);opacity:.3}
 /* fourchette (fond encre) — angle haut droit, au-dessus des écrans */
 .deco-fourch{top:2rem;right:-2.5rem;width:min(17rem,22vw);color:var(--craie);opacity:.12}
 /* appel final (fond jaune) — angle haut droit */
@@ -264,12 +262,33 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
-  <!-- ============ décor réactif ============
-       Trame de points en disque, réactive à la proximité du curseur.
-       Sans JS (ou sur mobile), rien ne s'affiche ici : le décor est
-       purement ornemental et aucune information n'en dépend. -->
+  <!-- décor : fourchette d'estimation cotée -->
   <div class="deco deco-hero" aria-hidden="true">
-    <canvas id="trame-reactive"></canvas>
+    <svg viewBox="0 0 300 290" fill="none" stroke="currentColor" stroke-width="1">
+      <!-- trame -->
+      <path d="M18 40h264M18 92h264M18 144h264M18 196h264" opacity=".33"/>
+      <path d="M18 40v156M84 40v156M150 40v156M216 40v156M282 40v156" opacity=".33"/>
+      <!-- fourchette qui se resserre : quatre paliers -->
+      <path d="M30 56h240M52 92h196M82 128h136M116 164h68" opacity=".7" stroke-width="1.5"/>
+      <!-- montants d'extrémité -->
+      <path d="M30 50v12M270 50v12M116 158v12M184 158v12" opacity=".6"/>
+      <!-- viseur sur le point final -->
+      <circle cx="150" cy="164" r="26"/>
+      <circle cx="150" cy="164" r="13" opacity=".6"/>
+      <path d="M150 132v64M118 164h64" opacity=".5"/>
+      <circle cx="150" cy="164" r="3.5" fill="currentColor" stroke="none"/>
+      <!-- cote finale -->
+      <path d="M116 218h68M116 212v12M184 212v12" opacity=".7"/>
+      <!-- hachures d'angle -->
+      <path d="M212 214l28-28M224 214l28-28M236 214l28-28" opacity=".4"/>
+      <!-- triangle de convergence -->
+      <path d="M240 92l32 52h-64z" opacity=".5"/>
+      <!-- points de trame -->
+      <circle cx="30" cy="56" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <circle cx="270" cy="56" r="2.5" fill="currentColor" stroke="none" opacity=".9"/>
+      <!-- amorce d'axe -->
+      <path d="M18 20h40M18 20v40" opacity=".5"/>
+    </svg>
   </div>
 
   <!-- décor : entonnoir -->
@@ -749,130 +768,6 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   <span><b>750 € + 49 €/mois</b><small>En ligne sous 5 jours</small></span>
   <em>Installer →</em>
 </a>
-
-<script>
-/* ============ TEST A/B — isométrie filaire en rotation ============
-   Décor purement ornemental du héros. Rien d'autre sur la page n'en
-   dépend. Trois volumes empilés (les paliers d'une estimation qui se
-   resserre), rendus en projection isométrique et pivotant lentement
-   sur l'axe vertical. Respecte prefers-reduced-motion : dans ce cas
-   une seule pose est dessinée, sans animation. */
-(function(){
-  var svg = document.getElementById('iso-hero');
-  if (!svg) return;
-  var gArretes = document.getElementById('iso-arretes');
-  var gSommets = document.getElementById('iso-sommets');
-  if (!gArretes || !gSommets) return;
-
-  var NS = 'http://www.w3.org/2000/svg';
-  var reduitMouvement = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Trois plateaux carrés empilés, de plus en plus étroits :
-  // la fourchette d'estimation qui se resserre, en volume.
-  var etages = [
-    { demi: 96, y:  56 },
-    { demi: 68, y:  -4 },
-    { demi: 40, y: -64 }
-  ];
-
-  var sommets = [];
-  var aretes = [];
-  etages.forEach(function(etage, index){
-    var base = sommets.length;
-    // 4 coins du plateau
-    sommets.push(
-      { x: -etage.demi, y: etage.y, z: -etage.demi },
-      { x:  etage.demi, y: etage.y, z: -etage.demi },
-      { x:  etage.demi, y: etage.y, z:  etage.demi },
-      { x: -etage.demi, y: etage.y, z:  etage.demi }
-    );
-    // contour du plateau
-    aretes.push([base, base+1], [base+1, base+2], [base+2, base+3], [base+3, base]);
-    // montants vers le plateau précédent
-    if (index > 0){
-      var precedent = base - 4;
-      for (var c = 0; c < 4; c++) aretes.push([precedent + c, base + c]);
-    }
-  });
-
-  // Projection isométrique classique (rotation X figée à ~35°)
-  var COS_X = Math.cos(0.615), SIN_X = Math.sin(0.615);
-
-  function projeter(p, angle){
-    var cos = Math.cos(angle), sin = Math.sin(angle);
-    var x = p.x * cos - p.z * sin;
-    var z = p.x * sin + p.z * cos;
-    return {
-      x: x,
-      y: p.y * COS_X - z * SIN_X,
-      profondeur: z
-    };
-  }
-
-  var lignes = aretes.map(function(){
-    var l = document.createElementNS(NS, 'line');
-    gArretes.appendChild(l);
-    return l;
-  });
-  var points = sommets.map(function(){
-    var c = document.createElementNS(NS, 'circle');
-    c.setAttribute('r', '2.6');
-    c.setAttribute('fill', 'currentColor');
-    c.setAttribute('stroke', 'none');
-    gSommets.appendChild(c);
-    return c;
-  });
-
-  function rendre(angle){
-    var projetes = sommets.map(function(p){ return projeter(p, angle); });
-
-    aretes.forEach(function(a, i){
-      var p1 = projetes[a[0]], p2 = projetes[a[1]];
-      var l = lignes[i];
-      l.setAttribute('x1', p1.x.toFixed(2));
-      l.setAttribute('y1', p1.y.toFixed(2));
-      l.setAttribute('x2', p2.x.toFixed(2));
-      l.setAttribute('y2', p2.y.toFixed(2));
-      // les arêtes du fond s'estompent : lisibilité du volume
-      var moyenne = (p1.profondeur + p2.profondeur) / 2;
-      l.setAttribute('opacity', (0.35 + 0.65 * ((moyenne + 100) / 200)).toFixed(3));
-    });
-
-    projetes.forEach(function(p, i){
-      points[i].setAttribute('cx', p.x.toFixed(2));
-      points[i].setAttribute('cy', p.y.toFixed(2));
-      points[i].setAttribute('opacity', (0.3 + 0.7 * ((p.profondeur + 100) / 200)).toFixed(3));
-    });
-  }
-
-  if (reduitMouvement){
-    rendre(0.6);
-    return;
-  }
-
-  var depart = null;
-  var TOUR = 46000; // un tour complet en 46 s : très lent, non distrayant
-  var enCours = true;
-
-  function boucle(horodatage){
-    if (depart === null) depart = horodatage;
-    rendre(((horodatage - depart) % TOUR) / TOUR * Math.PI * 2);
-    if (enCours) requestAnimationFrame(boucle);
-  }
-  requestAnimationFrame(boucle);
-
-  // on suspend l'animation quand l'onglet passe en arrière-plan
-  document.addEventListener('visibilitychange', function(){
-    if (document.hidden){
-      enCours = false;
-    } else if (!enCours){
-      enCours = true;
-      depart = null;
-      requestAnimationFrame(boucle);
-    }
-  });
-})();
-</script>
 
 </body>
 </html>

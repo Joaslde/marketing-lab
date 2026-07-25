@@ -240,8 +240,12 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 /* le contenu repasse systématiquement au-dessus du décor */
 .hero .wrap,.urgence .wrap,.prix .wrap,.jamais .wrap,.final .wrap,footer .wrap{position:relative;z-index:1}
 
-/* héro — chronomètre technique dans la colonne libre à droite du titre */
-.deco-hero{top:2rem;right:-4rem;width:min(32rem,41vw);color:var(--craie);opacity:.14}
+/* héro — TEST A/B : trame de points réactive au curseur.
+   La trame couvre toute la section (elle passe donc sous le texte,
+   qui garde son z-index:1) et s'estompe en cercle vers les bords :
+   pas d'arête visible, la zone dense reste à droite du titre. */
+.deco-hero{inset:0;width:auto;height:auto}
+.deco-hero canvas{display:block;width:100%;height:100%}
 /* héro — graduation de secondes, sous le chronomètre */
 .deco-hero-2{bottom:2rem;right:8%;width:min(11rem,14vw);color:var(--jaune);opacity:.32}
 /* l'urgence (fond jaune) — croix d'alerte et hachures, angle droit */
@@ -287,35 +291,13 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
 
 <!-- ================= HÉRO ================= -->
 <section class="hero">
-  <!-- décor : chronomètre technique -->
+  <!-- ============ TEST A/B — décor réactif ============
+       Trame de points qui réagit à la proximité du curseur.
+       Variante testée face au « plan d'architecte » des autres pages.
+       Sans JS (ou sur mobile), la trame reste affichée en statique :
+       le décor ne dépend jamais du script pour exister. -->
   <div class="deco deco-hero" aria-hidden="true">
-    <svg viewBox="0 0 320 300" fill="none" stroke="currentColor" stroke-width="1">
-      <!-- trame -->
-      <path d="M16 36h288M16 88h288M16 140h288M16 192h288M16 244h288" opacity=".3"/>
-      <path d="M16 36v208M88 36v208M160 36v208M232 36v208M304 36v208" opacity=".3"/>
-      <!-- cadran -->
-      <circle cx="150" cy="146" r="72" stroke-width="1.5"/>
-      <circle cx="150" cy="146" r="52" opacity=".55"/>
-      <!-- graduations du cadran -->
-      <path d="M150 74v14M150 204v14M78 146h14M208 146h14M99 95l10 10M191 187l10 10M201 95l-10 10M109 187l-10 10" opacity=".7"/>
-      <!-- aiguilles -->
-      <path d="M150 146V90M150 146l42 24" stroke-width="1.5" opacity=".85"/>
-      <!-- secteur balayé -->
-      <path d="M150 90a56 56 0 0 1 48 84" opacity=".4"/>
-      <!-- cadre de repère -->
-      <path d="M232 44h56v56h-56z" opacity=".6"/>
-      <path d="M232 44l56 56M288 44l-56 56" opacity=".35"/>
-      <!-- hachures d'angle -->
-      <path d="M32 220l28-28M48 220l28-28M64 220l28-28" opacity=".4"/>
-      <!-- cote basse -->
-      <path d="M78 262h144M78 256v12M222 256v12" opacity=".6"/>
-      <!-- points de repère -->
-      <circle cx="150" cy="146" r="4" fill="currentColor" stroke="none" opacity=".95"/>
-      <circle cx="232" cy="44" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
-      <circle cx="288" cy="100" r="2.5" fill="currentColor" stroke="none" opacity=".85"/>
-      <!-- amorce d'axe -->
-      <path d="M16 16h40M16 16v40" opacity=".5"/>
-    </svg>
+    <canvas id="trame-reactive"></canvas>
   </div>
 
   <!-- décor : graduation de secondes -->
@@ -828,6 +810,147 @@ footer nav a:hover{opacity:1;color:var(--jaune)}
   <span><b>890 € + 79 €/mois</b><small>En service sous 72 h</small></span>
   <em>Installer →</em>
 </a>
+
+<script>
+/* ============ TEST A/B — trame de points réactive ============
+   Décor purement ornemental du héros. Rien d'autre sur la page
+   n'en dépend : si le script échoue, la page reste complète.
+   La trame s'anime seulement au survol ; hors survol elle revient
+   au repos et la boucle s'arrête (aucun coût CPU en continu). */
+(function(){
+  var canvas = document.getElementById('trame-reactive');
+  if (!canvas || !canvas.getContext) return;
+
+  var section = canvas.closest('.hero');
+  var ctx = canvas.getContext('2d');
+  var reduitMouvement = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var PAS = 26;          // écart entre deux points
+  var RAYON_BASE = 1.6;  // taille au repos
+  var RAYON_MAX = 4.6;   // taille sous le curseur
+  var PORTEE = 120;      // distance d'influence du curseur
+
+  // Centre du disque de trame : dans la colonne libre à droite du
+  // titre. Exprimé en fraction de la section, pour suivre le
+  // redimensionnement de la fenêtre.
+  var CENTRE_X = 0.76;
+  var CENTRE_Y = 0.46;
+  // Rayons du fondu : plein jusqu'à RAYON_PLEIN, puis extinction
+  // progressive jusqu'à RAYON_FUITE (aucune arête visible).
+  var RAYON_PLEIN = 0.30;
+  var RAYON_FUITE = 0.72;
+
+  var points = [];
+  var souris = { x: -9999, y: -9999 };
+  var actif = false;
+  var animation = null;
+
+  function dimensionner(){
+    var ratio = window.devicePixelRatio || 1;
+    var l = canvas.clientWidth;
+    var h = canvas.clientHeight;
+    if (!l || !h) return false;
+    canvas.width = l * ratio;
+    canvas.height = h * ratio;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+    // Le disque est mesuré sur la plus grande dimension pour rester
+    // circulaire quelle que soit la proportion de la section.
+    var centreX = l * CENTRE_X;
+    var centreY = h * CENTRE_Y;
+    var reference = Math.max(l, h);
+    var rPlein = reference * RAYON_PLEIN;
+    var rFuite = reference * RAYON_FUITE;
+
+    points = [];
+    for (var y = PAS / 2; y < h; y += PAS){
+      for (var x = PAS / 2; x < l; x += PAS){
+        var dx = x - centreX, dy = y - centreY;
+        var d = Math.sqrt(dx * dx + dy * dy);
+
+        // fondu : 1 au cœur du disque, 0 au-delà du rayon de fuite
+        var fondu;
+        if (d <= rPlein){
+          fondu = 1;
+        } else if (d >= rFuite){
+          continue; // point hors du disque : on ne le crée pas
+        } else {
+          var t = (d - rPlein) / (rFuite - rPlein);
+          fondu = 1 - t * t; // extinction douce, sans arête
+        }
+
+        points.push({ x: x, y: y, r: RAYON_BASE, fondu: fondu });
+      }
+    }
+    return true;
+  }
+
+  function dessiner(){
+    var l = canvas.clientWidth, h = canvas.clientHeight;
+    ctx.clearRect(0, 0, l, h);
+    var enMouvement = false;
+
+    for (var i = 0; i < points.length; i++){
+      var p = points[i];
+      var dx = p.x - souris.x;
+      var dy = p.y - souris.y;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+
+      var cible = RAYON_BASE;
+      if (distance < PORTEE){
+        var force = 1 - distance / PORTEE;
+        cible = RAYON_BASE + (RAYON_MAX - RAYON_BASE) * force * force;
+      }
+      p.r += (cible - p.r) * 0.18;
+      if (Math.abs(cible - p.r) > 0.01) enMouvement = true;
+
+      var intensite = (p.r - RAYON_BASE) / (RAYON_MAX - RAYON_BASE);
+      // au repos : craie discrète ; sous le curseur : vers le jaune.
+      // Le fondu radial module l'opacité pour éteindre les bords.
+      ctx.fillStyle = intensite > 0.12
+        ? 'rgba(245,197,24,' + ((0.22 + intensite * 0.55) * p.fondu).toFixed(3) + ')'
+        : 'rgba(237,234,227,' + (0.17 * p.fondu).toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (enMouvement && actif){
+      animation = requestAnimationFrame(dessiner);
+    } else {
+      animation = null;
+    }
+  }
+
+  function relancer(){
+    if (!animation) animation = requestAnimationFrame(dessiner);
+  }
+
+  if (!dimensionner()) return;
+  dessiner(); // rendu statique initial
+
+  if (!reduitMouvement){
+    section.addEventListener('pointermove', function(e){
+      var zone = canvas.getBoundingClientRect();
+      souris.x = e.clientX - zone.left;
+      souris.y = e.clientY - zone.top;
+      actif = true;
+      relancer();
+    });
+    section.addEventListener('pointerleave', function(){
+      souris.x = -9999; souris.y = -9999;
+      relancer();
+      setTimeout(function(){ actif = false; }, 700);
+    });
+  }
+
+  var minuteur;
+  window.addEventListener('resize', function(){
+    clearTimeout(minuteur);
+    minuteur = setTimeout(function(){ if (dimensionner()) dessiner(); }, 180);
+  });
+})();
+</script>
 
 </body>
 </html>

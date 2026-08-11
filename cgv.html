@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<title>Conditions générales de vente — ATELIER</title>
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Conditions générales de vente des offres ATELIER : tarifs, délais, garanties, propriété intellectuelle, protection des données, résiliation.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:920px;margin:0 auto;padding:0 1.5rem}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.03em}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+/* ---- bandeau ---- */
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85}
+.back:hover{opacity:1;color:var(--jaune)}
+
+/* ---- entête du document ---- */
+.entete{padding:3rem 0 2rem;border-bottom:1px solid var(--hair)}
+.entete h1{font-size:clamp(1.7rem,4vw,2.5rem);margin-bottom:.7rem;max-width:26ch}
+.entete p{color:var(--gris);font-size:.92rem;max-width:60ch}
+.maj{font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:.9rem}
+
+/* ---- sommaire ---- */
+.sommaire{padding:2rem 0;border-bottom:1px solid var(--hair)}
+.sommaire h2{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:1rem}
+.sommaire ol{list-style:none;columns:2;column-gap:2rem}
+.sommaire li{break-inside:avoid;margin-bottom:.55rem}
+.sommaire a{font-size:.9rem;text-decoration:none;color:var(--encre);display:flex;gap:.5rem}
+.sommaire a:hover{color:var(--outremer)}
+.sommaire a b{font-family:var(--mono);font-weight:500;color:var(--outremer);flex-shrink:0}
+
+/* ---- corps du document ---- */
+.doc{padding:3rem 0 4rem}
+.art{padding-top:2.4rem;margin-top:2.4rem;border-top:2px solid var(--encre)}
+.art:first-child{padding-top:0;margin-top:0;border-top:none}
+.art h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:clamp(1.15rem,2.4vw,1.4rem);margin-bottom:1.1rem}
+.art .num{font-family:var(--mono);font-size:.72rem;color:var(--outremer);display:block;margin-bottom:.4rem;letter-spacing:.1em}
+.art h3{font-family:var(--display);font-weight:700;font-size:1.02rem;margin:1.5rem 0 .7rem;letter-spacing:-.01em}
+.art h4{font-family:var(--display);font-weight:600;font-size:.94rem;margin:1.2rem 0 .5rem}
+.art p{font-size:.94rem;color:#3A3A46;margin-bottom:.9rem;max-width:70ch}
+.art ul{margin:0 0 .9rem 0;padding-left:1.3rem;max-width:70ch}
+.art li{font-size:.94rem;color:#3A3A46;margin-bottom:.5rem}
+.art strong{color:var(--encre);font-weight:600}
+.encart{background:var(--papier);border-left:3px solid var(--jaune);padding:1rem 1.1rem;margin:1.2rem 0;font-size:.88rem;color:#3A3A46;max-width:70ch}
+.retour-haut{display:inline-block;margin-top:2rem;font-family:var(--mono);font-size:.72rem;color:var(--gris);text-decoration:none}
+.retour-haut:hover{color:var(--outremer)}
+
+/* ---- tableaux ---- */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.2rem 0 1.4rem;border:1px solid var(--hair)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:480px;background:var(--papier)}
+thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);text-align:left;font-weight:500;padding:.75rem .9rem;border-bottom:2px solid var(--encre)}
+tbody td{padding:.7rem .9rem;border-bottom:1px solid var(--hair);vertical-align:top;color:#3A3A46}
+tbody tr:last-child td{border-bottom:none}
+tbody td:first-child{font-weight:600;color:var(--encre)}
+td.prix{font-family:var(--mono);white-space:nowrap;color:var(--encre)}
+
+/* ---- offre (article 5) ---- */
+.offre-bloc{background:var(--papier);border:1px solid var(--hair);padding:1.4rem 1.5rem;margin:1.4rem 0}
+.offre-bloc h4{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;margin-bottom:.3rem}
+.offre-bloc .tarif{font-family:var(--mono);font-size:.78rem;color:var(--outremer);margin-bottom:.9rem;display:block}
+.offre-bloc p{margin-bottom:.6rem}
+.offre-bloc p:last-child{margin-bottom:0}
+
+/* ---- pied ---- */
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:52ch;line-height:1.6}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+@media (max-width:640px){
+  .sommaire ol{columns:1}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="index.html">ATELIER<span>.</span></a>
+    <a class="back" href="index.html">← Toutes les offres</a>
+  </div>
+</header>
+
+<section class="entete">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--outremer)">Document légal</span>
+    <h1 class="display" style="margin-top:.6rem">Conditions générales de vente — services B2B</h1>
+    <p>Ce document régit toute commande, vente de prestation ou abonnement conclu entre ATELIER et un client professionnel. Il complète — et ne remplace pas — le périmètre écrit propre à chaque offre.</p>
+    <p class="maj">Document CGV — applicable à la date de la commande.</p>
+  </div>
+</section>
+
+<nav class="sommaire" aria-label="Sommaire du document">
+  <div class="wrap">
+    <h2>Sommaire</h2>
+    <ol>
+      <li><a href="#art1"><b>01</b> Champ d'application et identité du prestataire</a></li>
+      <li><a href="#art2"><b>02</b> Définitions et devoir d'information</a></li>
+      <li><a href="#art3"><b>03</b> Commande, délais et exécution</a></li>
+      <li><a href="#art4"><b>04</b> Structure tarifaire et paiement</a></li>
+      <li><a href="#art5"><b>05</b> Conditions spécifiques aux 10 offres</a></li>
+      <li><a href="#art6"><b>06</b> Engagements de performance et garanties</a></li>
+      <li><a href="#art7"><b>07</b> Obligations du client et RGPD</a></li>
+      <li><a href="#art8"><b>08</b> Propriété intellectuelle et réversibilité</a></li>
+      <li><a href="#art9"><b>09</b> Limitation de responsabilité</a></li>
+      <li><a href="#art10"><b>10</b> Durée, résiliation et suspension</a></li>
+      <li><a href="#art11"><b>11</b> Confidentialité</a></li>
+      <li><a href="#art12"><b>12</b> Force majeure</a></li>
+      <li><a href="#art13"><b>13</b> Droit applicable et juridiction</a></li>
+    </ol>
+  </div>
+</nav>
+
+<article class="doc">
+  <div class="wrap">
+
+    <section class="art" id="art1">
+      <span class="num">Article 1</span>
+      <h2>Champ d'application et identité du prestataire</h2>
+
+      <h3>1.1 Identité du prestataire</h3>
+      <p>Les présentes Conditions Générales de Vente (ci-après les « CGV ») sont conclues entre :</p>
+      <ul>
+        <li><strong>Société :</strong> SHEMEN AGENCY LLC (opérant sous le nom commercial ATELIER / SHEMEN AGENCY)</li>
+        <li><strong>Forme juridique :</strong> Limited Liability Company (Sole Member)</li>
+        <li><strong>Siège social :</strong> 30 N Gould St Ste R, Sheridan, WY 82801, États-Unis</li>
+        <li><strong>Contact :</strong> formulaire de contact en ligne du site internet</li>
+      </ul>
+      <p>Ci-après dénommée le « Prestataire » ou l'« Agence ».</p>
+
+      <h3>1.2 Champ d'application</h3>
+      <p>Les présentes CGV régissent l'ensemble des relations contractuelles, commandes, ventes de prestations de services, accès aux logiciels et abonnements conclus entre le Prestataire et tout client professionnel, personne physique ou morale, agissant dans le cadre de son activité commerciale, industrielle, artisanale, libérale ou agricole (ci-après le « Client »).</p>
+
+      <h3>1.3 Caractère strictement professionnel (B2B)</h3>
+      <p>Toutes les prestations commercialisées par le Prestataire sont exclusivement réservées à une clientèle professionnelle (B2B). Le Client reconnaît expressément agir en qualité de professionnel. En conséquence, le droit de la consommation — notamment les dispositions relatives au droit de rétractation des consommateurs — n'est aucunement applicable aux contrats conclus entre le Prestataire et le Client.</p>
+
+      <h3>1.4 Acceptation des CGV</h3>
+      <p>Toute commande de prestation de services, souscription d'abonnement ou paiement en ligne sur le site internet du Prestataire implique l'acceptation sans réserve ni restriction par le Client des présentes CGV, qui prévalent sur tout autre document ou conditions d'achat du Client.</p>
+    </section>
+
+    <section class="art" id="art2">
+      <span class="num">Article 2</span>
+      <h2>Définitions et devoir d'information</h2>
+      <ul>
+        <li><strong>Catalogue / Offres :</strong> ensemble des 10 prestations de services et chantiers structurés proposés par le Prestataire (interventions rapides et chantiers avec mesure préalable).</li>
+        <li><strong>Chantier structuré :</strong> prestation complexe en plusieurs étapes nécessitant obligatoirement une phase de mesure ou d'audit préalable, payante et déductible.</li>
+        <li><strong>Intervention rapide :</strong> prestation forfaitaire ponctuelle ou sous forme d'abonnement sans engagement, à délai de livraison court.</li>
+        <li><strong>Référent interne :</strong> collaborateur désigné par le Client, chargé de la collecte, de la validation des données et du suivi technique.</li>
+        <li><strong>Données Client :</strong> fichiers, identifiants, accès, bases de données et documentation transmis par le Client pour l'exécution des prestations.</li>
+      </ul>
+    </section>
+
+    <section class="art" id="art3">
+      <span class="num">Article 3</span>
+      <h2>Processus de commande, délais et exécution</h2>
+
+      <h3>3.1 Commande et validation</h3>
+      <p>Les commandes s'effectuent soit par paiement sécurisé en ligne (Stripe), soit par signature d'un devis ou bon de commande émis par l'Agence. La commande devient ferme et définitive dès réception du paiement du montant initial ou de l'acompte convenu.</p>
+
+      <h3>3.2 Délais d'exécution et démarrage</h3>
+      <p>Les délais d'exécution annoncés (48 h, 72 h, 5 jours, 6 à 8 semaines) courent à compter de la réalisation cumulative des deux conditions suivantes :</p>
+      <ul>
+        <li>Encaissement effectif du paiement correspondant.</li>
+        <li>Réception intégrale de l'ensemble des éléments, contenus, accès, formulaires ou fichiers requis transmis par le Client.</li>
+      </ul>
+      <p>Les jours fériés et week-ends sont exclus des décomptes en heures ouvrées ou jours ouvrés.</p>
+    </section>
+
+    <section class="art" id="art4">
+      <span class="num">Article 4</span>
+      <h2>Structure tarifaire et modalités de paiement</h2>
+
+      <h3>4.1 Tarifs</h3>
+      <p>Les prix des prestations sont fixés dans le catalogue d'offres du Prestataire. Ils sont exprimés en euros (€) et hors taxes (HT). Les taxes applicables (telles que la TVA si exigible selon la résidence fiscale et les règles d'autoliquidation) sont facturées en sus lors du paiement.</p>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Interventions rapides (forfait / abonnement)</th><th>Chantiers (audit déductible + abonnement)</th></tr></thead>
+          <tbody>
+            <tr><td class="prix">Diagnostic Éclair — 390 € HT</td><td class="prix">Cash Dormant — 390 € → 1 490 €</td></tr>
+            <tr><td class="prix">Re-Hook 48 h — 490 € HT</td><td class="prix">Visibilité IA — 490 € → 1 900 €</td></tr>
+            <tr><td class="prix">Réputation Autopilot — 590 € + 59 €/mois</td><td class="prix">SaaS Killer — 690 € → 3 900 €</td></tr>
+            <tr><td class="prix">Contenu Autopilot — 690 €/mois</td><td class="prix">Cerveau de l'entreprise — 890 € → 4 900 €</td></tr>
+            <tr><td class="prix">Convertisseur 24/7 — 750 € + 49 €/mois</td><td></td></tr>
+            <tr><td class="prix">Speed-to-Lead — 890 € + 79 €/mois</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.2 Modalités de règlement</h3>
+      <ul>
+        <li><strong>Prestations forfaitaires et audits :</strong> payables à 100 % lors de la commande en ligne.</li>
+        <li><strong>Abonnements récurrents (mensuels) :</strong> payables par prélèvement automatique mensuel d'avance.</li>
+        <li><strong>Paiement au résultat (option Cash Dormant) :</strong> acompte initial de 690 € HT à la commande, puis commission de 12 % HT du chiffre d'affaires attribué sur 60 jours, facturée selon l'échéancier contractuel.</li>
+      </ul>
+
+      <h3>4.3 Retards de paiement</h3>
+      <p>Tout retard de paiement entraîne de plein droit, sans mise en demeure préalable, l'application de pénalités de retard égales au taux de refinancement de la BCE majoré de 10 points de pourcentage, ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 € par facture impayée, sans préjudice de la suspension immédiate des services.</p>
+    </section>
+
+    <section class="art" id="art5">
+      <span class="num">Article 5</span>
+      <h2>Conditions spécifiques applicables aux 10 offres</h2>
+
+      <div class="offre-bloc">
+        <h4>5.1 Diagnostic Éclair 72 h</h4>
+        <span class="tarif">390 € HT — prestation ponctuelle</span>
+        <p><strong>Contenu :</strong> questionnaire de 12 questions, entretien visio de 90 minutes, livraison sous 72 h d'un rapport chiffré de 8 pages, d'une vidéo de restitution de 10 minutes et d'un plan d'action classé.</p>
+        <p><strong>Déductibilité :</strong> le montant de 390 € HT est intégralement déduit du montant de la première mission ou chantier signé avec l'Agence dans un délai de 60 jours suivant la livraison du rapport.</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.2 Pack Re-Hook 48 h</h4>
+        <span class="tarif">490 € HT — prestation ponctuelle</span>
+        <p><strong>Livrables :</strong> 5 déclinaisons vidéo de l'accroche (0-3 s) d'une vidéo existante, fournies chacune en 3 formats (9:16, 1:1, 4:5), soit 15 fichiers sous 48 heures ouvrées. Un aller-retour de correction est inclus, sous 24 h.</p>
+        <p><strong>Options voix :</strong> option A (rushs d'origine), option B (clonage vocal du Client avec autorisation écrite révocable), option C (voix de synthèse neutre).</p>
+        <p><strong>Exclusions :</strong> l'Agence ne garantit aucun niveau de coût par lead (CPL) ou de conversion publicitaire, ces variables dépendant de facteurs tiers (algorithmes, offre, landing page).</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.3 Réputation Autopilot</h4>
+        <span class="tarif">590 € HT d'installation + 59 € HT/mois, sans engagement</span>
+        <p><strong>Services inclus :</strong> raccordement fiche Google, paramétrage expéditeur SMS, page de retour à 2 portes (Google / message direct), rédaction des réponses à tous les avis sous 48 h.</p>
+        <p><strong>Volume inclus et dépassement :</strong> jusqu'à 200 demandes SMS envoyées par mois, relance comprise. Toute demande supplémentaire est facturée 0,09 € HT par SMS.</p>
+        <p><strong>Engagements RGPD / légalité :</strong> le Client s'interdit d'offrir toute contrepartie financière ou cadeau en échange d'avis, et s'engage à ne pas pratiquer le filtrage préalable d'avis (« review gating »).</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.4 Contenu Autopilot</h4>
+        <span class="tarif">690 € HT/mois — engagement initial 3 mois</span>
+        <p><strong>Engagement :</strong> engagement initial ferme de 3 mois, puis renouvellement mensuel résiliable par simple e-mail.</p>
+        <p><strong>Livrables mensuels :</strong> 1 h d'entretien visio enregistrée, transformée en 20 publications rédigées, 8 vidéos courtes (Shorts / Reels) sous-titrées et 2 newsletters.</p>
+        <p><strong>Exclusivité :</strong> l'Agence garantit une exclusivité sectorielle et territoriale — un seul client par spécialité et par marché simultanément.</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.5 Le Convertisseur 24/7</h4>
+        <span class="tarif">750 € HT d'installation + 49 € HT/mois, sans engagement</span>
+        <p><strong>Services :</strong> estimateur de devis interactif sur mesure, intégré sur le site ou en page autonome sous 5 jours ouvrés. Envoi automatique des fiches par WhatsApp ou e-mail inclus.</p>
+        <p><strong>Maintenance et révisions :</strong> 2 révisions tarifaires par an incluses. Toute révision supplémentaire est facturée 60 € HT.</p>
+        <p><strong>Valeur légale :</strong> l'estimation générée est strictement indicative et ne constitue aucunement un devis contractuel.</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.6 Speed-to-Lead</h4>
+        <span class="tarif">890 € HT d'installation + 79 € HT/mois, sans engagement</span>
+        <p><strong>Services :</strong> renvoi conditionnel d'appel manqué, envoi d'un SMS qualifiant en moins de 60 secondes, proposition de 3 créneaux de rendez-vous à valider par le Client.</p>
+        <p><strong>Volume inclus et dépassement :</strong> jusqu'à 100 conversations SMS par mois incluses. Toute conversation supplémentaire est facturée 0,35 € HT.</p>
+        <p><strong>Détection d'urgence :</strong> traitement prioritaire par appel vocal automatisé, sans proposition de créneau, sur les mots-clés d'urgence ou d'incident grave (fuite continue, gaz…). L'assistant s'interdit d'annoncer des tarifs par SMS.</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.7 Visibilité IA</h4>
+        <p><strong>Palier 1 — Le Relevé :</strong> 490 € HT (5 jours) — 400 relevés sur 4 moteurs IA (ChatGPT, Perplexity, Google AI, Copilot). Montant intégralement déduit du Chantier.</p>
+        <p><strong>Palier 2 — Le Chantier :</strong> 1 900 € HT (6 semaines) — déblocage technique, indexation Bing, balisage d'entité, réécriture de 4 pages, obtention de 2 à 3 mentions tierces.</p>
+        <p><strong>Palier 3 — Le Maintien :</strong> 290 € HT/mois, sans engagement.</p>
+        <p><strong>Exclusivité :</strong> protection de la niche et du secteur du Client pendant la durée du Maintien.</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.8 Cash Dormant</h4>
+        <p><strong>Palier 1 — Le Bilan :</strong> 390 € HT (5 jours) — dédoublonnage, tri RGPD en 3 piles, test de délivrabilité. Montant intégralement déduit de la Campagne.</p>
+        <p><strong>Palier 2 — La Campagne (forfait) :</strong> 1 490 € HT (6 semaines) — sous-domaine dédié, authentification, échauffement progressif, 6 messages.</p>
+        <p><strong>Palier 2 bis — La Campagne (performance) :</strong> 690 € HT d'acompte + 12 % du chiffre d'affaires attribué sur une fenêtre de 60 jours (défini par code nominatif ou lien tracé, hors annulations et impayés).</p>
+        <p><strong>Palier 3 — Le Maintien :</strong> 390 € HT/mois.</p>
+        <p><strong>Sécurité de domaine :</strong> interdiction stricte de prospection sur base CPF. Suspension immédiate de la campagne en cas de franchissement des seuils d'alerte (rebonds supérieurs à 2 %, plaintes supérieures à 0,30 %).</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.9 SaaS Killer</h4>
+        <p><strong>Palier 1 — L'Audit :</strong> 690 € HT (10 jours) — inventaire, consoles d'administration, calendrier de préavis. Montant intégralement déduit du Socle.</p>
+        <p><strong>Palier 2 — Le Socle :</strong> 3 900 € HT (8 semaines) — remplacement de 2 à 4 outils de plomberie ou connecteurs, migration des données, double exécution en parallèle.</p>
+        <p><strong>Palier 3 — L'Infogérance :</strong> 290 € HT/mois, sans engagement.</p>
+        <p><strong>SLA infogérance :</strong> temps de prise en compte inférieur à 4 heures ouvrées, délai d'intervention inférieur à 1 jour ouvré.</p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4>5.10 Le Cerveau de l'entreprise</h4>
+        <p><strong>Palier 1 — L'Inventaire :</strong> 890 € HT (2 semaines) — tri du corpus, détection des documents obsolètes ou en doublon, inventaire des contradictions, rédaction des 40 questions de référence. Montant intégralement déduit de la Construction.</p>
+        <p><strong>Palier 2 — La Construction :</strong> 4 900 € HT (6 à 8 semaines) — ingestion vectorielle, cloisonnement des droits au fragment, interface ou intégration Teams.</p>
+        <p><strong>Palier 3 — Le Maintien :</strong> 390 € HT/mois — réingestion des documents modifiés, rejeu mensuel des 40 questions.</p>
+        <p><strong>Seuil contractuel de recette :</strong> l'outil est mis en service uniquement après procès-verbal de recette atteignant au moins 90 % de réponses exactes avec citation de source sur les 40 questions, et zéro réponse inventée (hallucination). Si l'exactitude en Maintien descend sous 85 %, la remise à niveau est effectuée sans surcoût.</p>
+      </div>
+    </section>
+
+    <section class="art" id="art6">
+      <span class="num">Article 6</span>
+      <h2>Engagements de performance et garanties contractuelles</h2>
+      <p>Chaque offre comporte des conditions de garantie spécifiques, strictement encadrées ci-dessous.</p>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Offre</th><th>Condition de garantie / remboursement</th></tr></thead>
+          <tbody>
+            <tr><td>Diagnostic Éclair</td><td>Remboursé sous 7 jours si le rapport est jugé inutile</td></tr>
+            <tr><td>Pack Re-Hook 48 h</td><td>3 nouveaux angles refaits gratuitement sous 7 jours</td></tr>
+            <tr><td>Réputation Autopilot</td><td>Abonnement offert après M3 si les avis n'ont pas doublé</td></tr>
+            <tr><td>Contenu Autopilot</td><td>Mois 1 remboursé sous 7 jours si le ton n'est pas conforme</td></tr>
+            <tr><td>Convertisseur 24/7</td><td>60 jours « satisfait ou remboursé » sur l'installation</td></tr>
+            <tr><td>Speed-to-Lead</td><td>Remboursé au mois 1 si moins de 5 appels qualifiés rattrapés</td></tr>
+            <tr><td>Visibilité IA</td><td>Relevé remboursé si déjà cité sur plus de 50 % des requêtes</td></tr>
+            <tr><td>Cash Dormant</td><td>Bilan remboursé si moins de 500 contacts exploitables</td></tr>
+            <tr><td>SaaS Killer</td><td>Audit remboursé si économies estimées sous 3 000 €/an</td></tr>
+            <tr><td>Cerveau de l'entreprise</td><td>Reprise gratuite si la recette n'atteint pas 90 % d'exactitude</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Diagnostic Éclair :</strong> remboursement intégral sur simple demande écrite dans les 7 jours suivant la livraison du rapport, si le Client estime n'avoir rien appris d'exploitable.</p>
+      <p><strong>Re-Hook 48 h :</strong> réécriture et production gratuites de 3 nouveaux angles créatifs si aucune des 5 déclinaisons ne convient lors de la recette initiale.</p>
+      <p><strong>Réputation Autopilot :</strong> si le nombre d'avis Google du Client n'a pas au moins doublé au bout de 90 jours (sous réserve de l'envoi hebdomadaire effectif des listes clients par le Client), l'abonnement mensuel est offert jusqu'à l'atteinte de cet objectif.</p>
+      <p><strong>Contenu Autopilot :</strong> remboursement intégral du mois 1 sur simple demande écrite sous 7 jours après livraison des 30 premiers contenus, si le style rédactionnel ne correspond pas au ton du Client.</p>
+      <p><strong>Le Convertisseur 24/7 :</strong> garantie de 60 jours « satisfait ou remboursé » sur les frais d'installation (750 € HT).</p>
+      <p><strong>Speed-to-Lead :</strong> remboursement des frais d'installation si l'assistant qualifie moins de 5 appels manqués au cours du premier mois, sous condition d'avoir reçu au moins 40 appels entrants au total sur la période.</p>
+      <p><strong>Visibilité IA :</strong> remboursement des 490 € HT du Relevé si le Client s'avère déjà cité sur plus de 50 % des requêtes auditées. Sur le Chantier, si aucune progression n'est constatée à 12 semaines sur au moins un tiers des requêtes, 3 mois de Maintien sont offerts.</p>
+      <p><strong>Cash Dormant :</strong> remboursement des 390 € HT du Bilan si le fichier soumis comporte moins de 500 contacts exploitables en base légale.</p>
+      <p><strong>SaaS Killer :</strong> remboursement des 690 € HT de l'Audit si l'estimation des économies récurrentes identifiées est inférieure à 3 000 € HT par an.</p>
+      <p><strong>Le Cerveau de l'entreprise :</strong> obligation de moyens renforcée de correction gratuite illimitée jusqu'à l'atteinte du seuil de 90 % d'exactitude lors de la recette des 40 questions.</p>
+    </section>
+
+    <section class="art" id="art7">
+      <span class="num">Article 7</span>
+      <h2>Obligations du client et protection des données (RGPD)</h2>
+
+      <h3>7.1 Obligations de collaboration</h3>
+      <p>Le Client s'engage à fournir des informations exactes et à désigner un Référent Interne disponible pour valider les étapes techniques ou rédactionnelles. Tout retard dans la transmission des éléments requis par le Client suspend automatiquement les délais d'exécution de l'Agence.</p>
+
+      <h3>7.2 Sous-traitance RGPD (article 28 du RGPD)</h3>
+      <p>Dans le cadre de l'exécution des offres traitant des données personnelles (Réputation Autopilot, Speed-to-Lead, Cash Dormant, SaaS Killer, Cerveau de l'entreprise) :</p>
+      <ul>
+        <li>Le Client agit en qualité de responsable de traitement.</li>
+        <li>Le Prestataire agit en qualité de sous-traitant.</li>
+        <li>Le Prestataire s'engage à traiter les données uniquement pour l'exécution des services commandés, à garantir leur confidentialité, à mettre en œuvre les mesures techniques et organisationnelles appropriées, et à héberger les données et index au sein de l'Union européenne (ou sur des serveurs sécurisés conformes aux cadres de transfert transfrontaliers).</li>
+        <li>Les coordonnées fournies pour les campagnes ou automatisations restent la propriété exclusive du Client et sont purgées à l'issue des délais d'archivage légaux (par exemple 90 jours pour Réputation Autopilot).</li>
+      </ul>
+    </section>
+
+    <section class="art" id="art8">
+      <span class="num">Article 8</span>
+      <h2>Propriété intellectuelle et réversibilité</h2>
+
+      <h3>8.1 Propriété des livrables</h3>
+      <p>Sous réserve du paiement complet des honoraires et frais convenus, le Prestataire cède au Client l'ensemble des droits de propriété intellectuelle sur les livrables finaux créés spécifiquement pour lui (textes, vidéos déclinées, rapports, scripts).</p>
+
+      <h3>8.2 Propriété des comptes et infrastructures</h3>
+      <p>Tous les comptes de bases de données, instances d'automatisation, hébergements et sous-domaines configurés dans le cadre de prestations telles que SaaS Killer ou Le Cerveau de l'entreprise sont créés directement au nom du Client et sur ses propres comptes. Le Client en est l'administrateur et le propriétaire exclusif.</p>
+
+      <h3>8.3 Dossier de réversibilité</h3>
+      <p>Pour les offres d'infrastructure (SaaS Killer, Le Cerveau de l'entreprise), l'Agence fournit à la livraison une documentation technique d'architecture complète et un dossier de réversibilité permettant à tout prestataire tiers qualifié de reprendre l'infogérance sans dépendance vis-à-vis de l'Agence.</p>
+    </section>
+
+    <section class="art" id="art9">
+      <span class="num">Article 9</span>
+      <h2>Limitation de responsabilité et exclusions</h2>
+
+      <h3>9.1 Limites liées aux algorithmes et aux tiers</h3>
+      <p>Le Client reconnaît que le Prestataire est soumis à une obligation de moyens. Le Prestataire ne saurait être tenu responsable :</p>
+      <ul>
+        <li>Des évolutions unilatérales, modifications d'algorithmes ou blocages décidés par des plateformes tierces (Meta, TikTok, Google, OpenAI, Anthropic, Microsoft).</li>
+        <li>Des variations de coûts par clic (CPC) ou de coûts par lead (CPL) dans les campagnes publicitaires.</li>
+        <li>Du classement SEO ou GEO définitif sur les moteurs de recherche ou moteurs de réponses IA.</li>
+      </ul>
+
+      <h3>9.2 Plafond de responsabilité</h3>
+      <p>Dans l'hypothèse où la responsabilité du Prestataire serait retenue à la suite d'une inexécution ou mauvaise exécution du contrat, le montant total des indemnités et dommages-intérêts que le Prestataire pourrait être amené à verser au Client sera expressément plafonné au montant HT effectivement encaissé par le Prestataire au titre de la prestation ou de l'offre spécifique ayant généré le dommage.</p>
+    </section>
+
+    <section class="art" id="art10">
+      <span class="num">Article 10</span>
+      <h2>Durée, résiliation et suspension</h2>
+
+      <h3>10.1 Modalités de résiliation des abonnements</h3>
+      <p><strong>Offres sans engagement</strong> (Réputation Autopilot, Convertisseur 24/7, Speed-to-Lead, Maintien Visibilité IA, Maintien Cash Dormant, Infogérance SaaS Killer, Maintien Cerveau) : résiliables à tout moment par le Client par simple notification e-mail envoyée avant la date de facturation du mois suivant.</p>
+      <p><strong>Offre Contenu Autopilot :</strong> engagement ferme de 3 mois. À l'issue des 3 premiers mois, la convention se poursuit par tacite reconduction mensuelle et devient résiliable à tout moment par simple e-mail.</p>
+
+      <h3>10.2 Clause résolutoire</h3>
+      <p>En cas de manquement grave de l'une des parties à ses obligations contractuelles (notamment défaut de paiement ou violation des droits de propriété intellectuelle), non réparé dans un délai de 15 jours suivant l'envoi d'une mise en demeure par lettre recommandée ou e-mail avec accusé de réception, le contrat pourra être résilié de plein droit aux torts de la partie défaillante.</p>
+    </section>
+
+    <section class="art" id="art11">
+      <span class="num">Article 11</span>
+      <h2>Confidentialité</h2>
+      <p>Chacune des parties s'engage à conserver la confidentialité la plus stricte sur l'ensemble des informations, secrets d'affaires, documentations techniques, tarifs et données échangés dans le cadre de la négociation et de l'exécution des prestations. Cet engagement reste en vigueur pendant toute la durée du contrat et pour une durée de deux (2) ans après sa fin.</p>
+    </section>
+
+    <section class="art" id="art12">
+      <span class="num">Article 12</span>
+      <h2>Force majeure</h2>
+      <p>Aucune des parties ne pourra être tenue responsable de l'inexécution ou du retard dans l'exécution de l'une de ses obligations si ce retard ou cette inexécution découle d'un cas de force majeure au sens de la jurisprudence habituelle des tribunaux — incluant les pannes généralisées d'infrastructures cloud ou télécoms, les attaques par déni de service d'ampleur nationale, ou des décisions gouvernementales ou légales restreignant l'usage des technologies d'intelligence artificielle.</p>
+    </section>
+
+    <section class="art" id="art13">
+      <span class="num">Article 13</span>
+      <h2>Droit applicable et juridiction compétente</h2>
+
+      <h3>13.1 Droit applicable</h3>
+      <p>Les présentes CGV et les contrats de prestations qui en découlent sont régis et interprétés conformément aux lois de l'État du Wyoming, États-Unis (siège social du Prestataire SHEMEN AGENCY LLC), sans préjudice des règles impératives applicables.</p>
+
+      <h3>13.2 Règlement des différends</h3>
+      <p>En cas de litige ou de différend survenant à l'occasion de l'interprétation, de la validité ou de l'exécution des présentes CGV, les parties s'efforceront de trouver une solution amiable dans un délai de 30 jours à compter de sa notification.</p>
+      <p>À défaut d'accord amiable, le litige sera soumis à la compétence exclusive des tribunaux compétents du ressort du siège social du Prestataire (Sheridan, Wyoming, USA) ou, au choix exclusif du Prestataire, devant les juridictions compétentes du lieu d'établissement du Client.</p>
+
+      <a class="retour-haut" href="#top">↑ Retour en haut du document</a>
+    </section>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p>Ce document est fourni à titre informatif. Il ne remplace pas une relecture par un professionnel du droit avant mise en ligne définitive.</p>
+    <nav aria-label="Liens légaux">
+      <a href="index.html">Toutes les offres</a>
+      <a href="contact.html">Nous écrire</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

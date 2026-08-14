@@ -7,3 +7,6 @@ supabase/
 
 cgu.txt
 cgv.txt
+
+# Sauvegardes du chantier i18n (traduction reportee)
+.backup-i18n/

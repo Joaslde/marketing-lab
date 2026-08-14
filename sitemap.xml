@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Pages existantes uniquement. Ajouter contact.html, mentions-legales.html,
-     cgv.html et confidentialite.html une fois ces pages créées. -->
+<!-- Pages existantes uniquement. Les pages légales sont bilingues FR/EN
+     (bascule automatique selon la langue du navigateur). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://marketing-agency-ochre.vercel.app/index.html</loc>
@@ -67,5 +67,29 @@
     <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://marketing-agency-ochre.vercel.app/contact.html</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://marketing-agency-ochre.vercel.app/terms-of-use.html</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://marketing-agency-ochre.vercel.app/privacy-policy.html</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://marketing-agency-ochre.vercel.app/return-and-refund.html</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

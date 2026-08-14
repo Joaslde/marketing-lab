@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr" data-i18n-title="cgv_page_title">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<title data-i18n="cgv_page_title">Conditions générales de vente — ATELIER</title>
+<meta name="robots" content="index,follow">
+<meta name="description" content="Conditions générales de vente des offres ATELIER : tarifs, délais, garanties, propriété intellectuelle, protection des données, résiliation.">
+<script src="i18n.js" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --encre:#14141C;
+  --craie:#EDEAE3;
+  --papier:#F4F2EC;
+  --outremer:#2A34C8;
+  --jaune:#F5C518;
+  --gris:#6E6C78;
+  --hair:rgba(20,20,28,.16);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corps:"Instrument Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
+body{background:var(--craie);color:var(--encre);font-family:var(--corps);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:100%;max-width:920px;margin:0 auto;padding:0 1.5rem}
+.display{font-family:var(--display);font-weight:800;letter-spacing:-.03em}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+
+/* ---- sélecteur de langue ---- */
+#toggle{position:fixed;top:1rem;right:1rem;z-index:9999}
+#toggle label{display:flex;align-items:center;gap:.5rem;background:var(--encre);color:var(--craie);
+  padding:.4rem .6rem;border-radius:2px;box-shadow:0 2px 10px rgba(20,20,28,.18)}
+#toggle .lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+#toggle select{font-family:var(--mono);font-size:.72rem;background:transparent;color:var(--craie);
+  border:1px solid rgba(237,234,227,.35);border-radius:2px;padding:.2rem .3rem;cursor:pointer}
+#toggle select option{color:var(--encre);background:var(--craie)}
+
+/* ---- bandeau ---- */
+.masthead{background:var(--outremer);color:var(--craie);padding:1rem 0}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none}
+.mark span{color:var(--jaune)}
+.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;opacity:.85;margin-right:7rem}
+.back:hover{opacity:1;color:var(--jaune)}
+
+/* ---- entête du document ---- */
+.entete{padding:3rem 0 2rem;border-bottom:1px solid var(--hair)}
+.entete h1{font-size:clamp(1.7rem,4vw,2.5rem);margin-bottom:.7rem;max-width:26ch}
+.entete p{color:var(--gris);font-size:.92rem;max-width:60ch}
+.maj{font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:.9rem}
+
+/* ---- sommaire ---- */
+.sommaire{padding:2rem 0;border-bottom:1px solid var(--hair)}
+.sommaire h2{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:1rem}
+.sommaire ol{list-style:none;columns:2;column-gap:2rem}
+.sommaire li{break-inside:avoid;margin-bottom:.55rem}
+.sommaire a{font-size:.9rem;text-decoration:none;color:var(--encre);display:flex;gap:.5rem}
+.sommaire a:hover{color:var(--outremer)}
+.sommaire a b{font-family:var(--mono);font-weight:500;color:var(--outremer);flex-shrink:0}
+
+/* ---- corps du document ---- */
+.doc{padding:3rem 0 4rem}
+.art{padding-top:2.4rem;margin-top:2.4rem;border-top:2px solid var(--encre)}
+.art:first-child{padding-top:0;margin-top:0;border-top:none}
+.art h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:clamp(1.15rem,2.4vw,1.4rem);margin-bottom:1.1rem}
+.art .num{font-family:var(--mono);font-size:.72rem;color:var(--outremer);display:block;margin-bottom:.4rem;letter-spacing:.1em}
+.art h3{font-family:var(--display);font-weight:700;font-size:1.02rem;margin:1.5rem 0 .7rem;letter-spacing:-.01em}
+.art h4{font-family:var(--display);font-weight:600;font-size:.94rem;margin:1.2rem 0 .5rem}
+.art p{font-size:.94rem;color:#3A3A46;margin-bottom:.9rem;max-width:70ch}
+.art ul{margin:0 0 .9rem 0;padding-left:1.3rem;max-width:70ch}
+.art li{font-size:.94rem;color:#3A3A46;margin-bottom:.5rem}
+.art strong{color:var(--encre);font-weight:600}
+.encart{background:var(--papier);border-left:3px solid var(--jaune);padding:1rem 1.1rem;margin:1.2rem 0;font-size:.88rem;color:#3A3A46;max-width:70ch}
+.retour-haut{display:inline-block;margin-top:2rem;font-family:var(--mono);font-size:.72rem;color:var(--gris);text-decoration:none}
+.retour-haut:hover{color:var(--outremer)}
+
+/* ---- tableaux ---- */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.2rem 0 1.4rem;border:1px solid var(--hair)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:480px;background:var(--papier)}
+thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);text-align:left;font-weight:500;padding:.75rem .9rem;border-bottom:2px solid var(--encre)}
+tbody td{padding:.7rem .9rem;border-bottom:1px solid var(--hair);vertical-align:top;color:#3A3A46}
+tbody tr:last-child td{border-bottom:none}
+tbody td:first-child{font-weight:600;color:var(--encre)}
+td.prix{font-family:var(--mono);white-space:nowrap;color:var(--encre)}
+
+/* ---- offre (article 5) ---- */
+.offre-bloc{background:var(--papier);border:1px solid var(--hair);padding:1.4rem 1.5rem;margin:1.4rem 0}
+.offre-bloc h4{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;margin-bottom:.3rem}
+.offre-bloc .tarif{font-family:var(--mono);font-size:.78rem;color:var(--outremer);margin-bottom:.9rem;display:block}
+.offre-bloc p{margin-bottom:.6rem}
+.offre-bloc p:last-child{margin-bottom:0}
+
+/* ---- pied ---- */
+footer{background:var(--encre);color:var(--craie);padding:2.6rem 0 2rem;font-size:.84rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+footer p{opacity:.62;max-width:52ch;line-height:1.6}
+footer .entity{font-family:var(--mono);font-size:.72rem;opacity:.5;margin-top:.8rem}
+footer nav{display:flex;flex-wrap:wrap;gap:1.1rem;margin-left:auto;justify-content:flex-end}
+footer nav a{opacity:.75;text-decoration:none}
+footer nav a:hover{opacity:1;color:var(--jaune)}
+
+@media (max-width:640px){
+  .sommaire ol{columns:1}
+}
+</style>
+</head>
+<body id="top">
+
+<div id="toggle">
+  <label>
+    <span class="lbl" data-i18n="toggle_label">Langue</span>
+    <select id="lang-select" onchange="i18n.setLanguage(this.value)">
+      <option value="fr" data-i18n="toggle_fr">Français</option>
+      <option value="en" data-i18n="toggle_en">English</option>
+    </select>
+  </label>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="index.html">ATELIER<span>.</span></a>
+    <a class="back" href="index.html" data-i18n="nav_back">← Toutes les offres</a>
+  </div>
+</header>
+
+<section class="entete">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--outremer)" data-i18n="eyebrow_legal">Document légal</span>
+    <h1 class="display" style="margin-top:.6rem" data-i18n="cgv_title">Conditions générales de vente — services B2B</h1>
+    <p data-i18n="cgv_intro">Ce document régit toute commande, vente de prestation ou abonnement conclu entre ATELIER et un client professionnel. Il complète — et ne remplace pas — le périmètre écrit propre à chaque offre.</p>
+    <p class="maj" data-i18n="cgv_updated">Document CGV — applicable à la date de la commande.</p>
+  </div>
+</section>
+
+<nav class="sommaire" aria-label="Sommaire du document">
+  <div class="wrap">
+    <h2 data-i18n="summary_heading">Sommaire</h2>
+    <ol>
+      <li><a href="#art1"><b>01</b> <span data-i18n="cgv_toc_1"></span></a></li>
+      <li><a href="#art2"><b>02</b> <span data-i18n="cgv_toc_2"></span></a></li>
+      <li><a href="#art3"><b>03</b> <span data-i18n="cgv_toc_3"></span></a></li>
+      <li><a href="#art4"><b>04</b> <span data-i18n="cgv_toc_4"></span></a></li>
+      <li><a href="#art5"><b>05</b> <span data-i18n="cgv_toc_5"></span></a></li>
+      <li><a href="#art6"><b>06</b> <span data-i18n="cgv_toc_6"></span></a></li>
+      <li><a href="#art7"><b>07</b> <span data-i18n="cgv_toc_7"></span></a></li>
+      <li><a href="#art8"><b>08</b> <span data-i18n="cgv_toc_8"></span></a></li>
+      <li><a href="#art9"><b>09</b> <span data-i18n="cgv_toc_9"></span></a></li>
+      <li><a href="#art10"><b>10</b> <span data-i18n="cgv_toc_10"></span></a></li>
+      <li><a href="#art11"><b>11</b> <span data-i18n="cgv_toc_11"></span></a></li>
+      <li><a href="#art12"><b>12</b> <span data-i18n="cgv_toc_12"></span></a></li>
+      <li><a href="#art13"><b>13</b> <span data-i18n="cgv_toc_13"></span></a></li>
+    </ol>
+  </div>
+</nav>
+
+<article class="doc">
+  <div class="wrap">
+
+    <section class="art" id="art1">
+      <span class="num" data-i18n="cgv_num_1">Article 1</span>
+      <h2 data-i18n="cgv_a1_h">Champ d'application et identité du prestataire</h2>
+      <div data-i18n="cgv_a1_b"></div>
+    </section>
+
+    <section class="art" id="art2">
+      <span class="num" data-i18n="cgv_num_2">Article 2</span>
+      <h2 data-i18n="cgv_a2_h">Définitions et devoir d'information</h2>
+      <div data-i18n="cgv_a2_b"></div>
+    </section>
+
+    <section class="art" id="art3">
+      <span class="num" data-i18n="cgv_num_3">Article 3</span>
+      <h2 data-i18n="cgv_a3_h">Processus de commande, délais et exécution</h2>
+      <div data-i18n="cgv_a3_b"></div>
+    </section>
+
+    <section class="art" id="art4">
+      <span class="num" data-i18n="cgv_num_4">Article 4</span>
+      <h2 data-i18n="cgv_a4_h">Structure tarifaire et modalités de paiement</h2>
+      <div data-i18n="cgv_a4_b1"></div>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th data-i18n="cgv_a4_table_h1"></th><th data-i18n="cgv_a4_table_h2"></th></tr></thead>
+          <tbody>
+            <tr><td class="prix" data-i18n="cgv_a4_r1c1"></td><td class="prix" data-i18n="cgv_a4_r1c2"></td></tr>
+            <tr><td class="prix" data-i18n="cgv_a4_r2c1"></td><td class="prix" data-i18n="cgv_a4_r2c2"></td></tr>
+            <tr><td class="prix" data-i18n="cgv_a4_r3c1"></td><td class="prix" data-i18n="cgv_a4_r3c2"></td></tr>
+            <tr><td class="prix" data-i18n="cgv_a4_r4c1"></td><td class="prix" data-i18n="cgv_a4_r4c2"></td></tr>
+            <tr><td class="prix" data-i18n="cgv_a4_r5c1"></td><td></td></tr>
+            <tr><td class="prix" data-i18n="cgv_a4_r6c1"></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div data-i18n="cgv_a4_b2"></div>
+    </section>
+
+    <section class="art" id="art5">
+      <span class="num" data-i18n="cgv_num_5">Article 5</span>
+      <h2 data-i18n="cgv_a5_h">Conditions spécifiques applicables aux 10 offres</h2>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre1_h"></h4>
+        <span class="tarif" data-i18n="cgv_a5_offre1_tarif"></span>
+        <p data-i18n="cgv_a5_offre1_p1"></p>
+        <p data-i18n="cgv_a5_offre1_p2"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre2_h"></h4>
+        <span class="tarif" data-i18n="cgv_a5_offre2_tarif"></span>
+        <p data-i18n="cgv_a5_offre2_p1"></p>
+        <p data-i18n="cgv_a5_offre2_p2"></p>
+        <p data-i18n="cgv_a5_offre2_p3"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre3_h"></h4>
+        <span class="tarif" data-i18n="cgv_a5_offre3_tarif"></span>
+        <p data-i18n="cgv_a5_offre3_p1"></p>
+        <p data-i18n="cgv_a5_offre3_p2"></p>
+        <p data-i18n="cgv_a5_offre3_p3"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre4_h"></h4>
+        <span class="tarif" data-i18n="cgv_a5_offre4_tarif"></span>
+        <p data-i18n="cgv_a5_offre4_p1"></p>
+        <p data-i18n="cgv_a5_offre4_p2"></p>
+        <p data-i18n="cgv_a5_offre4_p3"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre5_h"></h4>
+        <span class="tarif" data-i18n="cgv_a5_offre5_tarif"></span>
+        <p data-i18n="cgv_a5_offre5_p1"></p>
+        <p data-i18n="cgv_a5_offre5_p2"></p>
+        <p data-i18n="cgv_a5_offre5_p3"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre6_h"></h4>
+        <span class="tarif" data-i18n="cgv_a5_offre6_tarif"></span>
+        <p data-i18n="cgv_a5_offre6_p1"></p>
+        <p data-i18n="cgv_a5_offre6_p2"></p>
+        <p data-i18n="cgv_a5_offre6_p3"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre7_h"></h4>
+        <p data-i18n="cgv_a5_offre7_p1"></p>
+        <p data-i18n="cgv_a5_offre7_p2"></p>
+        <p data-i18n="cgv_a5_offre7_p3"></p>
+        <p data-i18n="cgv_a5_offre7_p4"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre8_h"></h4>
+        <p data-i18n="cgv_a5_offre8_p1"></p>
+        <p data-i18n="cgv_a5_offre8_p2"></p>
+        <p data-i18n="cgv_a5_offre8_p3"></p>
+        <p data-i18n="cgv_a5_offre8_p4"></p>
+        <p data-i18n="cgv_a5_offre8_p5"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre9_h"></h4>
+        <p data-i18n="cgv_a5_offre9_p1"></p>
+        <p data-i18n="cgv_a5_offre9_p2"></p>
+        <p data-i18n="cgv_a5_offre9_p3"></p>
+        <p data-i18n="cgv_a5_offre9_p4"></p>
+      </div>
+
+      <div class="offre-bloc">
+        <h4 data-i18n="cgv_a5_offre10_h"></h4>
+        <p data-i18n="cgv_a5_offre10_p1"></p>
+        <p data-i18n="cgv_a5_offre10_p2"></p>
+        <p data-i18n="cgv_a5_offre10_p3"></p>
+        <p data-i18n="cgv_a5_offre10_p4"></p>
+      </div>
+    </section>
+
+    <section class="art" id="art6">
+      <span class="num" data-i18n="cgv_num_6">Article 6</span>
+      <h2 data-i18n="cgv_a6_h">Engagements de performance et garanties contractuelles</h2>
+      <div data-i18n="cgv_a6_b1"></div>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th data-i18n="cgv_a6_table_h1"></th><th data-i18n="cgv_a6_table_h2"></th></tr></thead>
+          <tbody>
+            <tr><td data-i18n="cgv_a6_r1c1"></td><td data-i18n="cgv_a6_r1c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r2c1"></td><td data-i18n="cgv_a6_r2c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r3c1"></td><td data-i18n="cgv_a6_r3c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r4c1"></td><td data-i18n="cgv_a6_r4c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r5c1"></td><td data-i18n="cgv_a6_r5c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r6c1"></td><td data-i18n="cgv_a6_r6c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r7c1"></td><td data-i18n="cgv_a6_r7c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r8c1"></td><td data-i18n="cgv_a6_r8c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r9c1"></td><td data-i18n="cgv_a6_r9c2"></td></tr>
+            <tr><td data-i18n="cgv_a6_r10c1"></td><td data-i18n="cgv_a6_r10c2"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div data-i18n="cgv_a6_b2"></div>
+    </section>
+
+    <section class="art" id="art7">
+      <span class="num" data-i18n="cgv_num_7">Article 7</span>
+      <h2 data-i18n="cgv_a7_h">Obligations du client et protection des données (RGPD)</h2>
+      <div data-i18n="cgv_a7_b"></div>
+    </section>
+
+    <section class="art" id="art8">
+      <span class="num" data-i18n="cgv_num_8">Article 8</span>
+      <h2 data-i18n="cgv_a8_h">Propriété intellectuelle et réversibilité</h2>
+      <div data-i18n="cgv_a8_b"></div>
+    </section>
+
+    <section class="art" id="art9">
+      <span class="num" data-i18n="cgv_num_9">Article 9</span>
+      <h2 data-i18n="cgv_a9_h">Limitation de responsabilité et exclusions</h2>
+      <div data-i18n="cgv_a9_b"></div>
+    </section>
+
+    <section class="art" id="art10">
+      <span class="num" data-i18n="cgv_num_10">Article 10</span>
+      <h2 data-i18n="cgv_a10_h">Durée, résiliation et suspension</h2>
+      <div data-i18n="cgv_a10_b"></div>
+    </section>
+
+    <section class="art" id="art11">
+      <span class="num" data-i18n="cgv_num_11">Article 11</span>
+      <h2 data-i18n="cgv_a11_h">Confidentialité</h2>
+      <div data-i18n="cgv_a11_b"></div>
+    </section>
+
+    <section class="art" id="art12">
+      <span class="num" data-i18n="cgv_num_12">Article 12</span>
+      <h2 data-i18n="cgv_a12_h">Force majeure</h2>
+      <div data-i18n="cgv_a12_b"></div>
+    </section>
+
+    <section class="art" id="art13">
+      <span class="num" data-i18n="cgv_num_13">Article 13</span>
+      <h2 data-i18n="cgv_a13_h">Droit applicable et juridiction compétente</h2>
+      <div data-i18n="cgv_a13_b"></div>
+
+      <a class="retour-haut" href="#top" data-i18n="back_to_top">↑ Retour en haut du document</a>
+    </section>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p>This document is provided for information purposes. It does not replace a review by a qualified legal professional before final publication.</p>
+      <p class="entity">SHEMEN AGENCY LLC — 30 N Gould St Ste R, Sheridan, WY 82801, USA — contact@shemenagency.com</p>
+    </div>
+    <nav aria-label="Legal links">
+      <a href="index.html">All services</a>
+      <a href="contact.html">Contact us</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
